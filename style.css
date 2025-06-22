@@ -121,6 +121,7 @@
 .title {
   font-size: 10rem;
   font-weight: 700;
+  color: beige;
   letter-spacing: -0.5rem;
   display: flex;
   flex-direction: column;
