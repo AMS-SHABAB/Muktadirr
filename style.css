@@ -57,6 +57,7 @@ header, footer {
 /* Artistic, classic old paper look */
 .models-bg {
   font-family: 'Oswald', sans-serif;
+ width: 100%;
   font-weight: 400;
   background: var(--background);
   color: var(--text);
@@ -68,6 +69,15 @@ header, footer {
   overflow: hidden;
   position: relative;
   transition: background 1s;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 700px) {
+  .models-bg {
+    padding: 0 2vw;
+    height: 100dvh; /* Use dynamic viewport height for mobile browsers */
+    min-height: 100svh; /* Ensures minimum height covers viewport in all browsers */
+  }
 }
 
 /* Classic sepia noise overlay */
