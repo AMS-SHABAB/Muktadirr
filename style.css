@@ -61,6 +61,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 80vh;
   overflow: hidden;
   position: relative;
   transition: background 1s;
@@ -398,21 +399,19 @@ span {
 }
 
 /* News Banner */
-    .news-ticker-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      z-index: 1000;
-      border-radius: 0 0 20px 20px;
+      .news-ticker-container {
+      margin-top: 40px;
+      width: 90vw;
+      max-width: 800px;
+      border-radius: 20px;
       background: rgba(255,255,255,0.15);
       box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.18);
       overflow: hidden;
+      position: relative;
       min-height: 68px;
-      max-width: 100vw;
     }
     .news-ticker {
       display: flex;
