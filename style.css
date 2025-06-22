@@ -1,21 +1,23 @@
-/* Glassmorphism Variables */
 :root {
-  --glass-bg: rgba(255, 255, 255, 0.15);
-  --glass-blur: 12px;
-  --glass-border: rgba(255,255,255,0.3);
-  --primary: #3a8dde;
-  --text: #222;
-  --radius: 20px;
+  --glass-bg: rgba(255,255,255,0.12);
+  --glass-blur: 8px;
+  --glass-border: rgba(255,255,255,0.4);
+  --primary: #111;
+  --accent: #fff;
+  --text: #111;
+  --radius: 0.7em;
   --max-width: 900px;
   --padding: 2rem;
+  --classic-border: 2px solid #222;
+  --classic-shadow: 0 2px 16px rgba(0,0,0,0.10);
 }
 
 body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #c3cfe2 0%, #a1c4fd 100%);
-  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #fff 0%, #bbb 100%);
+  font-family: 'Georgia', 'Times New Roman', Times, serif;
   color: var(--text);
   display: flex;
   flex-direction: column;
@@ -31,24 +33,32 @@ header, footer {
   flex-direction: column;
   align-items: center;
   border-radius: var(--radius);
+  border: var(--classic-border);
+  background: rgba(255,255,255,0.16);
+  box-shadow: var(--classic-shadow);
 }
 
 header nav {
   margin-top: 0.5rem;
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   flex-wrap: wrap;
 }
 
 header nav a {
   color: var(--primary);
-  font-weight: bold;
-  text-decoration: none;
+  font-weight: 600;
+  text-decoration: underline;
+  font-family: inherit;
+  font-size: 1.08em;
+  letter-spacing: 0.03em;
   transition: color 0.2s;
 }
 
 header nav a:hover {
-  color: #085078;
+  color: #555;
+  background: #eee;
+  border-radius: 4px;
 }
 
 main {
@@ -68,8 +78,8 @@ section {
 .glass {
   background: var(--glass-bg);
   border-radius: var(--radius);
-  box-shadow: 0 4px 32px rgba(60, 60, 120, 0.08);
-  border: 1px solid var(--glass-border);
+  border: var(--classic-border);
+  box-shadow: var(--classic-shadow);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   padding: var(--padding);
@@ -79,17 +89,74 @@ section {
 h1, h2 {
   margin-top: 0;
   font-weight: 700;
+  font-family: 'Georgia', 'Times New Roman', Times, serif;
+  letter-spacing: 0.04em;
+}
+
+h1 {
+  font-size: 2.2em;
+  text-decoration: underline double;
+}
+
+h2 {
+  font-size: 1.3em;
+  text-decoration: underline;
 }
 
 footer {
-  font-size: 0.95em;
+  font-size: 1em;
   text-align: center;
+  background: rgba(240,240,240,0.25);
+}
+
+#cookie-popup {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 95vw;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  background: rgba(255,255,255,0.85);
+  border: var(--classic-border);
+  border-radius: var(--radius);
+  color: #222;
+  animation: fadeIn 0.5s;
+}
+
+#cookie-popup p {
+  margin: 0;
+  font-size: 1em;
+  color: #222;
+}
+
+#cookie-popup button {
+  background: #222;
+  color: #fff;
+  border: 1.5px solid #fff;
+  border-radius: 8px;
+  padding: 0.5em 1.5em;
+  font-weight: bold;
+  font-family: inherit;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.2s, color 0.2s;
+}
+
+#cookie-popup button:hover {
+  background: #fff;
+  color: #222;
+  border-color: #222;
 }
 
 @media (max-width: 650px) {
   :root {
     --padding: 1rem;
-    --radius: 12px;
+    --radius: 0.4em;
   }
   body {
     font-size: 1em;
@@ -101,4 +168,17 @@ footer {
   .glass {
     padding: 1rem;
   }
+  #cookie-popup {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    gap: 0.5rem;
+    font-size: 0.98em;
+  }
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from { opacity: 0; bottom: 0; }
+  to   { opacity: 1; }
 }
