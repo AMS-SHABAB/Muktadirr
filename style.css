@@ -61,6 +61,7 @@ header, footer {
 .models-bg {
   font-family: 'Oswald', sans-serif;
   font-weight: 400;
+ width: 100%;
   background: var(--background);
   color: var(--text);
   padding: 0 10%;
