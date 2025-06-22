@@ -168,7 +168,7 @@ button {
   border-radius: 13px;
   background-color: var(--primaryBg);
   box-shadow: 0px -3px 15px 0px var(--primaryHi) inset;
-  color: var(--primaryFg);
+  color: yellow;
   font-family: "Manrope";
   font-size: 1rem;
   display: flex;
