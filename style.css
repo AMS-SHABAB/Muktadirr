@@ -32,9 +32,7 @@ html, body {
   box-shadow: 0 4px 32px 0 rgba(0,0,0,.15);
   border-radius: 18px;
 }
-
-
-    .news-ticker-container {
+ .news-ticker-container {
       margin-top: 40px;
       width: 92vw;
       max-width: 700px;
@@ -112,9 +110,7 @@ html, body {
         height: 34px;
         font-size: 0.92rem;
       }
-    }
-
-.models-bg {
+    }.models-bg {
   font-family: 'Oswald', sans-serif;
   font-weight: 400;
   background: hsl(220, 20%, 7%);
