@@ -53,9 +53,155 @@
 </div>
   </header>
   <main>
-    <section id="section1" class="glass">
-      <h2>Section 1</h2>
-      <p><!-- Add your code/content here --></p>
+    <section id="section1">
+<link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
+  <style>
+    .news-tracker-glass {
+      background: rgba(245, 236, 226, 0.7);
+      box-shadow: 0 8px 32px 0 rgba(60, 38, 12, 0.25);
+      backdrop-filter: blur(16px);
+      border-radius: 24px;
+      border: 1px solid rgba(245, 236, 226, 0.35);
+      padding: 32px 20px 20px 20px;
+      margin: 32px auto;
+      max-width: 700px;
+      width: 100%;
+    }
+    .news-ticker-wrapper {
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(60, 38, 12, 0.07);
+      background: rgba(255, 249, 241, 0.55);
+      margin-bottom: 24px;
+    }
+    .news-ticker {
+      display: flex;
+      width: fit-content;
+      animation: scroll-ticker 18s linear infinite;
+      gap: 44px;
+      align-items: center;
+    }
+    @keyframes scroll-ticker {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .news-item {
+      display: flex;
+      align-items: center;
+      padding: 6px 24px 6px 0;
+      font-size: 1.06rem;
+      color: #604229;
+      white-space: nowrap;
+      font-weight: 300;
+      letter-spacing: 0.01em;
+    }
+    .news-tag {
+      font-size: 0.85em;
+      font-weight: 300;
+      padding: 2px 10px;
+      border-radius: 12px;
+      margin-right: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #fff;
+      box-shadow: 0 1px 2px 0 rgba(60, 38, 12, 0.10);
+      background: #e4c59e;
+    }
+    .news-tag.art { background: #e4c59e; }
+    .news-tag.writing { background: #c0a98e; }
+    .news-tag.flim { background: #9d7660; }
+    .news-text {
+      font-family: 'Oswald', Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.03em;
+    }
+    .news-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .news-image img {
+      width: 100%;
+      max-width: 540px;
+      height: auto;
+      border-radius: 18px;
+      margin-top: 12px;
+      box-shadow: 0 4px 24px 0 rgba(60, 38, 12, 0.13);
+      border: 1px solid rgba(60, 38, 12, 0.09);
+    }
+    @media (max-width: 600px) {
+      .news-tracker-glass {
+        padding: 14px 4px 8px 4px;
+        max-width: 100%;
+      }
+      .news-ticker {
+        font-size: 0.98rem;
+        gap: 22px;
+        padding-left: 8px;
+      }
+      .news-image img {
+        max-width: 95vw;
+      }
+    }
+  </style>
+  <div class="news-tracker-glass">
+    <div class="news-ticker-wrapper">
+      <div class="news-ticker" id="news-ticker">
+        <div class="news-item">
+          <span class="news-tag art">art</span>
+          <span class="news-text">The art fair opens this Sunday.</span>
+        </div>
+        <div class="news-item">
+          <span class="news-tag writing">writing</span>
+          <span class="news-text">Short story contest winners announced.</span>
+        </div>
+        <div class="news-item">
+          <span class="news-tag flim">flim</span>
+          <span class="news-text">Film festival premiers new documentaries.</span>
+        </div>
+        <div class="news-item">
+          <span class="news-tag art">art</span>
+          <span class="news-text">Gallery showcases modern sculptures.</span>
+        </div>
+        <div class="news-item">
+          <span class="news-tag writing">writing</span>
+          <span class="news-text">Poetry reading event next weekend.</span>
+        </div>
+        <div class="news-item">
+          <span class="news-tag flim">flim</span>
+          <span class="news-text">Classic movie marathon at the theater.</span>
+        </div>
+        <!-- Duplicate for continuous loop -->
+        <div class="news-item">
+          <span class="news-tag art">art</span>
+          <span class="news-text">The art fair opens this Sunday.</span>
+        </div>
+        <div class="news-item">
+          <span class="news-tag writing">writing</span>
+          <span class="news-text">Short story contest winners announced.</span>
+        </div>
+        <div class="news-item">
+          <span class="news-tag flim">flim</span>
+          <span class="news-text">Film festival premiers new documentaries.</span>
+        </div>
+        <div class="news-item">
+          <span class="news-tag art">art</span>
+          <span class="news-text">Gallery showcases modern sculptures.</span>
+        </div>
+        <div class="news-item">
+          <span class="news-tag writing">writing</span>
+          <span class="news-text">Poetry reading event next weekend.</span>
+        </div>
+        <div class="news-item">
+          <span class="news-tag flim">flim</span>
+          <span class="news-text">Classic movie marathon at the theater.</span>
+        </div>
+      </div>
+    </div>
+    <div class="news-image">
+      <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80" alt="News Visual"/>
+    </div>
+  </div>
     </section>
     <section id="section2" class="glass">
       <h2>Section 2</h2>
