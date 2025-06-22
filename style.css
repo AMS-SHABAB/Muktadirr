@@ -197,9 +197,7 @@ span {
 .button.first { top: 12%; right: 20%; }
 .button.sec { bottom: 13%; right: 11%; }
 .button.sec > button {
-  background-color: var(--accentBg);
-  box-shadow: 0px -3px 15px 0px var(--accentHi) inset;
-  color: var(--accentFg);
+  
 }
 .button.sec > span { background-color: var(--accentHi); }
 .button.third { bottom: 25%; left: 15%; }
