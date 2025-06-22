@@ -25,7 +25,7 @@ body {
   align-items: center;
 }
 
-footer {
+header, footer {
   width: 100%;
   max-width: var(--max-width);
   margin: 1rem auto;
