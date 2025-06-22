@@ -1,16 +1,16 @@
 :root {
-  --bg-main: #f5e9da;
-  --bg-secondary: #eaddca;
-  --glass-bg: rgba(245,233,218,0.7);
-  --glass-blur: 10px;
-  --glass-border: rgba(120,90,60,0.3);
-  --primary: #5c4324;
-  --accent: #fff9ee;
-  --text: #3b2d1b;
-  --radius: 0.7em;
-  --max-width: 900px;
-  --padding: 2rem;
-  --classic-border: 2px solid #bca37f;
+ --bg-main: #f3ebd4;         /* Aged parchment */
+--bg-secondary: #e2d3b1;    /* Antique cream */
+--glass-bg: rgba(243, 235, 212, 0.72); /* Translucent old paper */
+--glass-blur: 12px;
+--glass-border: rgba(120, 90, 60, 0.25); /* Subtle bronze shadow */
+--primary: #7b5c36;         /* Rich bronze */
+--accent: #f9ede2;          /* Ivory/cream highlight */
+--text: #48351a;            /* Deep sepia/ink */
+--radius: 0.7em;
+--max-width: 900px;
+--padding: 2rem;
+--classic-border: 2px solid #bfa76a; /* Muted gold */
 }
 
 body {
