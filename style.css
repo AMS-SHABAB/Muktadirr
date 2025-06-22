@@ -61,6 +61,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   height: 100vh;
+  width: 100%;
   overflow: hidden;
   position: relative;
   transition: background 1s;
