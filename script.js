@@ -1,5 +1,4 @@
-
-    // Example news data
+ // Example news data
     const newsItems = [
       {
         title: "Art Exhibition 'Visions of Tomorrow' Open Now!",
