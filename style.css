@@ -74,6 +74,7 @@ header, footer {
 /* Responsive design for smaller screens */
 @media (max-width: 700px) {
   .models-bg {
+   width: 100%;
     padding: 0 2vw;
     height: 100dvh; /* Use dynamic viewport height for mobile browsers */
     min-height: 100svh; /* Ensures minimum height covers viewport in all browsers */
