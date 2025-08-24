@@ -74,40 +74,55 @@
   }
   .nav-links a:hover:after { width:100%; }
 
-  /* Custom 2-line thin hamburger */
+  /* Improved Apple hamburger & close icon (no impact on poster structure) */
   .hamburger {
     display:none;
     flex-direction:column;
-    gap:7px;
-    cursor:pointer;
-    width:38px;
-    height:38px;
     justify-content:center;
     align-items:center;
-    z-index:200;
+    width:38px;
+    height:38px;
+    cursor:pointer;
+    z-index:201;
     background: none;
     border: none;
     outline: none;
+    position: relative;
   }
-  .hamburger span {
+  .hamburger .bar {
     display:block;
-    height:2.2px;
     width:26px;
+    height:2.5px;
     background:#fff;
     border-radius:2px;
-    transition: all .22s cubic-bezier(.4,2,.6,1);
-    margin:0 auto;
+    margin:0 auto 7px auto;
+    transition:all .28s cubic-bezier(.4,2,.6,1);
   }
-  /* Only 2 lines for hamburger */
-  .hamburger span:nth-child(3) { display:none; }
-
-  /* Hamburger active: show "X" close (animated) */
-  .hamburger.active span:nth-child(1) {
-    transform: translateY(4px) rotate(45deg);
+  .hamburger .bar:last-child { margin-bottom:0; }
+  .hamburger .close-x {
+    display:none;
+    position:absolute;
+    left:6px; top:8px;
+    width:22px; height:22px;
+    pointer-events:none;
   }
-  .hamburger.active span:nth-child(2) {
-    transform: translateY(-4px) rotate(-45deg);
+  .hamburger .close-x span {
+    position:absolute;
+    width:22px;
+    height:2.5px;
+    background:#fff;
+    top:10px; left:0;
+    border-radius:2px;
+    transition:all .19s;
   }
+  .hamburger .close-x span:first-child {
+    transform:rotate(45deg);
+  }
+  .hamburger .close-x span:last-child {
+    transform:rotate(-45deg);
+  }
+  .hamburger.active .bar { opacity:0; }
+  .hamburger.active .close-x { display:block; }
 
   /* Hamburger menu drawer */
   .mobile-nav {
@@ -154,6 +169,17 @@
     margin-bottom: 32px;
   }
 
+  /* Bottom poster gradient for blend */
+  .poster-gradient {
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:25%;
+    z-index:10;
+    pointer-events:none;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, #0c0c0c 99%);
+    /* You can adjust the gradient stops above for more/less blend */
+  }
+
   /* Mosaic grid */
   .mosaic{
     position:absolute; inset:0; display:grid;
@@ -168,15 +194,18 @@
     background:#ff3b3b;
   }
 
-  /* Subject (portrait bottom left, fixed size) */
+  /* Subject (portrait: more left, outside mosaic border, fixed size) */
   .subject{
-    position:absolute; left:2.5%; bottom:2.5%;
-    width:33vw; max-width:340px; min-width:140px;
+    position:absolute;
+    left:-2.5vw; /* push more left, outside mosaic border */
+    bottom:2.5%;
+    width:32vw; max-width:320px; min-width:110px;
     z-index:3;
     filter: drop-shadow(0 18px 32px rgba(0,0,0,.55));
     border-radius:18px;
     overflow:hidden;
     transition: bottom 0.24s, width 0.24s, left 0.24s;
+    background: #181818;
   }
   .subject img{width:100%; height:auto; display:block; object-fit:cover;}
 
@@ -301,7 +330,7 @@
   }
   @media (max-width: 820px) {
     .poster { width: 100vw; border-radius:0; }
-    .subject { width:56vw; left:2%; bottom:2.5%;}
+    .subject { width:56vw; left:-7vw; bottom:2.5%;}
     .copy { width:92vw; right:2%; }
     .name { font-size:clamp(35px, 11vw, 63px);}
     .title { font-size:clamp(22px, 7vw, 41px);}
@@ -312,7 +341,7 @@
       min-width:0; 
       margin-top:0; margin-bottom:0;
     }
-    .subject{ width:92vw; left:2vw; bottom:2vw; max-width:540px;}
+    .subject{ width:92vw; left:-8vw; bottom:2vw; max-width:540px;}
     .copy{ width:99vw; right:1vw; bottom:2vw; }
     .navbar { height:46px; padding:0 10px;}
     .logo { font-size:clamp(17px, 7vw, 28px);}
@@ -322,7 +351,7 @@
     .title { font-size:clamp(14px, 8vw, 32px);}
   }
   @media (max-width: 475px){
-    .subject{ width:97vw; left:1vw; bottom:1vw;}
+    .subject{ width:97vw; left:-12vw; bottom:1vw;}
     .copy{ width:98vw; right:0vw; font-size:92%;}
     .about{ padding:10px 8px 14px 8px;}
   }
@@ -346,7 +375,12 @@
     <a href="#contact">Contact</a>
   </div>
   <button class="hamburger" id="hamburger" aria-label="Open menu" tabindex="0">
-    <span></span><span></span><span></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="close-x">
+      <span></span>
+      <span></span>
+    </span>
   </button>
 </nav>
 <!-- Mobile Hamburger Nav -->
@@ -366,7 +400,7 @@
     <h2>I’M</h2>
   </div>
 
-  <!-- Subject photo (bottom left, fixed size) -->
+  <!-- Subject photo (more left, outside mosaic border) -->
   <figure class="subject">
     <img src="https://res.cloudinary.com/dxiwnqpja/image/upload/v1756018397/IMG-20241015-WA0267_edit_161520040162857_og5b59.png" alt="Muktadir Shabab portrait">
   </figure>
@@ -384,6 +418,7 @@
     </p>
   </div>
 
+  <div class="poster-gradient"></div>
   <div class="tag">TRUST / POSTER</div>
 </div>
 
@@ -411,7 +446,7 @@
     }
   })();
 
-  // Hamburger menu toggle logic
+  // Hamburger menu toggle logic (no effect on poster structure)
   const hamburger = document.getElementById('hamburger');
   const mobileNav = document.getElementById('mobileNav');
   function closeMobileNav() {
