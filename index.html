@@ -643,150 +643,143 @@ body.loaded .shab-m-preloader {
       --icon-size: 1.3em;
       --faq-answer-glass: rgba(30, 30, 35, 0.38);
       --faq-answer-border: rgba(255,255,255,0.18);
-    }
+    }.what-can-i-do-section {
+  max-width: 800px;
+  margin: 60px auto 40px auto; /* Centered */
+  padding: 32px 20px;
+  background: rgba(30, 30, 35, 0.38); /* subtle glass effect for container */
+  border-radius: 24px;
+  box-shadow: 0 6px 32px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(8px) saturate(140%);
+}
 
-    .what-can-i-do-section {
-      max-width: 800px;
-      margin: 60px auto 40px auto;
-      padding: 32px 20px;
-      background: var(--faq-bg);
-      border-radius: 24px;
-      box-shadow: 0 4px 24px 0 rgba(0,0,0,0.25);
-    }
+.section-title {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: var(--section-title-size-desktop);
+  color: var(--section-title-color);
+  text-align: center;
+  margin: 0 0 18px 0;
+  cursor: pointer;
+  transition: color 0.2s;
+}
 
-    .section-title {
-      margin: 0 0 18px 0;
-      color: var(--section-title-color);
-      font-size: var(--section-title-size-desktop);
-      font-weight: 700;
-      letter-spacing: 1px;
-      transition: color 0.2s;
-      font-family: 'Montserrat', sans-serif;
-      cursor: pointer;
-      text-align: left;
-    }
-    .section-title:hover {
-      color: var(--section-title-hover);
-    }
+.section-title:hover {
+  color: var(--section-title-hover);
+}
 
-    .section-desc {
-      font-family: var(--desc-font);
-      text-align: left;
-      color: #fff;
-      font-size: 1.15rem;
-      margin-bottom: 36px;
-      line-height: 1.65;
-      font-weight: 400;
-      margin-left: 0;
-      margin-right: 0;
-      margin-top: 0;
-      padding: 18px 16px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.05);
-      /* subtle background for description area */
-    }
+.section-desc {
+  font-family: var(--desc-font);
+  font-size: 1.15rem;
+  color: #fff;
+  text-align: center;
+  line-height: 1.65;
+  font-weight: 400;
+  padding: 18px 28px;
+  margin: 0 auto 36px auto; /* centers the description with margins */
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+}
 
-    .faq-list {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
+.faq-list {
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  max-width: 700px;
+}
 
-    .faq-item {
-      border-bottom: 1px solid #333;
-      padding: 0;
-      margin-bottom: 14px;
-    }
+.faq-item {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 16px;
+}
 
-    .faq-question {
-      font-family: var(--faq-question-font);
-      font-size: 1.25rem;
-      color: var(--faq-question-color);
-      background: none;
-      border: none;
-      outline: none;
-      width: 100%;
-      text-align: left;
-      padding: 18px 0 18px 0;
-      margin: 0 0 0 0;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      transition: color 0.2s;
-      position: relative;
-    }
-    .faq-question:hover {
-      color: var(--section-title-hover);
-    }
-    .faq-icon {
-      margin-left: 10px;
-      font-size: var(--icon-size);
-      color: var(--icon-color);
-      transition: transform 0.3s cubic-bezier(.4,2,.3,1), color 0.2s;
-      display: inline-block;
-      transform: rotate(0deg);
-    }
-    .faq-question.active .faq-icon {
-      transform: rotate(180deg);
-    }
+.faq-question {
+  font-family: var(--faq-question-font);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--faq-question-color);
+  background: none;
+  border: none;
+  outline: none;
+  width: 100%;
+  text-align: left;
+  padding: 14px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+  position: relative;
+}
 
-    .faq-answer-wrapper {
-      overflow: hidden;
-      transition: max-height 0.45s cubic-bezier(.4,2,.3,1), padding 0.2s;
-      max-height: 0;
-      will-change: max-height;
-    }
-    .faq-answer {
-      font-family: var(--faq-answer-font);
-      color: var(--faq-answer-color);
-      font-size: 1.08rem;
-      line-height: 1.7;
-      padding: 0;
-      opacity: 0.97;
-      margin: 0;
-      transition: background 0.25s;
-    }
-    /* Glassmorphism for answer */
-    .faq-answer-wrapper.open {
-      max-height: 550px;
-      padding: 16px 28px 18px 28px;
-      background: var(--faq-answer-glass);
-      border-radius: 20px;
-      border: 1.5px solid var(--faq-answer-border);
-      box-shadow: 0 6px 32px 0 rgba(30,30,30,0.13);
-      backdrop-filter: blur(9px) saturate(140%);
-      -webkit-backdrop-filter: blur(9px) saturate(140%);
-      margin: 10px 0 10px 0;
-      /* Margin for visible separation */
-      transition: max-height 0.55s cubic-bezier(.4,2,.3,1), padding 0.2s, background 0.25s;
-    }
-    .faq-answer-wrapper.open .faq-answer {
-      padding: 0 0 0 0;
-    }
+.faq-question:hover {
+  color: var(--section-title-hover);
+}
 
-    @media (max-width: 1024px) {
-      .section-title {
-        font-size: var(--section-title-size-tablet);
-      }
-    }
-    @media (max-width: 700px) {
-      .what-can-i-do-section {
-        padding: 18px 2px;
-      }
-      .section-title {
-        font-size: var(--section-title-size-mobile);
-      }
-      .faq-question {
-        font-size: 1.1rem;
-      }
-      .section-desc {
-        font-size: 1rem;
-        padding: 12px 8px;
-      }
-      .faq-answer-wrapper.open {
-        padding: 10px 8px 12px 8px;
-      }
-    }
+.faq-icon {
+  margin-left: auto;
+  font-size: var(--icon-size);
+  color: var(--icon-color);
+  transition: transform 0.3s cubic-bezier(.4,2,.3,1), color 0.2s;
+}
+
+.faq-question.active .faq-icon {
+  transform: rotate(180deg);
+}
+
+.faq-answer-wrapper {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.45s cubic-bezier(.4,2,.3,1), padding 0.2s;
+  will-change: max-height;
+}
+
+.faq-answer-wrapper.open {
+  max-height: 550px;
+  padding: 16px 28px;
+  margin: 10px 0;
+  background: var(--faq-answer-glass);
+  border-radius: 20px;
+  border: 1.5px solid var(--faq-answer-border);
+  box-shadow: 0 6px 32px 0 rgba(30,30,30,0.13);
+  backdrop-filter: blur(9px) saturate(140%);
+  -webkit-backdrop-filter: blur(9px) saturate(140%);
+  transition: max-height 0.55s cubic-bezier(.4,2,.3,1), padding 0.2s, background 0.25s;
+}
+
+.faq-answer {
+  font-family: var(--faq-answer-font);
+  font-size: 1.08rem;
+  color: var(--faq-answer-color);
+  line-height: 1.7;
+  margin: 0;
+  opacity: 0.97;
+}
+
+@media (max-width: 1024px) {
+  .section-title {
+    font-size: var(--section-title-size-tablet);
+  }
+}
+
+@media (max-width: 700px) {
+  .what-can-i-do-section {
+    padding: 18px 12px;
+  }
+  .section-title {
+    font-size: var(--section-title-size-mobile);
+  }
+  .section-desc {
+    font-size: 1rem;
+    padding: 12px 16px;
+  }
+  .faq-question {
+    font-size: 1.1rem;
+  }
+  .faq-answer-wrapper.open {
+    padding: 12px 16px;
+  }
+}
+
   </style>
 <section class="what-can-i-do-section">
     <h2 class="section-title" tabindex="0">What Can I Do?</h2>
@@ -796,7 +789,7 @@ body.loaded .shab-m-preloader {
     <ul class="faq-list">
       <li class="faq-item">
         <button class="faq-question" type="button">
-          Wall Painting
+          1. Wall Painting
           <span class="faq-icon">^</span>
         </button>
         <div class="faq-answer-wrapper">
@@ -807,7 +800,7 @@ body.loaded .shab-m-preloader {
       </li>
       <li class="faq-item">
         <button class="faq-question" type="button">
-          Wall Crafting
+          2. Wall Crafting
           <span class="faq-icon">^</span>
         </button>
         <div class="faq-answer-wrapper">
@@ -818,7 +811,7 @@ body.loaded .shab-m-preloader {
       </li>
       <li class="faq-item">
         <button class="faq-question" type="button">
-          Drawing &amp; Painting
+         3. Drawing &amp; Painting
           <span class="faq-icon">^</span>
         </button>
         <div class="faq-answer-wrapper">
@@ -835,7 +828,7 @@ body.loaded .shab-m-preloader {
       </li>
       <li class="faq-item">
         <button class="faq-question" type="button">
-          Content Writing &amp; Copy Writing
+          4. Content Writing &amp; Copy Writing
           <span class="faq-icon">^</span>
         </button>
         <div class="faq-answer-wrapper">
@@ -846,7 +839,7 @@ body.loaded .shab-m-preloader {
       </li>
       <li class="faq-item">
         <button class="faq-question" type="button">
-          Digital marketing
+          5. Digital marketing
           <span class="faq-icon">^</span>
         </button>
         <div class="faq-answer-wrapper">
@@ -857,7 +850,7 @@ body.loaded .shab-m-preloader {
       </li>
       <li class="faq-item">
         <button class="faq-question" type="button">
-          Script Writing
+          6. Script Writing
           <span class="faq-icon">^</span>
         </button>
         <div class="faq-answer-wrapper">
@@ -868,7 +861,7 @@ body.loaded .shab-m-preloader {
       </li>
       <li class="faq-item">
         <button class="faq-question" type="button">
-          Office Management
+          7. Office Management
           <span class="faq-icon">^</span>
         </button>
         <div class="faq-answer-wrapper">
@@ -885,7 +878,7 @@ body.loaded .shab-m-preloader {
       </li>
       <li class="faq-item">
         <button class="faq-question" type="button">
-          Social management
+          8. Social management
           <span class="faq-icon">^</span>
         </button>
         <div class="faq-answer-wrapper">
@@ -903,7 +896,7 @@ body.loaded .shab-m-preloader {
       </li>
       <li class="faq-item">
         <button class="faq-question" type="button">
-          Research Paper
+          9. Research Paper
           <span class="faq-icon">^</span>
         </button>
         <div class="faq-answer-wrapper">
@@ -914,7 +907,7 @@ body.loaded .shab-m-preloader {
       </li>
       <li class="faq-item">
         <button class="faq-question" type="button">
-          Graphic design
+          10. Graphic design
           <span class="faq-icon">^</span>
         </button>
         <div class="faq-answer-wrapper">
@@ -925,7 +918,7 @@ body.loaded .shab-m-preloader {
       </li>
       <li class="faq-item">
         <button class="faq-question" type="button">
-          Blogger and WordPress management
+          11. Blogger and WordPress management
           <span class="faq-icon">^</span>
         </button>
         <div class="faq-answer-wrapper">
