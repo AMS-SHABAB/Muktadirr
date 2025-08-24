@@ -1,612 +1,567 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Trust Poster</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Muktadir Shabab - Portfolio</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Oswald:400,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Oswald+Condensed:700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Protest+Guerrilla&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    :root {
+      --yellow: #FFC000;
+      --gold: #FFBF00;
+      --deep-gold: #E49B0F;
+      --orange: #FFAA33;
+      --glass-bg: rgba(30, 30, 30, 0.75);
+      --nav-radius: 50px;
+      --menu-radius: 20px;
+      --preloader-size: 70px;
+    }
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;500;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-<!-- Font Awesome for social icons and close icon -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #000;
+      font-family: 'Montserrat', Arial, sans-serif;
+      box-sizing: border-box;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    body.loaded .shab-m-preloader {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .5s;
+    }
+    /* Preloader */
+    .shab-m-preloader {
+      background: #000;
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      left: 0; top: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity .5s;
+    }
+    .shab-m-preloader-inner {
+      width: var(--preloader-size);
+      height: var(--preloader-size);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .shab-m-preloader-m {
+      font-family: 'UnifrakturMaguntia', cursive;
+      font-size: 3.5rem;
+      color: var(--yellow);
+      position: relative;
+      z-index: 2;
+      letter-spacing: 0.2em;
+      animation: shab-m-bounce .9s infinite alternate cubic-bezier(.6, 0, .5, 1);
+    }
+    @keyframes shab-m-bounce {
+      to { transform: scale(1.11) rotate(-5deg);}
+    }
+    .shab-m-preloader-spinner {
+      position: absolute;
+      left: 0; top: 0;
+      width: 100%;
+      height: 100%;
+      border: 3px solid rgba(255,255,255,0.09);
+      border-top: 3px solid var(--yellow);
+      border-radius: 50%;
+      animation: shab-m-spin 1.1s linear infinite;
+      z-index: 1;
+    }
+    @keyframes shab-m-spin {
+      100% {transform: rotate(360deg);}
+    }
 
-<style>
-  :root{
-    --gap: 8px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{
-    margin:0; background:#000; min-height:100vh;
-    font-family:'Montserrat', sans-serif;
-    color:#fff; overflow-x:hidden;
-  }
+    /* Nav Bar */
+    .shab-nav {
+      width: 94vw;
+      margin: 18px auto 0 auto;
+      background: var(--glass-bg);
+      border-radius: var(--nav-radius);
+      box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 0;
+      position: relative;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.09);
+      transition: all .3s;
+    }
+    /* Mobile/Tablets Nav */
+    .shab-nav-mobile {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      justify-content: center;
+      position: relative;
+    }
+    .shab-nav-logo-wrap {
+      background: rgba(22,22,22,0.55);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+      border: 1.5px solid var(--yellow);
+      width: 42px;
+      height: 42px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 0 2px rgba(255,192,0,0.06);
+    }
+    .shab-nav-logo-img {
+      width: 36px;
+      height: 36px;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+    .shab-nav-name {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 300;
+      font-size: 1.1rem;
+      color: #fff;
+      letter-spacing: 0.04em;
+      margin: 0 8px;
+      white-space: nowrap;
+      transition: color .2s;
+    }
+    .shab-nav-hamburger {
+      margin-left: auto;
+      margin-right: 12px;
+      cursor: pointer;
+      width: 38px;
+      height: 38px;
+      border: none;
+      background: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 110;
+    }
+    .shab-nav-hamburger-bar {
+      width: 24px;
+      height: 2.4px;
+      background: #fff;
+      margin: 3.5px 0;
+      border-radius: 2px;
+      transition: background .2s;
+    }
+    .shab-nav-menu-list {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(25,25,35,0.88);
+      backdrop-filter: blur(12px);
+      z-index: 101;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .4s;
+    }
+    .shab-nav-menu-list.open {
+      opacity: 1;
+      pointer-events: all;
+      animation: shab-menu-fadein .45s cubic-bezier(.67,0,.33,1);
+    }
+    @keyframes shab-menu-fadein {
+      from { opacity: 0; transform: translateY(-30px);}
+      to   { opacity: 1; transform: translateY(0);}
+    }
+    .shab-nav-menu-item {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 300;
+      color: #fff;
+      font-size: 1.5rem;
+      letter-spacing: 0.06em;
+      margin: 18px 0;
+      padding: 8px 24px;
+      border-radius: 18px;
+      transition: color .18s, background .18s;
+      cursor: pointer;
+    }
+    .shab-nav-menu-item:hover {
+      color: var(--gold);
+      background: rgba(255,255,255,0.04);
+    }
 
-  /* NAVBAR */
-  nav{
-    position:absolute; top:0; left:0; right:0;
-    display:flex; justify-content:space-between; align-items:center;
-    padding:14px 28px;
-    z-index:10;
-  }
-  .logo{
-    font-family:'Oswald', sans-serif;
-    font-weight:200; letter-spacing:.06em;
-    font-size:1.5rem; color:#fff;
-  }
-  .hamburger{
-    width:28px; height:18px; display:flex; flex-direction:column;
-    justify-content:space-between; cursor:pointer;
-    z-index:2001;
-    transition: .4s cubic-bezier(.76,.01,.32,1);
-    position:relative;
-  }
-  .hamburger span{
-    display:block; height:2px; background:#fff; border-radius:2px; transition:.35s cubic-bezier(.76,.01,.32,1);
-  }
-  .hamburger span:nth-child(1){
-    width:100%;
-  }
-  .hamburger span:nth-child(2){
-    width:100%;
-  }
+    /* Desktop Nav */
+    @media (min-width: 900px) {
+      .shab-nav {
+        justify-content: flex-start;
+        padding: 8px 38px;
+        min-height: 67px;
+      }
+      .shab-nav-mobile { display: none; }
+      .shab-nav-desktop {
+        display: flex;
+        align-items: center;
+        width: 100%;
+      }
+      .shab-nav-desk-name {
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-weight: 300;
+        font-size: 1.4rem;
+        color: #fff;
+        letter-spacing: 0.06em;
+        position: relative;
+        margin-right: 14px;
+        display: flex;
+        align-items: center;
+      }
+      .shab-nav-active-dot {
+        display: inline-block;
+        width: 10px; height: 10px;
+        background: #00FF3C;
+        border-radius: 50%;
+        margin-left: 8px;
+        box-shadow: 0 0 7px 1.5px #00ff5160;
+        border: 1px solid #fff1;
+      }
+      .shab-nav-desk-gap {
+        width: 38px;
+      }
+      .shab-nav-desk-menu {
+        display: flex;
+        align-items: center;
+      }
+      .shab-nav-desk-menu-item {
+        font-family: 'Oswald', 'Oswald Narrow', Arial, sans-serif;
+        font-weight: 700;
+        font-stretch: condensed;
+        font-size: 1.06rem;
+        color: #fff;
+        background: var(--deep-gold);
+        border-radius: var(--menu-radius);
+        padding: 7px 22px;
+        margin: 0 8px;
+        cursor: pointer;
+        letter-spacing: 0.06em;
+        transition: background .18s, color .18s;
+        border: none;
+        outline: none;
+        text-shadow: 0 1px 0 #2222;
+      }
+      .shab-nav-desk-menu-item:hover, .shab-nav-desk-menu-item.active {
+        background: #fff;
+        color: var(--deep-gold);
+      }
+    }
+    @media (max-width: 899px) {
+      .shab-nav-desktop { display: none; }
+    }
 
-  /* Apple hamburger morph effect */
-  .hamburger.active span:nth-child(1){
-    transform:translateY(8px) rotate(45deg);
-    width:100%;
-  }
-  .hamburger.active span:nth-child(2){
-    transform:translateY(-8px) rotate(-45deg);
-    width:100%;
-  }
+    /* Hero Section */
+    .shab-hero {
+      margin-top: 34px;
+      padding: 0 10vw;
+      width: 100vw;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    /* Mobile/Tablet Hero */
+    .shab-hero-name {
+      font-family: 'UnifrakturMaguntia', cursive;
+      font-size: 1.5rem;
+      color: #fff;
+      margin: 0;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: color .18s;
+      text-align: center;
+    }
+    .shab-hero-name:hover {
+      color: var(--yellow);
+    }
+    .shab-hero-artist, .shab-hero-writer {
+      font-family: 'Protest Guerrilla', cursive;
+      font-size: 2.2rem;
+      color: #fff;
+      margin: 8px 0 0 0;
+      letter-spacing: 0.03em;
+      text-align: center;
+      font-weight: 400;
+    }
+    .shab-hero-profile-img-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 15px 0 8px 0;
+    }
+    .shab-hero-profile-img {
+      width: 138px;
+      height: 138px;
+      object-fit: cover;
+      border-radius: 10%;
+      box-shadow: 0 8px 32px 0 rgba(0,0,0,0.12);
+      display: block;
+    }
+    .shab-hero-desc {
+      font-family: 'Oswald', Arial, sans-serif;
+      color: #fff;
+      font-size: 1rem;
+      margin: 15px 0 0 0;
+      text-align: center;
+      font-weight: 400;
+    }
+    .shab-hero-follow {
+      background: var(--orange);
+      color: #fff;
+      font-family: 'Oswald', Arial, sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 14px;
+      margin: 22px auto 0 auto;
+      padding: 7px 24px;
+      display: inline-block;
+      text-align: center;
+      letter-spacing: 0.04em;
+      box-shadow: 0 2px 12px 0 rgba(255,170,51,0.04);
+      cursor: pointer;
+    }
+    .shab-hero-socials {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      margin: 20px 0 0 0;
+    }
+    .shab-hero-social-icon {
+      color: #fff;
+      font-size: 1.6rem;
+      transition: color .17s;
+      cursor: pointer;
+    }
+    .shab-hero-social-icon:hover {
+      color: var(--yellow);
+      transform: scale(1.15);
+    }
 
-  /* Apple style overlay hamburger/close for menu */
-  .menu-hamburger-close {
-    position: fixed;
-    top: 36px;
-    right: 38px;
-    width:32px; height:32px;
-    z-index:2002;
-    display:none;
-    align-items:center; justify-content: center;
-    cursor:pointer;
-    background:rgba(18,20,26,0.92);
-    border-radius: 9px;
-    transition: background .18s;
-    box-shadow:0 2px 12px 0 #0004;
-  }
-  .menu-hamburger-close.active{
-    display:flex;
-    animation:fadeIn .18s;
-  }
-  .menu-hamburger-close:hover {
-    background:rgba(44,54,70,0.98);
-  }
-  @keyframes fadeIn {
-    from { opacity:0; transform:scale(0.85);}
-    to { opacity:1; transform:scale(1);}
-  }
-  .menu-hamburger-close .close-icon{
-    font-size:2.1rem;
-    color:#fff;
-    transition:.22s;
-  }
-  .menu-hamburger-close:active .close-icon{
-    color:#ff3b3b;
-  }
+    /* Desktop/Tablet Hero */
+    @media (min-width: 900px) {
+      .shab-hero {
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: center;
+        padding: 0 8vw;
+        margin-top: 44px;
+        min-height: 62vh;
+        max-width: 1350px;
+      }
+      .shab-hero-col-left, .shab-hero-col-center, .shab-hero-col-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .shab-hero-col-left {
+        align-items: flex-end;
+        flex: 1 0 30%;
+        padding-right: 0.7vw;
+        min-width: 180px;
+      }
+      .shab-hero-col-center {
+        align-items: center;
+        flex: 0 0 210px;
+        justify-content: center;
+      }
+      .shab-hero-col-right {
+        align-items: flex-start;
+        flex: 1 0 30%;
+        padding-left: 0.7vw;
+        min-width: 180px;
+      }
+      .shab-hero-name {
+        text-align: right;
+        margin-bottom: 10px;
+        margin-top: 0;
+        font-size: 2.1rem;
+      }
+      .shab-hero-artist {
+        text-align: right;
+        margin-bottom: 10px;
+        font-size: 2.6rem;
+      }
+      .shab-hero-col-center {
+        justify-content: center;
+        padding: 0 34px;
+      }
+      .shab-hero-profile-img {
+        width: 240px;
+        height: 240px;
+        border-radius: 10%;
+      }
+      .shab-hero-col-right {
+        align-items: flex-start;
+        padding-left: 2vw;
+      }
+      .shab-hero-writer {
+        text-align: left;
+        margin-top: 0;
+        font-size: 2.6rem;
+      }
+      .shab-hero-desc {
+        text-align: left;
+        font-size: 1.11rem;
+        margin-top: 21px;
+      }
+      .shab-hero-follow {
+        margin-left: 0;
+        margin-top: 28px;
+        font-size: 1.17rem;
+      }
+      .shab-hero-socials {
+        justify-content: flex-start;
+        gap: 32px;
+        margin-left: 0;
+        margin-top: 17px;
+      }
+    }
 
-  /* Apple style menu */
-  .menu{
-    position:fixed; top:20px; right:0; width:220px; height:100vh;
-    background:rgba(18,20,26,0.92);
-    backdrop-filter: blur(22px);
-    box-shadow:-4px 0 24px 0 #0006;
-    z-index:100;
-    display:flex; flex-direction:column;
-    align-items:flex-end;
-    padding:45px 32px 0 32px;
-    transform:translateX(110%);
-    opacity:0; pointer-events:none;
-    transition:.35s cubic-bezier(.76,.01,.32,1);
-  }
-  .menu.active{
-    transform:translateX(0);
-    opacity:1; pointer-events:all;
-    z-index:2000;
-  }
-  .menu ul{
-    list-style:none; padding:0; margin:0; width:100%;
-    margin-top:40px;
-  }
-  .menu li{
-    margin-bottom:24px; width:100%;
-  }
-  .menu a{
-    color:#fff;
-    font-family:'Montserrat',sans-serif;
-    font-weight:300;
-    font-size:1.7rem;
-    text-decoration:none;
-    display:block; padding:6px 0; border-radius:6px;
-    transition:.28s;
-    letter-spacing:.0.8em;
-    background: none;
-  }
-  .menu a:hover,
-  .menu a:focus {
-    background:rgba(255,255,255,0.10);
-    color:#ff3b3b;
-    padding-left:12px;
-    transition:.2s;
-  }
-
-  /* POSTER WRAP */
-  .poster{
-    position:relative;
-    width:100%; min-height:100vh;
-    overflow:hidden;
-  }
-
-  /* Mosaic background with "MS" pattern */
-.mosaic {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  grid-template-columns: repeat(18, 1fr);
-  grid-auto-rows: 38px;
-  gap: var(--gap, 4px);
-  padding: var(--gap, 4px);
-  background: #000;
-  z-index: 1;
-  overflow: hidden; /* needed for pseudo-element fades */
-}
-
-/* Add fade effect on edges */
-.mosaic::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none; /* so it doesn't block tiles */
-  background: 
-    linear-gradient(to bottom, rgba(0,0,0,0.0) 70%, rgba(0,0,0,0.7) 100%), /* bottom fade */
-    linear-gradient(to right, rgba(0,0,0,0.0) 80%, rgba(0,0,0,0.5) 100%), /* right fade */
-    radial-gradient(circle at bottom right, rgba(0,0,0,0.0), rgba(0,0,0,0.7) 80%); /* corner soft fade */
-  background-blend-mode: overlay; /* makes the fade blend nicely */
-}
-
-.mosaic .tile {
-  transition: transform 0.3s, background 0.4s, opacity 0.4s, box-shadow 0.2s;
-  box-shadow: 0 0 0px 0 #0000;
-  border-radius: 7px;
-}
-.mosaic .tile:hover {
-  transform: scale(1.12) rotate(-2deg);
-  box-shadow: 0 5px 24px 0 #0ef3, 0 1px 6px #fff3;
-  z-index:2;
-}
-.tile{ background:#222; opacity:0.6; }
-
-  /* Portrait */
-  .subject{
-    position:absolute; left:-10px; bottom:50px; /* changed from 30px to 50px */
-    z-index:1000; /* requested z-index */
-    max-width:720px; /* Increased size */
-    width:44vw;
-    min-width:320px;
-    transition: max-width .3s, width .3s;
-  }
-  .subject img{ width:100%; height:auto; display:block; }
-
-  /* Fade at bottom */
-  .fade{
-    position:absolute; left:0; right:0; bottom:0; height:25%;
-    background:linear-gradient(transparent, #000 95%);
-    z-index:4;
-  }
-
-  /* Upright About Text - moved down, bigger */
-  .upright-copy{
-    position:absolute; 
-    top:16%; /* moved down */
-    right:5%; 
-    z-index:5;
-    max-width:570px; 
-    text-align:right;
-    display:flex; flex-direction:column; gap:0.15em;
-    filter: none;
-  }
-  .upright-copy .word{
-    font-family:'Oswald', sans-serif; font-weight:700;
-    font-size:clamp(46px, 7vw, 92px);
-    text-transform:uppercase;
-    letter-spacing:.04em;
-    line-height:1;
-    color:#fff;
-    text-shadow: 0 0 20px #0ef7, 0 6px 30px #0008, 0 2px 0 #fff6;
-  }
-  .about-btn{
-    display:inline-block; padding:15px 28px;
-    border-radius:12px; color:#fff; font-weight:700;
-    font-size:clamp(18px,2vw,28px);
-    backdrop-filter:blur(14px);
-    background:rgba(0,0,0,0.7);
-    text-decoration:none;
-    margin-top:.8em;
-    margin-bottom:.8em;
-    box-shadow:0 8px 48px 0 #00f2,0 2px 14px #fff2;
-    transition:.3s;
-    font-family:'Montserrat',sans-serif;
-  }
-  .about-btn:hover{ background:rgba(0,0,0,0.8); color:#0ef; }
-
-.about-block {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 1em;
-    border-radius: 22px;
-    /* Add left-to-right fade background */
-    background: linear-gradient(to right, rgba(10,18,40,0.88) 65%, rgba(10,18,40,0.05) 100%);
-    box-shadow:
-        0 6px 48px 0 #0ef6,
-        0 2px 26px 0 #000c,
-        0 2px 18px #fff2;
-    padding: 2.1em 2.2em 1.3em 2em;
-    backdrop-filter: blur(27px);
-}
-
-.about {
-    width: 70%;
-    font-family: 'Montserrat', sans-serif;
-    font-size: clamp(18px, 1.8vw, 28px);
-    color: #e2f6ff;
-    line-height: 1.2;
-    font-weight: 300;
-    text-shadow: 0 7px 42px #000c, 0 1px 0 #fff8;
-    margin: 20px 0 0 auto; /* move down a bit */
-    text-align: right; /* right alignment */
-    transition: color 0.3s ease; /* smooth color transition on hover */
-}
-
-.about:hover {
-    color: #ffdd57; /* change to desired hover color */
-}
-
-  /* Hide old .copy section */
-  .copy{
-    display:none;
-  }
-
-  /* Social Icons */
-  .social {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    gap: 32px;
-    padding: 10px 0 0 0;
-    background: none; /* remove any background */
-    backdrop-filter: none;
-    border-radius: 0;
-    z-index: 1000;
-    margin-top: 10px;
-  }
-
-  .social a {
-    color: #fff;
-    font-size: 28px;
-    transition: 0.3s;
-    background: none !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-  }
-
-  .social a:hover {
-    color: #0ef;
-    transform: translateY(-4px);
-  }
-
-  @media(max-width:1200px){
-    .subject { max-width:520px; width:60vw;}
-    .upright-copy { max-width:390px;}
-  }
-  @media(max-width:900px){
-    .subject { max-width:360px; width:55vw;}
-    .upright-copy { max-width:290px; right:3%; }
-  }
-  @media(max-width:600px){
-    .upright-copy { right:2%; top:13%;}
-    .menu{ width:92vw; padding-right:8vw; }
-    .subject { max-width:220px; width:87vw;}
-    .social { justify-content: flex-end; gap: 18px;}
-    .menu-hamburger-close { right: 10px; top: 18px;}
-  }
-
-  /* Cookies popup styles */
-  .cookies-popup {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(16,24,32,0.98);
-    color: #fff;
-    border-radius: 18px;
-    box-shadow: 0 2px 32px #000b;
-    padding: 28px 32px 22px 32px;
-    z-index:3000;
-    display:flex;
-    align-items:center;
-    gap:22px;
-    font-size:1.15rem;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .25s;
-    max-width:92vw;
-  }
-  .cookies-popup.show {
-    opacity: 1;
-    pointer-events: all;
-  }
-  .cookies-popup button {
-    background: linear-gradient(90deg, #0ef 20%, #ffb703 80%);
-    color: #222;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 9px 22px;
-    cursor: pointer;
-    margin-left:12px;
-    box-shadow: 0 2px 14px #0ef3;
-    transition: background .2s;
-  }
-  .cookies-popup button:hover {
-    background: linear-gradient(90deg, #ffb703 30%, #0ef 100%);
-    color:#000;
-  }
-  .cookies-popup .fa-cookie-bite {
-    font-size: 2rem;
-    color: #ffb703;
-    margin-right: 8px;
-  }
-</style>
+    /* Hide scrollbar for nav menu */
+    .shab-nav-menu-list::-webkit-scrollbar {
+      display: none;
+    }
+    .shab-nav-menu-list {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
 </head>
 <body>
-
-<nav>
-  <div class="logo">Muktadir Shabab</div>
-  <!-- Apple style hamburger/close morphing -->
-  <div class="hamburger" id="hamburger" aria-label="Open menu" tabindex="0">
-    <span></span><span></span>
-  </div>
-</nav>
-
-<!-- Overlay Apple-style hamburger/close icon inside menu -->
-<div class="menu-hamburger-close" id="menuClose" tabindex="0" aria-label="Close menu">
-  <i class="fas fa-times close-icon"></i>
-</div>
-
-<!-- Apple-style hamburger menu -->
-<div class="menu" id="menu">
-  <ul>
-    <li><a href="#">Blogs</a></li>
-    <li><a href="#">Paintings</a></li>
-    <li><a href="#">Projects</a></li>
-  </ul>
-</div>
-
-<div class="poster">
-  <!-- Mosaic background -->
-  <div class="mosaic" id="mosaic"></div>
-
-  <!-- Portrait -->
-  <div class="subject">
-    <img src="https://res.cloudinary.com/dxiwnqpja/image/upload/v1756018397/IMG-20241015-WA0267_edit_161520040162857_og5b59.png" alt="Muktadir portrait">
-  </div>
-
-  <!-- Upright About Text -->
-  <div class="upright-copy">
-    <span class="word">I'M</span>
-    <span class="word">MUKTADIR</span>
-    <span class="word">SHABAB</span>
-    <a href="#" class="about-btn">About Me</a>
-    <div class="about-block">
-      <p class="about">
-        Artist & designer exploring color, rhythm, and type. Building bold visual stories where trust meets curiosity.
-      </p>
-      <div class="social">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-dribbble"></i></a>
-      </div>
+  <!-- Preloader -->
+  <div class="shab-m-preloader">
+    <div class="shab-m-preloader-inner">
+      <span class="shab-m-preloader-m">M</span>
+      <span class="shab-m-preloader-spinner"></span>
     </div>
   </div>
 
-  <!-- Fade -->
-  <div class="fade"></div>
-</div>
+  <!-- Navbar -->
+  <nav class="shab-nav">
+    <!-- Mobile/Tablet Nav -->
+    <div class="shab-nav-mobile">
+      <span class="shab-nav-logo-wrap">
+        <img class="shab-nav-logo-img" src="https://res.cloudinary.com/dxiwnqpja/image/upload/v1756050794/IMG-20241015-WA0267_edit_161520040162857_egvy8i.jpg" alt="Muktadir Shabab Logo">
+      </span>
+      <span class="shab-nav-name">Muktadir Shabab</span>
+      <button class="shab-nav-hamburger" aria-label="Open navigation menu" tabindex="0">
+        <span class="shab-nav-hamburger-bar"></span>
+        <span class="shab-nav-hamburger-bar"></span>
+      </button>
+    </div>
+    <div class="shab-nav-menu-list" id="shabNavMenuList">
+      <div class="shab-nav-menu-item" tabindex="0">Projects</div>
+      <div class="shab-nav-menu-item" tabindex="0">Paintings</div>
+      <div class="shab-nav-menu-item" tabindex="0">Blogs</div>
+      <div class="shab-nav-menu-item" tabindex="0">Hire me</div>
+    </div>
+    <!-- Desktop Nav -->
+    <div class="shab-nav-desktop">
+      <span class="shab-nav-desk-name">Muktadir Shabab <span class="shab-nav-active-dot"></span></span>
+      <span class="shab-nav-desk-gap"></span>
+      <div class="shab-nav-desk-menu">
+        <button class="shab-nav-desk-menu-item active">Projects</button>
+        <button class="shab-nav-desk-menu-item">Paintings</button>
+        <button class="shab-nav-desk-menu-item">Blogs</button>
+        <button class="shab-nav-desk-menu-item">Hire me</button>
+      </div>
+    </div>
+  </nav>
 
-<!-- Cookies popup -->
-<div class="cookies-popup" id="cookiesPopup" aria-live="polite" aria-label="Cookie policy">
-  <i class="fas fa-cookie-bite"></i>
-  <span>We use cookies to improve your experience. By using this site, you agree to our use of cookies.</span>
-  <button id="acceptCookies">Accept</button>
-</div>
+  <!-- Hero Section -->
+  <section class="shab-hero">
+    <!-- Mobile/Tablet -->
+    <div class="shab-hero-col-left">
+      <h1 class="shab-hero-name">Muktadir Shabab</h1>
+      <h2 class="shab-hero-artist">Artist</h2>
+    </div>
+    <div class="shab-hero-col-center">
+      <div class="shab-hero-profile-img-wrap">
+        <img class="shab-hero-profile-img" src="https://res.cloudinary.com/dxiwnqpja/image/upload/v1756050771/PXL_20241014_153826676_edit_173152067985781_gvgsl5.jpg" alt="Muktadir Shabab">
+      </div>
+    </div>
+    <div class="shab-hero-col-right">
+      <h2 class="shab-hero-writer">Writer</h2>
+      <h3 class="shab-hero-desc">I'm an artist, writer, digital designer, actor and director.</h3>
+      <div class="shab-hero-follow">Follow me</div>
+      <div class="shab-hero-socials">
+        <a href="https://facebook.com/" target="_blank" rel="noopener" class="shab-hero-social-icon" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://instagram.com/" target="_blank" rel="noopener" class="shab-hero-social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://dribbble.com/" target="_blank" rel="noopener" class="shab-hero-social-icon" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
+        <a href="https://behance.net/" target="_blank" rel="noopener" class="shab-hero-social-icon" aria-label="Behance"><i class="fab fa-behance"></i></a>
+        <a href="https://medium.com/" target="_blank" rel="noopener" class="shab-hero-social-icon" aria-label="Medium"><i class="fab fa-medium"></i></a>
+      </div>
+    </div>
+  </section>
+  <script>
+    // Preloader fade-out
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.body.classList.add('loaded');
+      }, 700);
+    });
 
-<script>
-  // Hamburger menu toggle (Apple morphing style: only one icon)
-  const hamburger = document.getElementById("hamburger");
-  const menu = document.getElementById("menu");
-  const menuClose = document.getElementById("menuClose");
-
-  function openMenu() {
-    hamburger.classList.add("active");
-    menu.classList.add("active");
-    menuClose.classList.add("active");
-    menuClose.focus();
-  }
-  function closeMenu() {
-    hamburger.classList.remove("active");
-    menu.classList.remove("active");
-    menuClose.classList.remove("active");
-    hamburger.focus();
-  }
-  function toggleMenu() {
-    if (menu.classList.contains("active")) {
-      closeMenu();
-    } else {
-      openMenu();
+    // Mobile nav menu
+    const hamburger = document.querySelector('.shab-nav-hamburger');
+    const menuList = document.getElementById('shabNavMenuList');
+    let menuOpen = false;
+    if (hamburger) {
+      hamburger.addEventListener('click', function() {
+        menuOpen = !menuOpen;
+        menuList.classList.toggle('open', menuOpen);
+        document.body.style.overflow = menuOpen ? 'hidden' : '';
+      });
     }
-  }
-
-  hamburger.addEventListener("click", openMenu);
-  hamburger.addEventListener("keyup", function(e) {
-    if (e.key === "Enter" || e.key === " ") openMenu();
-  });
-  menuClose.addEventListener("click", closeMenu);
-  menuClose.addEventListener("keyup", function(e) {
-    if (e.key === "Enter" || e.key === " ") closeMenu();
-    if (e.key === "Escape") closeMenu();
-  });
-
-  // Optional: close menu when clicking menu link
-  menu.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", closeMenu);
-  });
-
-(function () {
-  // Improved pattern: mosaic with some gradient and random gem-like sparkles
-  const pattern = [
-    // M
-    [1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0],
-    [1,1,0,1,0,0,0,0,0,0,0,1,1,0,1,1,0,0],
-    [1,0,1,1,0,0,0,0,0,0,1,0,1,1,0,0,0,0],
-    [1,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0],
-    [1,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0],
-    [1,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0],
-    [1,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0],
-    [1,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0],
-    [1,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0],
-    [1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0],
-    // S
-    [0,0,0,1,1,1,1,1,0,0,0,0,1,1,1,1,1,0],
-    [0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1],
-    [0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1],
-    [0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],
-    [0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0],
-    [0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0],
-    [0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0],
-  ];
-
-  // Attractive palette with some glowing colors
-  const palette = [
-    "#ff3b3b","#ffb703","#00c2ff","#f97316",
-    "#a78bfa","#10b981","#0ef","#ffdd57","#00ffc3"
-  ];
-  // Subtle gradients for some tiles
-  const gradients = [
-    "linear-gradient(120deg,#ff3b3b,#ffb703)",
-    "linear-gradient(90deg,#0ef,#a78bfa)",
-    "linear-gradient(135deg,#00c2ff,#ffdd57)",
-    "linear-gradient(45deg,#10b981,#ff3b3b)",
-    "linear-gradient(150deg,#ffb703,#00ffc3)"
-  ];
-  const grid = document.getElementById("mosaic");
-  const cols = 18;
-  const rows = 28;
-  const total = cols * rows;
-
-  function sparkle() {
-    // 5-9 random sparkles
-    return Math.random() > 0.82;
-  }
-  function renderMosaic() {
-    grid.innerHTML = "";
-
-    // Pattern tiles (MS)
-    for (let row = 0; row < pattern.length; row++) {
-      for (let col = 0; col < cols; col++) {
-        const el = document.createElement("div");
-        el.className = "tile";
-        if (pattern[row][col] === 1) {
-          let useGradient = Math.random() > 0.45;
-          if (useGradient && gradients.length) {
-            el.style.background = gradients[(col + row + Math.floor(Math.random() * gradients.length)) % gradients.length];
-          } else {
-            el.style.background = palette[(col + row + Math.floor(Math.random() * palette.length)) % palette.length];
-          }
-          el.style.opacity = "0.88";
-          if (sparkle()) {
-            el.style.boxShadow = "0 0 18px 0 #fff9, 0 0 8px 0 #0efb";
-            el.style.opacity = "1";
-          }
-        } else {
-          // dark tile, with blue/purple fade
-          let t = row / pattern.length;
-          el.style.background = `linear-gradient(90deg, #12192f ${Math.round(70+25*t)}%, #0ef1 100%)`;
-          el.style.opacity = "0.28";
-          if (sparkle() && Math.random() > 0.85) {
-            el.style.background = "#fff";
-            el.style.opacity = "0.65";
-            el.style.boxShadow = "0 0 24px 0 #0ef9";
-          }
-        }
-        grid.appendChild(el);
+    // Close menu on menu item click
+    document.querySelectorAll('.shab-nav-menu-item').forEach(function(item) {
+      item.addEventListener('click', function() {
+        menuOpen = false;
+        menuList.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+    // Close menu on Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape" && menuOpen) {
+        menuOpen = false;
+        menuList.classList.remove('open');
+        document.body.style.overflow = '';
       }
-    }
+    });
 
-    // Random tiles for the remaining area
-    for (let i = pattern.length * cols; i < total; i++) {
-      const el = document.createElement("div");
-      el.className = "tile";
-      let useGradient = Math.random() > 0.78;
-      if (useGradient && gradients.length) {
-        el.style.background = gradients[(i + Math.floor(Math.random() * gradients.length)) % gradients.length];
-      } else {
-        el.style.background = palette[(Math.random() * palette.length) | 0];
-      }
-      el.style.opacity = (Math.random() * 0.3 + 0.28).toFixed(2);
-      if (sparkle() && Math.random() > 0.7) {
-        el.style.background = "#fff";
-        el.style.opacity = "0.79";
-        el.style.boxShadow = "0 0 22px 0 #ffb70399,0 0 12px 0 #0efb";
-      }
-      grid.appendChild(el);
-    }
-  }
-
-  renderMosaic();
-  setInterval(renderMosaic, 1800); // refresh more frequently
-})();
-
-
-// COOKIES POPUP LOGIC
-(function(){
-  const popup = document.getElementById('cookiesPopup');
-  const btn = document.getElementById('acceptCookies');
-  const storageKey = "cookiesAccepted-v1";
-
-  function showCookiesPopup() {
-    if (!localStorage.getItem(storageKey)) {
-      setTimeout(()=>{
-        popup.classList.add('show');
-      }, 900);
-    }
-  }
-  btn.addEventListener('click', function(){
-    popup.classList.remove('show');
-    localStorage.setItem(storageKey, "1");
-  });
-  // Accessibility: allow Enter/Space to accept
-  btn.addEventListener('keyup', function(e){
-    if (e.key === " " || e.key === "Enter") {
-      btn.click();
-    }
-  });
-
-  showCookiesPopup();
-})();
-
-</script>
+    // Desktop nav active effect (demo)
+    document.querySelectorAll('.shab-nav-desk-menu-item').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.shab-nav-desk-menu-item').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
 </body>
 </html>
