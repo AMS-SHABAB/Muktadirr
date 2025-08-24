@@ -118,14 +118,41 @@
   }
 
   /* Mosaic background with "MS" pattern */
-  .mosaic{
-    position:absolute; inset:0; display:grid;
-    grid-template-columns: repeat(18, 1fr);
-    grid-auto-rows:38px;
-    gap:var(--gap); padding:var(--gap);
-    background:#000;
-    z-index:1;
-  }
+.mosaic {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(18, 1fr);
+  grid-auto-rows: 38px;
+  gap: var(--gap, 4px);
+  padding: var(--gap, 4px);
+  background: #000;
+  z-index: 1;
+  overflow: hidden; /* needed for pseudo-element fades */
+}
+
+/* Add fade effect on edges */
+.mosaic::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none; /* so it doesn't block tiles */
+  background: 
+    linear-gradient(to bottom, rgba(0,0,0,0.0) 70%, rgba(0,0,0,0.7) 100%), /* bottom fade */
+    linear-gradient(to right, rgba(0,0,0,0.0) 80%, rgba(0,0,0,0.5) 100%), /* right fade */
+    radial-gradient(circle at bottom right, rgba(0,0,0,0.0), rgba(0,0,0,0.7) 80%); /* corner soft fade */
+  background-blend-mode: overlay; /* makes the fade blend nicely */
+}
+
+/* Optional: add subtle transition on tiles for playful vibe */
+.mosaic .tile {
+  transition: transform 0.3s, background 0.4s, opacity 0.4s;
+}
+
+.mosaic .tile:hover {
+  transform: scale(1.05);
+}
+
   .tile{ background:#222; opacity:0.6; }
 
   /* Portrait */
@@ -196,7 +223,7 @@
 }
 
 .about {
-    width: 50%;
+    width: 70%;
     font-family: 'Montserrat', sans-serif;
     font-size: clamp(18px, 1.8vw, 28px);
     color: #e2f6ff;
