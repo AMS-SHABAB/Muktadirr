@@ -181,29 +181,37 @@
   }
   .about-btn:hover{ background:rgba(0,0,0,0.8); color:#0ef; }
 
-  .about-block{
-    position:relative;
-    display:inline-block;
-    margin-bottom:1em;
-    border-radius:22px;
-    background:rgba(10,18,40,0.58);
+.about-block {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1em;
+    border-radius: 22px;
+    background: rgba(10, 18, 40, 0.58);
     box-shadow:
-      0 6px 48px 0 #0ef6,
-      0 2px 26px 0 #000c,
-      0 2px 18px #fff2;
-    padding:2.1em 2.2em 1.3em 2em;
-    backdrop-filter:blur(27px);
-  }
-  .about{
+        0 6px 48px 0 #0ef6,
+        0 2px 26px 0 #000c,
+        0 2px 18px #fff2;
+    padding: 2.1em 2.2em 1.3em 2em;
+    backdrop-filter: blur(27px);
+}
+
+.about {
     width: 50%;
-    font-family:'Montserrat',sans-serif;
-    font-size:clamp(18px,1.8vw,28px);
-    color:#e2f6ff;
-    line-height:1.2;
-    font-weight:300;
-    text-shadow:0 7px 42px #000c,0 1px 0 #fff8;
-    margin:20px;
-  }
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(18px, 1.8vw, 28px);
+    color: #e2f6ff;
+    line-height: 1.2;
+    font-weight: 300;
+    text-shadow: 0 7px 42px #000c, 0 1px 0 #fff8;
+    margin: 20px 0 0 auto; /* move down a bit */
+    text-align: right; /* right alignment */
+    transition: color 0.3s ease; /* smooth color transition on hover */
+}
+
+.about:hover {
+    color: #ffdd57; /* change to desired hover color */
+}
+
 
   /* Hide old .copy section */
   .copy{
