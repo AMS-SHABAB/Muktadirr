@@ -246,14 +246,32 @@
   }
 
   /* Social Icons */
-  .social{
-    position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
-    z-index:1000; display:flex; gap:32px;
-  }
-  .social a{
-    color:#fff; font-size:28px; transition:.3s;
-  }
-  .social a:hover{ color:#0ef; transform:translateY(-4px); }
+  .social {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    padding: 16px 0;
+    background: rgba(0, 0, 0, 0.3); /* semi-transparent black */
+    backdrop-filter: blur(12px); /* glassmorphism blur */
+    -webkit-backdrop-filter: blur(12px); /* for Safari */
+    border-radius: 12px; /* optional rounded corners */
+    z-index: 1000;
+}
+
+.social a {
+    color: #fff;
+    font-size: 28px;
+    transition: 0.3s;
+}
+
+.social a:hover {
+    color: #0ef;
+    transform: translateY(-4px);
+}
 
   @media(max-width:1200px){
     .subject { max-width:520px; width:60vw;}
