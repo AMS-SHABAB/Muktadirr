@@ -387,27 +387,29 @@ body.loaded .shab-m-preloader {
   display: block;
   transition: width 0.2s, height 0.2s;
 }
-
-/* Hi Icon Circle */
 /* Hi Icon Circle */
 .hi-icon {
   position: absolute;
-  bottom: 70%;
-  left: 40px;
+  bottom: 60%;
+  left: 0;
   transform: translate(-40%, 40%);
-  background: #FFD700; /* strong yellow */
-  color: #000;         /* dark contrast text/icon */
+  background: #FFD700; /* bright yellow */
   border-radius: 50%;
-  padding: 10px;
-  font-size: 18px;
+  padding: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: bold;
+  width: 48px;
+  height: 48px;
   animation: hiPulse 1.5s infinite ease-in-out;
 }
 
-/* Pulse + waving combined */
+.hi-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: #fff; /* white hand */
+}
+
 @keyframes hiPulse {
   0%   { transform: translate(-40%,40%) scale(1) rotate(0deg); }
   20%  { transform: translate(-40%,40%) scale(1.2) rotate(15deg); }
@@ -416,8 +418,6 @@ body.loaded .shab-m-preloader {
   80%  { transform: translate(-40%,40%) scale(1.15) rotate(-5deg); }
   100% { transform: translate(-40%,40%) scale(1) rotate(0deg); }
 }
-
-
     .shab-hero-desc {
       font-family: 'Montserrat', Arial, sans-serif;
       color: #fff;
@@ -602,7 +602,12 @@ body.loaded .shab-m-preloader {
     <div class="shab-hero-col-center">
       <div class="shab-hero-profile-img-wrap">
         <img class="shab-hero-profile-img" src="https://res.cloudinary.com/dxiwnqpja/image/upload/v1756050790/IMG-20250506-WA0006_edit_161746897197332_mk3u4p.jpg" alt="Muktadir Shabab">
-      <div class="hi-icon">👋</div>
+      <div class="hi-icon">
+    <!-- Waving hand SVG -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+      <path d="M256 0c141.4 0 256 114.6 256 256S397.4 512 256 512 0 397.4 0 256 114.6 0 256 0zm0 96c-11 0-20 9-20 20v120c0 11 9 20 20 20s20-9 20-20V116c0-11-9-20-20-20zm0 280c-11 0-20 9-20 20s9 20 20 20c55.2 0 100-44.8 100-100 0-11-9-20-20-20s-20 9-20 20c0 33.1-26.9 60-60 60z"/>
+    </svg>
+  </div>
       </div>
     </div>
     <div class="shab-hero-col-right">
