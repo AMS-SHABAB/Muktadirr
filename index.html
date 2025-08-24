@@ -25,21 +25,45 @@
   nav{
     position:absolute; top:0; left:0; right:0;
     display:flex; justify-content:space-between; align-items:center;
-    padding:14px 28px;
-    z-index:10;
+    padding:14px 28px; z-index:10;
   }
   .logo{
     font-family:'Oswald', sans-serif;
     font-weight:200; letter-spacing:.06em;
     font-size:1.5rem; color:#fff;
   }
+
+  /* Apple-style Hamburger */
   .hamburger{
-    width:28px; height:18px; display:flex; flex-direction:column;
-    justify-content:space-between; cursor:pointer;
+    width:28px; height:20px; display:flex; flex-direction:column;
+    justify-content:space-between; cursor:pointer; position:relative;
   }
   .hamburger span{
     display:block; height:2px; background:#fff; border-radius:2px;
+    transition: all 0.3s ease;
   }
+  .hamburger.active span:nth-child(1){
+    transform: rotate(45deg) translateY(8px);
+  }
+  .hamburger.active span:nth-child(2){
+    opacity:0;
+  }
+  .hamburger.active span:nth-child(3){
+    transform: rotate(-45deg) translateY(-8px);
+  }
+
+  /* Mobile Menu */
+  .menu{
+    position:absolute; top:100%; right:28px;
+    background:rgba(0,0,0,0.85); backdrop-filter:blur(12px);
+    border-radius:12px; overflow:hidden;
+    display:none; flex-direction:column;
+  }
+  .menu a{
+    color:#fff; padding:12px 20px; text-decoration:none;
+    font-weight:500; transition:.2s;
+  }
+  .menu a:hover{ background:rgba(255,255,255,0.1); }
 
   /* POSTER WRAP */
   .poster{
@@ -73,20 +97,20 @@
     z-index:4;
   }
 
-  /* Hero words */
+  /* Hero words (Glassmorphism & Shadow) */
   .bg-words{
-    position:absolute; inset:0; z-index:2;
-    display:grid; place-items:center;
-    pointer-events:none;
+    position:absolute; top:5%; right:5%; z-index:2;
+    display:flex; flex-direction:column; align-items:flex-end;
+    backdrop-filter:blur(12px);
   }
-  .bg-words h1, .bg-words h2{
-    margin:0; line-height:.9; text-transform:uppercase;
-    color:#ffffff15; font-family:'Oswald', sans-serif;
+  .bg-words span{
+    font-family:'Oswald', sans-serif;
     font-weight:800; letter-spacing:.05em;
-    text-shadow: 0 0 25px rgba(0,0,0,0.8), 0 0 45px rgba(0,0,0,0.9);
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.15);
+    font-size:clamp(36px,8vw,120px);
+    text-shadow: 0 0 15px rgba(0,0,0,0.5), 0 0 35px rgba(0,0,0,0.7);
   }
-  .bg-words h1{ font-size:min(26vw, 330px); }
-  .bg-words h2{ font-size:min(15vw, 190px); transform:translateY(20%); }
 
   /* Text / About */
   .copy{
@@ -135,8 +159,14 @@
 
 <nav>
   <div class="logo">Muktadir</div>
-  <div class="hamburger">
-    <span></span><span></span>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="menu" id="menu">
+    <a href="#">Home</a>
+    <a href="#">Portfolio</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
   </div>
 </nav>
 
@@ -146,8 +176,10 @@
 
   <!-- Hero words -->
   <div class="bg-words">
-    <h1>TRUST</h1>
-    <h2>I'M</h2>
+    <span>I'M</span>
+    <span>TRUST</span>
+    <span>MUKTADIR</span>
+    <span>SHABAB</span>
   </div>
 
   <!-- Portrait -->
@@ -193,6 +225,14 @@
       grid.appendChild(el);
     }
   })();
+
+  // Hamburger toggle
+  const hamburger = document.getElementById('hamburger');
+  const menu = document.getElementById('menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+  });
 </script>
 </body>
 </html>
