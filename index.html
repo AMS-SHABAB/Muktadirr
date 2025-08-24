@@ -872,6 +872,162 @@ faqItems.forEach(item => {
   });
 });
 </script>
+<section class="what-i-get">
+  <div class="about-container">
+    <!-- Section Name -->
+    <h3 class="section-name-about">//My Stats//</h3>
+    
+    <!-- Section Title -->
+    <h2 class="about-section-title">About <span class="about-highlight">-</span> me</h2>
+    
+    <!-- Section Description -->
+    <p class="about-section-desc">
+      I highlighted the number of customers I have handled and the number of projects I have completed in my five-year career. I also highlighted how many successful projects I have been able to complete and how many total ratings I have received.
+    </p>
+
+    <!-- Career Stats -->
+    <div class="career-stats">
+      <div class="stat">
+        <span class="counter" data-target="2022">2022</span> - Present
+      </div>
+      <div class="stat">
+        Total Projects: <span class="counter" data-target="100">0</span>+
+      </div>
+      <div class="stat">
+        Total Exhibition Selected Paintings: <span class="counter" data-target="20">0</span>
+      </div>
+      <div class="stat">
+        Total SEO Optimized Blogs: <span class="counter" data-target="20">0</span>
+      </div>
+      <div class="stat">
+        Total Clients: <span class="counter" data-target="80">0</span>+
+      </div>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="contact-info">
+      <p>Email: <span class="contact-text">muktadirworkplce@gmail.com</span></p>
+      <p>Contact: <span class="contact-text">+8801820717629</span></p>
+      <a href="https://wa.me/8801820717629" class="whatsapp-btn" target="_blank">WhatsApp Me</a>
+    </div>
+  </div>
+</section>
+
+<style>
+.what-i-get {
+  padding: 60px 20px;
+  background: #0a0a0a;
+  font-family: 'Montserrat', sans-serif;
+}
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Section Name */
+.section-name-about {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #aaa; /* light grey */
+  margin-bottom: 10px;
+}
+
+/* Section Title */
+.about-section-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 3.8em;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 20px;
+}
+.about-section-title .about-highlight {
+  color: #ff0; /* yellow dash */
+}
+
+/* Section Description */
+.about-section-desc {
+  font-size: 1.1em;
+  color: #fff;
+  margin-bottom: 40px;
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* Career Stats */
+.career-stats {
+  margin-bottom: 40px;
+}
+.career-stats .stat {
+  font-size: 1.5em;
+  color: #fff;
+  margin: 12px 0;
+}
+.career-stats .stat .counter {
+  color: #ff0;
+  font-weight: bold;
+}
+
+/* Contact Info */
+.contact-info p {
+  font-size: 1.2em;
+  color: #fff;
+  margin: 8px 0;
+}
+.contact-info .contact-text {
+  color: #ff0;
+  font-weight: bold;
+}
+.whatsapp-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #25d366;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+.whatsapp-btn:hover {
+  background-color: #1ebe57;
+}
+</style>
+
+<script>
+// Counter Animation
+const counters = document.querySelectorAll('.counter');
+const speed = 200; // lower = faster
+
+const animateCounters = () => {
+  counters.forEach(counter => {
+    const updateCount = () => {
+      const target = +counter.getAttribute('data-target');
+      const count = +counter.innerText;
+      const increment = target / speed;
+
+      if(count < target) {
+        counter.innerText = Math.ceil(count + increment);
+        setTimeout(updateCount, 20);
+      } else {
+        counter.innerText = target;
+      }
+    };
+    updateCount();
+  });
+};
+
+// Trigger on scroll
+let statsSection = document.querySelector('.career-stats');
+let hasAnimated = false;
+window.addEventListener('scroll', () => {
+  const sectionTop = statsSection.getBoundingClientRect().top;
+  const screenHeight = window.innerHeight;
+  if(sectionTop < screenHeight && !hasAnimated){
+    animateCounters();
+    hasAnimated = true;
+  }
+});
+</script>
 
 <script>  
     // Preloader fade-out
