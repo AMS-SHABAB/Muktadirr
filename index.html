@@ -92,7 +92,7 @@
     overflow:hidden;
   }
 
-  /* Mosaic background */
+  /* Mosaic background with "MS" pattern */
   .mosaic{
     position:absolute; inset:0; display:grid;
     grid-template-columns: repeat(18, 1fr);
@@ -101,12 +101,16 @@
     background:#000;
     z-index:1;
   }
-  .tile{ background:#ff3b3b; }
+  .tile{ background:#222; opacity:0.6; }
 
   /* Portrait */
   .subject{
     position:absolute; left:0; bottom:0;
-    z-index:3; max-width:520px;
+    z-index:3; 
+    max-width:720px; /* Increased size */
+    width:44vw;
+    min-width:320px;
+    transition: max-width .3s, width .3s;
   }
   .subject img{ width:100%; height:auto; display:block; }
 
@@ -117,54 +121,60 @@
     z-index:4;
   }
 
-  /* Hero words - watermarked glassmorphism */
-  .bg-words{
-    position:absolute; inset:0; z-index:2;
-    display:grid; place-items:center;
-    pointer-events:none;
-  }
-  .bg-words h1{
-    margin:0; line-height:.9; text-transform:uppercase;
-    font-family:'Oswald', sans-serif;
-    font-weight:800; letter-spacing:.05em;
-    font-size:min(26vw, 330px);
-
-    color:rgba(255,255,255,0.24);
-    /* Glass effect */
-    background: linear-gradient(107deg,rgba(255,255,255,0.34) 25%,rgba(0,212,255,0.08) 85%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    backdrop-filter: blur(7px);
-    filter: drop-shadow(0 8px 30px #000b) drop-shadow(0 0 0 #fff) blur(0.5px);
-    /* Sharp shadow with contrast */
-    text-shadow:
-      0 8px 50px #000c,
-      0 2px 14px #fff4,
-      0 0 1px #fff,
-      0 1px 0 #0ef6;
-    border-radius:18px;
-    padding:0 .1em;
-    /* More glassmorphism */
-    box-shadow:0 4px 32px 0 #0ff4,0 0 0 2px #fff2;
-    backdrop-filter:blur(7px);
-    opacity:0.92;
-    pointer-events:none;
-  }
-
-  /* Move the "I'm Muktadir Shabab" to upright side and break into 3 words */
+  /* Upright About Text - moved down, bigger */
   .upright-copy{
-    position:absolute; top:5.5%; right:5%; z-index:5;
-    max-width:520px; text-align:right;
-    display:flex; flex-direction:column; gap:0.1em;
+    position:absolute; 
+    top:16%; /* moved down */
+    right:5%; 
+    z-index:5;
+    max-width:570px; 
+    text-align:right;
+    display:flex; flex-direction:column; gap:0.15em;
+    filter: none;
   }
   .upright-copy .word{
     font-family:'Oswald', sans-serif; font-weight:700;
-    font-size:clamp(38px, 5vw, 70px);
+    font-size:clamp(46px, 7vw, 92px);
     text-transform:uppercase;
     letter-spacing:.04em;
     line-height:1;
     color:#fff;
-    text-shadow: 0 0 16px #0ef7, 0 4px 22px #0008, 0 2px 0 #fff6;
+    text-shadow: 0 0 20px #0ef7, 0 6px 30px #0008, 0 2px 0 #fff6;
+  }
+  .about-btn{
+    display:inline-block; padding:15px 28px;
+    border-radius:12px; color:#fff; font-weight:700;
+    font-size:clamp(18px,2vw,28px);
+    backdrop-filter:blur(14px);
+    background:rgba(0,0,0,0.7);
+    text-decoration:none;
+    margin-top:.8em;
+    margin-bottom:.8em;
+    box-shadow:0 8px 48px 0 #00f2,0 2px 14px #fff2;
+    transition:.3s;
+  }
+  .about-btn:hover{ background:rgba(0,0,0,0.8); color:#0ef; }
+
+  .about-block{
+    position:relative;
+    display:inline-block;
+    margin-bottom:1em;
+    border-radius:22px;
+    background:rgba(10,18,40,0.58);
+    box-shadow:
+      0 6px 48px 0 #0ef6,
+      0 2px 26px 0 #000c,
+      0 2px 18px #fff2;
+    padding:2.1em 2.2em 1.3em 2em;
+    backdrop-filter:blur(27px);
+  }
+  .about{
+    font-size:clamp(20px,2vw,32px);
+    color:#e2f6ff;
+    line-height:1.5;
+    font-weight:600;
+    text-shadow:0 7px 42px #000c,0 1px 0 #fff8;
+    margin:0;
   }
 
   /* Hide old .copy section */
@@ -172,36 +182,28 @@
     display:none;
   }
 
-  /* About button with blurred bg */
-  .about-btn{
-    display:inline-block; padding:10px 20px;
-    border-radius:8px; color:#fff; font-weight:600;
-    backdrop-filter:blur(10px);
-    background:rgba(0,0,0,0.6);
-    text-decoration:none;
-    transition:.3s;
-    margin-top:1em;
-  }
-  .about-btn:hover{ background:rgba(0,0,0,0.8); }
-
   /* Social Icons */
   .social{
     position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
-    z-index:6; display:flex; gap:24px;
+    z-index:6; display:flex; gap:32px;
   }
   .social a{
-    color:#fff; font-size:22px; transition:.3s;
+    color:#fff; font-size:28px; transition:.3s;
   }
   .social a:hover{ color:#0ef; transform:translateY(-4px); }
 
+  @media(max-width:1200px){
+    .subject { max-width:520px; width:60vw;}
+    .upright-copy { max-width:390px;}
+  }
   @media(max-width:900px){
-    .subject { max-width:320px; }
-    .upright-copy { max-width:320px; right:3%; }
+    .subject { max-width:360px; width:55vw;}
+    .upright-copy { max-width:290px; right:3%; }
   }
   @media(max-width:600px){
-    .upright-copy { right:2%; top:3%; }
-    .bg-words h1{ font-size:20vw; }
+    .upright-copy { right:2%; top:13%;}
     .menu{ width:92vw; padding-right:8vw; }
+    .subject { max-width:220px; width:87vw;}
   }
 </style>
 </head>
@@ -228,11 +230,6 @@
   <!-- Mosaic background -->
   <div class="mosaic" id="mosaic"></div>
 
-  <!-- Hero words -->
-  <div class="bg-words">
-    <h1>TRUST</h1>
-  </div>
-
   <!-- Portrait -->
   <div class="subject">
     <img src="https://res.cloudinary.com/dxiwnqpja/image/upload/v1756018397/IMG-20241015-WA0267_edit_161520040162857_og5b59.png" alt="Muktadir portrait">
@@ -244,9 +241,11 @@
     <span class="word">MUKTADIR</span>
     <span class="word">SHABAB</span>
     <a href="#" class="about-btn">About Me</a>
-    <p class="about" style="color:#dde; font-size:clamp(14px,1.4vw,18px); line-height:1.5; margin-bottom:.8em; margin-top:.7em;">
-      Artist & designer exploring color, rhythm, and type. Building bold visual stories where trust meets curiosity.
-    </p>
+    <div class="about-block">
+      <p class="about">
+        Artist & designer exploring color, rhythm, and type. Building bold visual stories where trust meets curiosity.
+      </p>
+    </div>
   </div>
 
   <!-- Fade -->
@@ -277,20 +276,57 @@
     });
   });
 
-  // Generate mosaic
+  // Generate mosaic in "MS" pattern
   (function () {
-    const palette = ["#ff3b3b","#ffb703","#00c2ff","#2dd4bf","#fb7185","#fde047","#60a5fa","#22d3ee","#f97316","#a78bfa","#b6e3c7","#414b58","#d1d5db","#111827","#f43f5e","#10b981","#f59e0b","#0891b2"];
+    // "MS" pattern as a bitmap (1 = colored tile, 0 = dark tile)
+    // Each row is an array of 18, each col is one tile
+    const pattern = [
+      // M
+      [1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0],
+      [1,1,0,1,0,0,0,0,0,0,0,1,1,0,1,1,0,0],
+      [1,0,1,1,0,0,0,0,0,0,1,0,1,1,0,0,0,0],
+      [1,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0],
+      [1,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0],
+      [1,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0],
+      [1,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0],
+      [1,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0],
+      [1,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0],
+      [1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0],
+      // S
+      [0,0,0,1,1,1,1,1,0,0,0,0,1,1,1,1,1,0],
+      [0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1],
+      [0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1],
+      [0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],
+      [0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0],
+      [0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0],
+      [0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0],
+    ];
+    const palette = ["#ff3b3b","#ffb703","#00c2ff","#f97316","#a78bfa","#10b981"];
     const grid = document.getElementById("mosaic");
     const cols = 18, rows = 28;
     const total = cols * rows;
-    for (let i = 0; i < total; i++) {
+    // Fill pattern first (top)
+    for(let row=0; row<pattern.length; row++){
+      for(let col=0; col<cols; col++){
+        const el = document.createElement("div");
+        el.className = "tile";
+        if(pattern[row][col] === 1){
+          el.style.background = palette[(col+row)%palette.length];
+          el.style.opacity = "0.82";
+        }
+        else{
+          el.style.background = "#222";
+          el.style.opacity = "0.35";
+        }
+        grid.appendChild(el);
+      }
+    }
+    // Fill remaining with random pattern
+    for (let i = pattern.length*cols; i < total; i++) {
       const el = document.createElement("div");
       el.className = "tile";
       el.style.background = palette[(Math.random() * palette.length) | 0];
-      const r = Math.random();
-      if (r > 0.92) { el.style.gridColumn = "span 3"; el.style.gridRow = "span 2"; }
-      else if (r > 0.84) { el.style.gridColumn = "span 2"; el.style.gridRow = "span 2"; }
-      else if (r > 0.74) { el.style.gridColumn = "span 2"; }
+      el.style.opacity = "0.32";
       grid.appendChild(el);
     }
   })();
