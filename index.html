@@ -25,45 +25,65 @@
   nav{
     position:absolute; top:0; left:0; right:0;
     display:flex; justify-content:space-between; align-items:center;
-    padding:14px 28px; z-index:10;
+    padding:14px 28px;
+    z-index:10;
   }
   .logo{
     font-family:'Oswald', sans-serif;
     font-weight:200; letter-spacing:.06em;
     font-size:1.5rem; color:#fff;
   }
-
-  /* Apple-style Hamburger */
   .hamburger{
-    width:28px; height:20px; display:flex; flex-direction:column;
-    justify-content:space-between; cursor:pointer; position:relative;
+    width:28px; height:18px; display:flex; flex-direction:column;
+    justify-content:space-between; cursor:pointer;
+    z-index:20;
   }
   .hamburger span{
-    display:block; height:2px; background:#fff; border-radius:2px;
-    transition: all 0.3s ease;
+    display:block; height:2px; background:#fff; border-radius:2px; transition:.3s;
   }
   .hamburger.active span:nth-child(1){
-    transform: rotate(45deg) translateY(8px);
+    transform:translateY(8px) rotate(45deg);
   }
   .hamburger.active span:nth-child(2){
-    opacity:0;
-  }
-  .hamburger.active span:nth-child(3){
-    transform: rotate(-45deg) translateY(-8px);
+    transform:translateY(-8px) rotate(-45deg);
   }
 
-  /* Mobile Menu */
+  /* Apple style menu */
   .menu{
-    position:absolute; top:100%; right:28px;
-    background:rgba(0,0,0,0.85); backdrop-filter:blur(12px);
-    border-radius:12px; overflow:hidden;
-    display:none; flex-direction:column;
+    position:fixed; top:0; right:0; width:220px; height:100vh;
+    background:rgba(18,20,26,0.92);
+    backdrop-filter: blur(22px);
+    box-shadow:-4px 0 24px 0 #0006;
+    z-index:19;
+    display:flex; flex-direction:column;
+    align-items:flex-end;
+    padding:45px 32px 0 32px;
+    transform:translateX(110%);
+    opacity:0; pointer-events:none;
+    transition:.35s cubic-bezier(.76,.01,.32,1);
+  }
+  .menu.active{
+    transform:translateX(0);
+    opacity:1; pointer-events:all;
+  }
+  .menu ul{
+    list-style:none; padding:0; margin:0; width:100%;
+  }
+  .menu li{
+    margin-bottom:24px; width:100%;
   }
   .menu a{
-    color:#fff; padding:12px 20px; text-decoration:none;
-    font-weight:500; transition:.2s;
+    color:#fff; font-family:'Oswald',sans-serif;
+    font-size:1.24rem; font-weight:500; text-decoration:none;
+    display:block; padding:6px 0; border-radius:6px;
+    transition:.28s;
+    letter-spacing:.1em;
   }
-  .menu a:hover{ background:rgba(255,255,255,0.1); }
+  .menu a:hover{
+    background:rgba(255,255,255,0.1);
+    color:#0ef;
+    padding-left:12px;
+  }
 
   /* POSTER WRAP */
   .poster{
@@ -97,39 +117,59 @@
     z-index:4;
   }
 
-  /* Hero words (Glassmorphism & Shadow) */
+  /* Hero words - watermarked glassmorphism */
   .bg-words{
-    position:absolute; top:5%; right:5%; z-index:2;
-    display:flex; flex-direction:column; align-items:flex-end;
-    backdrop-filter:blur(12px);
+    position:absolute; inset:0; z-index:2;
+    display:grid; place-items:center;
+    pointer-events:none;
   }
-  .bg-words span{
+  .bg-words h1{
+    margin:0; line-height:.9; text-transform:uppercase;
     font-family:'Oswald', sans-serif;
     font-weight:800; letter-spacing:.05em;
-    text-transform:uppercase;
-    color:rgba(255,255,255,0.15);
-    font-size:clamp(36px,8vw,120px);
-    text-shadow: 0 0 15px rgba(0,0,0,0.5), 0 0 35px rgba(0,0,0,0.7);
+    font-size:min(26vw, 330px);
+
+    color:rgba(255,255,255,0.24);
+    /* Glass effect */
+    background: linear-gradient(107deg,rgba(255,255,255,0.34) 25%,rgba(0,212,255,0.08) 85%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    backdrop-filter: blur(7px);
+    filter: drop-shadow(0 8px 30px #000b) drop-shadow(0 0 0 #fff) blur(0.5px);
+    /* Sharp shadow with contrast */
+    text-shadow:
+      0 8px 50px #000c,
+      0 2px 14px #fff4,
+      0 0 1px #fff,
+      0 1px 0 #0ef6;
+    border-radius:18px;
+    padding:0 .1em;
+    /* More glassmorphism */
+    box-shadow:0 4px 32px 0 #0ff4,0 0 0 2px #fff2;
+    backdrop-filter:blur(7px);
+    opacity:0.92;
+    pointer-events:none;
   }
 
-  /* Text / About */
-  .copy{
-    position:absolute; right:6%; bottom:10%; z-index:5;
-    max-width:500px; text-align:right;
+  /* Move the "I'm Muktadir Shabab" to upright side and break into 3 words */
+  .upright-copy{
+    position:absolute; top:5.5%; right:5%; z-index:5;
+    max-width:520px; text-align:right;
+    display:flex; flex-direction:column; gap:0.1em;
   }
-  .name{
+  .upright-copy .word{
     font-family:'Oswald', sans-serif; font-weight:700;
-    font-size:clamp(36px, 5vw, 70px);
-    margin:.2em 0;
+    font-size:clamp(38px, 5vw, 70px);
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    line-height:1;
+    color:#fff;
+    text-shadow: 0 0 16px #0ef7, 0 4px 22px #0008, 0 2px 0 #fff6;
   }
-  .title{
-    font-family:'Oswald', sans-serif; font-weight:500;
-    font-size:clamp(24px, 4vw, 42px); margin-bottom:.3em;
-  }
-  .about{
-    font-size:clamp(14px,1.4vw,18px);
-    margin-bottom:1.2em;
-    line-height:1.5;
+
+  /* Hide old .copy section */
+  .copy{
+    display:none;
   }
 
   /* About button with blurred bg */
@@ -140,6 +180,7 @@
     background:rgba(0,0,0,0.6);
     text-decoration:none;
     transition:.3s;
+    margin-top:1em;
   }
   .about-btn:hover{ background:rgba(0,0,0,0.8); }
 
@@ -153,6 +194,15 @@
   }
   .social a:hover{ color:#0ef; transform:translateY(-4px); }
 
+  @media(max-width:900px){
+    .subject { max-width:320px; }
+    .upright-copy { max-width:320px; right:3%; }
+  }
+  @media(max-width:600px){
+    .upright-copy { right:2%; top:3%; }
+    .bg-words h1{ font-size:20vw; }
+    .menu{ width:92vw; padding-right:8vw; }
+  }
 </style>
 </head>
 <body>
@@ -160,15 +210,19 @@
 <nav>
   <div class="logo">Muktadir</div>
   <div class="hamburger" id="hamburger">
-    <span></span><span></span><span></span>
-  </div>
-  <div class="menu" id="menu">
-    <a href="#">Home</a>
-    <a href="#">Portfolio</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
+    <span></span><span></span>
   </div>
 </nav>
+
+<!-- Apple-style hamburger menu -->
+<div class="menu" id="menu">
+  <ul>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Portfolio</a></li>
+    <li><a href="#">Projects</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</div>
 
 <div class="poster">
   <!-- Mosaic background -->
@@ -176,10 +230,7 @@
 
   <!-- Hero words -->
   <div class="bg-words">
-    <span>I'M</span>
-    <span>TRUST</span>
-    <span>MUKTADIR</span>
-    <span>SHABAB</span>
+    <h1>TRUST</h1>
   </div>
 
   <!-- Portrait -->
@@ -187,12 +238,15 @@
     <img src="https://res.cloudinary.com/dxiwnqpja/image/upload/v1756018397/IMG-20241015-WA0267_edit_161520040162857_og5b59.png" alt="Muktadir portrait">
   </div>
 
-  <!-- Copy -->
-  <div class="copy">
-    <p class="title">I’M</p>
-    <h3 class="name">Muktadir Shabab</h3>
-    <p class="about">Artist & designer exploring color, rhythm, and type. Building bold visual stories where trust meets curiosity.</p>
+  <!-- Upright About Text -->
+  <div class="upright-copy">
+    <span class="word">I'M</span>
+    <span class="word">MUKTADIR</span>
+    <span class="word">SHABAB</span>
     <a href="#" class="about-btn">About Me</a>
+    <p class="about" style="color:#dde; font-size:clamp(14px,1.4vw,18px); line-height:1.5; margin-bottom:.8em; margin-top:.7em;">
+      Artist & designer exploring color, rhythm, and type. Building bold visual stories where trust meets curiosity.
+    </p>
   </div>
 
   <!-- Fade -->
@@ -208,6 +262,21 @@
 </div>
 
 <script>
+  // Hamburger menu toggle
+  const hamburger = document.getElementById("hamburger");
+  const menu = document.getElementById("menu");
+  hamburger.addEventListener("click", function(){
+    hamburger.classList.toggle("active");
+    menu.classList.toggle("active");
+  });
+  // Optional: close menu when clicking menu link
+  menu.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      hamburger.classList.remove("active");
+      menu.classList.remove("active");
+    });
+  });
+
   // Generate mosaic
   (function () {
     const palette = ["#ff3b3b","#ffb703","#00c2ff","#2dd4bf","#fb7185","#fde047","#60a5fa","#22d3ee","#f97316","#a78bfa","#b6e3c7","#414b58","#d1d5db","#111827","#f43f5e","#10b981","#f59e0b","#0891b2"];
@@ -225,14 +294,6 @@
       grid.appendChild(el);
     }
   })();
-
-  // Hamburger toggle
-  const hamburger = document.getElementById('hamburger');
-  const menu = document.getElementById('menu');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-  });
 </script>
 </body>
 </html>
