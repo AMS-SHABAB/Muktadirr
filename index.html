@@ -22,6 +22,9 @@
       --nav-radius: 50px;
       --menu-radius: 20px;
       --preloader-size: 70px;
+      --profile-img-size-mobile: 180px;
+      --profile-img-size-desktop: 320px;
+      --nav-logo-img-size: 48px;
     }
 
     html, body {
@@ -120,18 +123,26 @@
       justify-content: center;
       margin-right: 12px;
       border: 1.5px solid var(--yellow);
-      width: 42px;
-      height: 42px;
+      width: var(--nav-logo-img-size);
+      height: var(--nav-logo-img-size);
       position: relative;
       overflow: hidden;
       box-shadow: 0 0 0 2px rgba(255,192,0,0.06);
+      min-width: var(--nav-logo-img-size);
+      min-height: var(--nav-logo-img-size);
+      max-width: var(--nav-logo-img-size);
+      max-height: var(--nav-logo-img-size);
     }
     .shab-nav-logo-img {
-      width: 36px;
-      height: 36px;
+      width: calc(var(--nav-logo-img-size) - 8px);
+      height: calc(var(--nav-logo-img-size) - 8px);
       object-fit: cover;
       border-radius: 50%;
       display: block;
+      min-width: calc(var(--nav-logo-img-size) - 8px);
+      min-height: calc(var(--nav-logo-img-size) - 8px);
+      max-width: calc(var(--nav-logo-img-size) - 8px);
+      max-height: calc(var(--nav-logo-img-size) - 8px);
     }
     .shab-nav-name {
       font-family: 'Montserrat', Arial, sans-serif;
@@ -156,15 +167,45 @@
       justify-content: center;
       align-items: center;
       z-index: 110;
+      position: relative;
     }
+    .shab-nav-hamburger-lines {
+      width: 26px;
+      height: 20px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    /* Thin 2-line hamburger (Apple style) */
     .shab-nav-hamburger-bar {
-      width: 24px;
-      height: 2.4px;
+      width: 100%;
+      height: 2.5px;
       background: #fff;
-      margin: 3.5px 0;
       border-radius: 2px;
-      transition: background .2s;
+      transition: transform .37s cubic-bezier(.68,-0.55,.27,1.55), opacity .24s, background .2s;
+      position: absolute;
+      left: 0; 
     }
+    .shab-nav-hamburger-bar.top {
+      top: 3px;
+    }
+    .shab-nav-hamburger-bar.bottom {
+      top: 14px;
+    }
+    /* Hamburger to X animation */
+    .shab-nav-hamburger.open .shab-nav-hamburger-bar.top {
+      transform: translateY(5.5px) rotate(45deg);
+    }
+    .shab-nav-hamburger.open .shab-nav-hamburger-bar.bottom {
+      transform: translateY(-5.5px) rotate(-45deg);
+    }
+    .shab-nav-hamburger.open .shab-nav-hamburger-bar {
+      background: var(--yellow);
+    }
+    /* Hide the middle bar for 2-line icon */
+    /* Nav menu */
     .shab-nav-menu-list {
       position: fixed;
       top: 0;
@@ -315,12 +356,13 @@
       margin: 15px 0 8px 0;
     }
     .shab-hero-profile-img {
-      width: 138px;
-      height: 138px;
+      width: var(--profile-img-size-mobile);
+      height: var(--profile-img-size-mobile);
       object-fit: cover;
       border-radius: 10%;
       box-shadow: 0 8px 32px 0 rgba(0,0,0,0.12);
       display: block;
+      transition: width 0.2s, height 0.2s;
     }
     .shab-hero-desc {
       font-family: 'Oswald', Arial, sans-serif;
@@ -412,8 +454,8 @@
         padding: 0 34px;
       }
       .shab-hero-profile-img {
-        width: 240px;
-        height: 240px;
+        width: var(--profile-img-size-desktop);
+        height: var(--profile-img-size-desktop);
         border-radius: 10%;
       }
       .shab-hero-col-right {
@@ -471,8 +513,10 @@
       </span>
       <span class="shab-nav-name">Muktadir Shabab</span>
       <button class="shab-nav-hamburger" aria-label="Open navigation menu" tabindex="0">
-        <span class="shab-nav-hamburger-bar"></span>
-        <span class="shab-nav-hamburger-bar"></span>
+        <span class="shab-nav-hamburger-lines">
+          <span class="shab-nav-hamburger-bar top"></span>
+          <span class="shab-nav-hamburger-bar bottom"></span>
+        </span>
       </button>
     </div>
     <div class="shab-nav-menu-list" id="shabNavMenuList">
@@ -535,6 +579,7 @@
       hamburger.addEventListener('click', function() {
         menuOpen = !menuOpen;
         menuList.classList.toggle('open', menuOpen);
+        hamburger.classList.toggle('open', menuOpen);
         document.body.style.overflow = menuOpen ? 'hidden' : '';
       });
     }
@@ -543,6 +588,7 @@
       item.addEventListener('click', function() {
         menuOpen = false;
         menuList.classList.remove('open');
+        hamburger.classList.remove('open');
         document.body.style.overflow = '';
       });
     });
@@ -551,6 +597,7 @@
       if (e.key === "Escape" && menuOpen) {
         menuOpen = false;
         menuList.classList.remove('open');
+        hamburger.classList.remove('open');
         document.body.style.overflow = '';
       }
     });
