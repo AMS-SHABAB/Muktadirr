@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:300&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Oswald:400,700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Oswald+Condensed:700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Protest+Guerrilla&display=swap" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -19,23 +18,56 @@
       --deep-gold: #E49B0F;
       --orange: #FFAA33;
       --glass-bg: rgba(30, 30, 30, 0.75);
-      --nav-radius: 50px;
+      --nav-radius: 36px;
       --menu-radius: 20px;
       --preloader-size: 70px;
-      --profile-img-size-mobile: 280px;
+      --profile-img-size-mobile-height: 280px;
+      --profile-img-size-mobile-width: 70vw;
       --profile-img-size-desktop: 320px;
-      --nav-logo-img-size: 48px;
+      --nav-logo-img-size: 38px;
     }
 
-    html, body {
-      height: 100%;
+    /* Noisy background animation */
+    body, html {
+      min-height: 100vh;
       margin: 0;
       padding: 0;
-      background: #000;
-      font-family: 'Montserrat', Arial, sans-serif;
       box-sizing: border-box;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      background: url('https://grainy-gradients.vercel.app/noise.svg'), #000;
+      opacity: 0.19;
+      animation: shab-noise-anim 0.7s steps(2) infinite;
+      mix-blend-mode: screen;
+    }
+    @keyframes shab-noise-anim {
+      0% {background-position:0 0;}
+      10% {background-position:5% 10%;}
+      20% {background-position:15% 5%;}
+      30% {background-position:7% 20%;}
+      40% {background-position:20% 15%;}
+      50% {background-position:15% 25%;}
+      60% {background-position:25% 15%;}
+      70% {background-position:30% 25%;}
+      80% {background-position:25% 30%;}
+      90% {background-position:40% 35%;}
+      100% {background-position:0 0;}
+    }
+
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: #000;
       min-height: 100vh;
       overflow-x: hidden;
+      position: relative;
+      z-index: 1;
     }
     body.loaded .shab-m-preloader {
       opacity: 0;
@@ -64,7 +96,7 @@
       justify-content: center;
     }
     .shab-m-preloader-m {
-      font-family: 'UnifrakturMaguntia', cursive;
+      font-family: 'Protest Guerrilla', cursive;
       font-size: 3.5rem;
       color: var(--yellow);
       position: relative;
@@ -92,18 +124,20 @@
 
     /* Nav Bar */
     .shab-nav {
-      width: 94vw;
-      margin: 18px auto 0 auto;
+      width: 88vw;
+      margin: 12px auto 0 auto;
       background: var(--glass-bg);
       border-radius: var(--nav-radius);
       box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 7px 0;
+      padding: 3px 0;
       position: relative;
       z-index: 10;
-      backdrop-filter: blur(12px);
+      min-height: 40px;
+      max-width: 500px;
+      backdrop-filter: blur(15px);
       border: 1px solid rgba(255,255,255,0.09);
       transition: all .3s;
     }
@@ -114,6 +148,7 @@
       width: 100%;
       justify-content: center;
       position: relative;
+      min-height: 40px;
     }
     .shab-nav-logo-wrap {
       background: rgba(22,22,22,0.55);
@@ -121,17 +156,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-right: 12px;
-      border: 1.5px solid var(--yellow);
+      margin-right: 10px;
+      border: 1.2px solid var(--yellow);
       width: var(--nav-logo-img-size);
       height: var(--nav-logo-img-size);
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 0 0 2px rgba(255,192,0,0.06);
       min-width: var(--nav-logo-img-size);
       min-height: var(--nav-logo-img-size);
       max-width: var(--nav-logo-img-size);
       max-height: var(--nav-logo-img-size);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 0 1.5px rgba(255,192,0,0.09);
     }
     .shab-nav-logo-img {
       width: calc(var(--nav-logo-img-size) - 8px);
@@ -139,26 +174,47 @@
       object-fit: cover;
       border-radius: 50%;
       display: block;
-      min-width: calc(var(--nav-logo-img-size) - 8px);
-      min-height: calc(var(--nav-logo-img-size) - 8px);
-      max-width: calc(var(--nav-logo-img-size) - 8px);
-      max-height: calc(var(--nav-logo-img-size) - 8px);
     }
-    .shab-nav-name {
-      font-family: 'Montserrat', Arial, sans-serif;
-      font-size: 1rem;
+    .shab-nav-status {
+      display: flex;
+      align-items: center;
+      margin-left: 7px;
+      gap: 8px;
+    }
+    .shab-nav-dot {
+      width: 9px;
+      height: 9px;
+      background: #00FF3C;
+      border-radius: 50%;
+      margin-right: 3px;
+      box-shadow: 0 0 7px 2px #00ff5190;
+      animation: shab-dot-blink 1.2s infinite alternate;
+      border: 1.5px solid #fff2;
+      display: inline-block;
+    }
+    @keyframes shab-dot-blink {
+      from { opacity: 1; box-shadow: 0 0 7px 2px #00ff5190;}
+      60%  { opacity: 1;}
+      70%  { opacity: 0.7;}
+      80%  { opacity: 0.2;}
+      to   { opacity: 0.8; box-shadow: 0 0 10px 4px #00ff5133;}
+    }
+    .shab-nav-status-text {
       color: #fff;
-      letter-spacing: 0.04em;
-      margin: 0 8px;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 300;
+      font-size: 0.95rem;
+      letter-spacing: 0.03em;
+      margin: 0;
       white-space: nowrap;
-      transition: color .2s;
+      opacity: 0.87;
     }
     .shab-nav-hamburger {
       margin-left: auto;
-      margin-right: 12px;
+      margin-right: 8px;
       cursor: pointer;
-      width: 38px;
-      height: 38px;
+      width: 34px;
+      height: 34px;
       border: none;
       background: none;
       display: flex;
@@ -169,42 +225,40 @@
       position: relative;
     }
     .shab-nav-hamburger-lines {
-      width: 26px;
-      height: 15px;
+      width: 21px;
+      height: 16px;
       position: relative;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
     }
-    /* Thin 2-line hamburger (Apple style) */
     .shab-nav-hamburger-bar {
       width: 100%;
-      height: 2.5px;
+      height: 2px;
       background: #fff;
       border-radius: 2px;
       transition: transform .37s cubic-bezier(.68,-0.55,.27,1.55), opacity .24s, background .2s;
       position: absolute;
-      left: 0; 
+      left: 0;
     }
     .shab-nav-hamburger-bar.top {
-      top: 3px;
+      top: 2px;
     }
     .shab-nav-hamburger-bar.bottom {
-      top: 14px;
+      top: 11px;
     }
-    /* Hamburger to X animation */
     .shab-nav-hamburger.open .shab-nav-hamburger-bar.top {
-      transform: translateY(5.5px) rotate(45deg);
+      transform: translateY(4.8px) rotate(45deg);
+      background: var(--yellow);
     }
     .shab-nav-hamburger.open .shab-nav-hamburger-bar.bottom {
-      transform: translateY(-5.5px) rotate(-45deg);
+      transform: translateY(-4.8px) rotate(-45deg);
+      background: var(--yellow);
     }
     .shab-nav-hamburger.open .shab-nav-hamburger-bar {
       background: var(--yellow);
     }
-    /* Hide the middle bar for 2-line icon */
-    /* Nav menu */
     .shab-nav-menu-list {
       position: fixed;
       top: 0;
@@ -254,6 +308,8 @@
         justify-content: flex-start;
         padding: 8px 38px;
         min-height: 67px;
+        max-width: 1400px;
+        width: 94vw;
       }
       .shab-nav-mobile { display: none; }
       .shab-nav-desktop {
@@ -280,6 +336,7 @@
         margin-left: 8px;
         box-shadow: 0 0 7px 1.5px #00ff5160;
         border: 1px solid #fff1;
+        animation: shab-dot-blink 1.2s infinite alternate;
       }
       .shab-nav-desk-gap {
         width: 38px;
@@ -316,8 +373,8 @@
 
     /* Hero Section */
     .shab-hero {
-      margin-top: 34px;
-      padding: 0 10vw;
+      margin-top: 27px;
+      padding: 0 2vw;
       width: 100vw;
       box-sizing: border-box;
       display: flex;
@@ -327,7 +384,7 @@
     }
     /* Mobile/Tablet Hero */
     .shab-hero-name {
-      font-family: 'Montserrat', Arial, sans-serif;
+      font-family: 'Protest Guerrilla', cursive;
       font-size: 1.4rem;
       color: #fff;
       margin: 0;
@@ -341,7 +398,7 @@
     }
     .shab-hero-artist, .shab-hero-writer {
       font-family: 'Protest Guerrilla', cursive;
-      font-size: 4rem;
+      font-size: 2.2rem;
       color: #fff;
       margin: 8px 0 0 0;
       letter-spacing: 0.03em;
@@ -352,16 +409,21 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 15px 0 8px 0;
+      margin: 18px 0 8px 0;
+      width: 100%;
     }
     .shab-hero-profile-img {
-      width: 70%;
-      height: var(--profile-img-size-mobile);
+      height: var(--profile-img-size-mobile-height);
+      width: var(--profile-img-size-mobile-width);
+      max-width: 420px;
+      min-width: 160px;
       object-fit: cover;
       border-radius: 10%;
       box-shadow: 0 8px 32px 0 rgba(0,0,0,0.12);
       display: block;
       transition: width 0.2s, height 0.2s;
+      background: #111;
+      margin: 0 auto;
     }
     .shab-hero-desc {
       font-family: 'Oswald', Arial, sans-serif;
@@ -508,9 +570,12 @@
     <!-- Mobile/Tablet Nav -->
     <div class="shab-nav-mobile">
       <span class="shab-nav-logo-wrap">
-        <img class="shab-nav-logo-img" src="https://res.cloudinary.com/dxiwnqpja/image/upload/v1756050790/IMG-20250506-WA0006_edit_161746897197332_mk3u4p.jpg" alt="Muktadir Shabab Logo">
+        <img class="shab-nav-logo-img" src="https://res.cloudinary.com/dxiwnqpja/image/upload/v1756050794/IMG-20241015-WA0267_edit_161520040162857_egvy8i.jpg" alt="Muktadir Shabab Logo">
       </span>
-      <span class="shab-nav-name">Available for Work.</span>
+      <span class="shab-nav-status">
+        <span class="shab-nav-dot"></span>
+        <span class="shab-nav-status-text">available for work</span>
+      </span>
       <button class="shab-nav-hamburger" aria-label="Open navigation menu" tabindex="0">
         <span class="shab-nav-hamburger-lines">
           <span class="shab-nav-hamburger-bar top"></span>
@@ -546,7 +611,7 @@
     </div>
     <div class="shab-hero-col-center">
       <div class="shab-hero-profile-img-wrap">
-        <img class="shab-hero-profile-img" src="https://res.cloudinary.com/dxiwnqpja/image/upload/v1756050790/IMG-20250506-WA0006_edit_161746897197332_mk3u4p.jpg" alt="Muktadir Shabab">
+        <img class="shab-hero-profile-img" src="https://res.cloudinary.com/dxiwnqpja/image/upload/v1756050771/PXL_20241014_153826676_edit_173152067985781_gvgsl5.jpg" alt="Muktadir Shabab">
       </div>
     </div>
     <div class="shab-hero-col-right">
