@@ -36,7 +36,7 @@
   .hamburger{
     width:28px; height:18px; display:flex; flex-direction:column;
     justify-content:space-between; cursor:pointer;
-    z-index:20;
+    z-index:1000;
     transition: .4s cubic-bezier(.76,.01,.32,1);
   }
   .hamburger span{
@@ -62,11 +62,11 @@
   /* Remove the separate close icon */
   /* Apple style menu */
   .menu{
-    position:fixed; top:0; right:0; width:220px; height:100vh;
+    position:fixed; top:0px; right:0; width:220px; height:100vh;
     background:rgba(18,20,26,0.92);
     backdrop-filter: blur(22px);
     box-shadow:-4px 0 24px 0 #0006;
-    z-index:19;
+    z-index:900;
     display:flex; flex-direction:column;
     align-items:flex-end;
     padding:45px 32px 0 32px;
