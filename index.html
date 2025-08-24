@@ -6,7 +6,7 @@
 <title>Trust Poster</title>
 
 <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;500;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
 <!-- Font Awesome for social icons and close icon -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -91,16 +91,22 @@
     margin-bottom:24px; width:100%;
   }
   .menu a{
-    color:#fff; font-family:'Oswald',sans-serif;
-    font-size:1.24rem; font-weight:500; text-decoration:none;
+    color:#fff;
+    font-family:'Montserrat',sans-serif;
+    font-weight:700;
+    font-size:1.24rem;
+    text-decoration:none;
     display:block; padding:6px 0; border-radius:6px;
     transition:.28s;
     letter-spacing:.1em;
+    background: none;
   }
-  .menu a:hover{
-    background:rgba(255,255,255,0.1);
-    color:#0ef;
+  .menu a:hover,
+  .menu a:focus {
+    background:rgba(255,255,255,0.10);
+    color:#ff3b3b;
     padding-left:12px;
+    transition:.2s;
   }
 
   /* POSTER WRAP */
@@ -170,6 +176,7 @@
     margin-bottom:.8em;
     box-shadow:0 8px 48px 0 #00f2,0 2px 14px #fff2;
     transition:.3s;
+    font-family:'Montserrat',sans-serif;
   }
   .about-btn:hover{ background:rgba(0,0,0,0.8); color:#0ef; }
 
@@ -187,6 +194,7 @@
     backdrop-filter:blur(27px);
   }
   .about{
+    font-family:'Montserrat',sans-serif;
     font-size:clamp(20px,2vw,32px);
     color:#e2f6ff;
     line-height:1.5;
