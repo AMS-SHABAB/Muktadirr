@@ -1,243 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- SEO Meta Tags -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Muktadir Shabab - Artist, Writer & Freelancer. Portfolio, projects, blog, gallery, and more.">
-  <meta name="keywords" content="Muktadir Shabab, Artist, Writer, Freelancer, Portfolio, Art, Blog, Gallery">
-  <meta name="author" content="Muktadir Shabab">
-  <title>Muktadir Shabab | Artist, Writer & Freelancer</title>
-  <link rel="canonical" href="https://yourdomain.com/" />
-  <!-- Favicon -->
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
-  <!-- Font Awesome for Social Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Trust — Poster</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --poster-w: 1080px;   /* change if you need different export size */
+    --poster-h: 1350px;
+    --gap: 8px;           /* “lead” between tiles (black grid lines) */
+    --bg: #111;
+    --stroke: #000;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:#0c0c0c; display:grid; place-items:center; min-height:100svh;
+    font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  }
+
+  /* Poster frame */
+  .poster{
+    width:min(96vw,var(--poster-w));
+    aspect-ratio: 1080/1350;
+    position:relative; overflow:hidden; border-radius:24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    background:#222;
+    isolation:isolate;
+  }
+
+  /* Mosaic grid */
+  .mosaic{
+    position:absolute; inset:0; display:grid;
+    grid-template-columns: repeat(18, 1fr);
+    grid-auto-rows: 38px;
+    gap: var(--gap);
+    padding: var(--gap);
+    background:#000;    /* grid “lead” color */
+    z-index:1;
+  }
+  .tile{
+    background:#ff3b3b;   /* default; will be randomized */
+  }
+
+  /* Subject (your portrait) */
+  .subject{
+    position:absolute; left:4%; bottom:8%;
+    width:40%; max-width:430px; z-index:3;
+    filter: drop-shadow(0 18px 32px rgba(0,0,0,.55));
+    border-radius:18px;
+    overflow:hidden;
+  }
+  .subject img{width:100%; height:auto; display:block; object-fit:cover;}
+
+  /* Background hero words */
+  .bg-words{
+    position:absolute; inset:0; z-index:2; pointer-events:none;
+    display:grid; place-items:center;
+    mix-blend-mode:overlay; /* helps it sit “inside” the mosaic */
+  }
+  .bg-words h1,
+  .bg-words h2{
+    margin:0; line-height:.9; text-transform:uppercase; letter-spacing:.06em;
+    color:#ffffff10; text-shadow:
+      0 0 0.5px #fff,
+      0 0 40px rgba(0,0,0,.2);
+    -webkit-text-stroke: 2px rgba(255,255,255,.08);
+    font-weight:800;
+  }
+  .bg-words h1{ font-size:min(26vw, 330px); opacity:.75; }
+  .bg-words h2{
+    font-size:min(15vw, 190px); opacity:.85;
+    transform:translateY(18%);
+  }
+
+  /* Foreground text block */
+  .copy{
+    position:absolute; right:4%; bottom:6%; z-index:4;
+    width:min(50%, 520px); color:#fff;
+    text-align:right;
+    text-shadow: 0 2px 12px rgba(0,0,0,.45);
+  }
+  .name{
+    font-family:'Oswald', sans-serif;
+    font-weight:700; letter-spacing:.02em;
+    font-size: clamp(32px, 5vw, 64px);
+    margin:0 0 .15em;
+  }
+  .title{
+    font-family:'Oswald', sans-serif;
+    font-weight:500;
+    font-size: clamp(22px, 3.4vw, 42px);
+    margin:0 0 .45em;
+    opacity:.95;
+  }
+  .about{
+    font-family:'Montserrat', sans-serif;
+    font-weight:400; line-height:1.55;
+    font-size: clamp(14px, 1.35vw, 18px);
+    opacity:.95;
+    background: linear-gradient(transparent, transparent) padding-box;
+  }
+
+  /* Tiny watermark style (optional) */
+  .tag{
+    position:absolute; left:12px; top:10px; z-index:5;
+    color:#fff; opacity:.75; font-size:12px; letter-spacing:.08em;
+  }
+
+  /* Export helper (remove if not needed) */
+  @media (max-width: 600px){
+    .subject{ width:55%; }
+  }
+</style>
 </head>
 <body>
-  <!-- Preloader -->
-  <div id="preloader">
-    <svg width="64" height="64" viewBox="0 0 64 64">
-      <text x="32" y="40" text-anchor="middle" font-size="48" font-family="Oswald, sans-serif" fill="#e63946" font-weight="700">M</text>
-      <circle cx="32" cy="32" r="28" stroke="#457b9d" stroke-width="2" fill="none" stroke-dasharray="44 88" stroke-linecap="round">
-        <animateTransform attributeName="transform" type="rotate" from="0 32 32" to="360 32 32" dur="1.2s" repeatCount="indefinite"/>
-      </circle>
-    </svg>
+
+<div class="poster">
+  <!-- Mosaic background (tiles are injected by a tiny script below) -->
+  <div class="mosaic" id="mosaic"></div>
+
+  <!-- Background hero words -->
+  <div class="bg-words" aria-hidden="true">
+    <h1>TRUST</h1>
+    <h2>I’M</h2>
   </div>
 
-  <!-- Decorative background circles -->
-  <div class="bg-circles">
-    <span class="circle red"></span>
-    <span class="circle blue"></span>
-    <span class="circle yellow"></span>
+  <!-- Subject photo (replace src with your cutout image) -->
+  <figure class="subject">
+    <img src="your-portrait.png" alt="Muktadir Shabab portrait">
+  </figure>
+
+  <!-- Foreground copy -->
+  <div class="copy">
+    <p class="title">I’M</p>
+    <h3 class="name">Muktadir Shabab</h3>
+    <p class="about">
+      Artist & designer exploring color, rhythm, and type. Building bold visual
+      stories where trust meets curiosity. Available for branding, posters, and
+      album art. Let’s make something that glows.
+    </p>
   </div>
 
-  <!-- Navbar -->
-  <nav class="navbar glass">
-    <div class="navbar-left">
-      <a href="#hero" class="logo">Muktadir Shabab</a>
-    </div>
-    <div class="navbar-right">
-      <button id="darkModeToggle" aria-label="Toggle dark mode">
-        <i class="fa-regular fa-moon"></i>
-      </button>
-      <button id="menuToggle" class="hamburger" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <ul class="navbar-menu" id="navbarMenu">
-      <li><a href="#about">About</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#social">Social</a></li>
-      <li><a href="#youtube">YouTube</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#gallery">Gallery</a></li>
-      <li><a href="#blog">Blog</a></li>
-    </ul>
-  </nav>
+  <div class="tag">TRUST / POSTER</div>
+</div>
 
-  <!-- Hero Section -->
-  <section id="hero" class="hero">
-    <div class="hero-content">
-      <div class="hero-image-container">
-        <img 
-          src="profile.webp" 
-          alt="Profile of Muktadir Shabab" 
-          class="hero-profile-img lazy"
-          width="120" height="120"
-        />
-      </div>
-      <div class="hero-text">
-        <h1 class="big-name">Muktadir Shabab</h1>
-        <p class="tagline">Artist, Writer &amp; Freelancer</p>
-      </div>
-    </div>
-    <div class="hero-featured-img">
-      <img 
-        src="featured-art.webp" 
-        alt="Featured artwork by Muktadir Shabab" 
-        class="lazy"
-        width="360" height="180"
-      />
-    </div>
-  </section>
+<script>
+  // --- Minimal JS to build a Mondrian-like mosaic (no external libs) ---
+  (function () {
+    const palette = [
+      "#ff3b3b","#ffb703","#00c2ff","#2dd4bf","#fb7185","#fde047",
+      "#60a5fa","#22d3ee","#f97316","#a78bfa","#b6e3c7","#414b58",
+      "#d1d5db","#111827","#f43f5e","#10b981","#f59e0b","#0891b2"
+    ];
+    const grid = document.getElementById("mosaic");
+    const cols = 18, rows = 28;              // tweak density
+    const total = cols * rows;
 
-  <!-- About Me -->
-  <section id="about" class="about glass reveal">
-    <div class="about-card">
-      <h2>About Me</h2>
-      <p>
-        Hi, I’m Muktadir Shabab — a multidisciplinary artist, passionate writer, and creative freelancer. I blend colors, words, and code to tell stories and bring ideas to life. Let’s create something beautiful together!
-      </p>
-    </div>
-  </section>
+    for (let i = 0; i < total; i++) {
+      const el = document.createElement("div");
+      el.className = "tile";
+      // color
+      el.style.background = palette[(Math.random() * palette.length) | 0];
+      // occasional spans to create varied rectangles
+      const r = Math.random();
+      if (r > 0.92) { el.style.gridColumn = "span 3"; el.style.gridRow = "span 2"; }
+      else if (r > 0.84) { el.style.gridColumn = "span 2"; el.style.gridRow = "span 2"; }
+      else if (r > 0.74) { el.style.gridColumn = "span 2"; }
+      grid.appendChild(el);
+    }
+  })();
+</script>
 
-  <!-- Education & Experience -->
-  <section id="education" class="timeline-section reveal">
-    <h2>Education &amp; Experience</h2>
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <span class="timeline-year">2023</span>
-          <h3>B.A. in Fine Arts</h3>
-          <p>Graduated with honors, specializing in contemporary painting and mixed-media installations.</p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <span class="timeline-year">2024</span>
-          <h3>Freelance Illustrator</h3>
-          <p>Worked with global clients on book covers, editorial art, and branding illustrations.</p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <span class="timeline-year">2025</span>
-          <h3>Writer &amp; Blogger</h3>
-          <p>Writing for leading art magazines and maintaining a creative blog on visual storytelling.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Social Media -->
-  <section id="social" class="social-section reveal">
-    <h2>Connect with Me</h2>
-    <div class="social-icons">
-      <a href="https://github.com/AMS-SHABAB" target="_blank" aria-label="GitHub">
-        <i class="fab fa-github"></i>
-      </a>
-      <a href="https://twitter.com/" target="_blank" aria-label="Twitter">
-        <i class="fab fa-twitter"></i>
-      </a>
-      <a href="https://instagram.com/" target="_blank" aria-label="Instagram">
-        <i class="fab fa-instagram"></i>
-      </a>
-      <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn">
-        <i class="fab fa-linkedin"></i>
-      </a>
-    </div>
-  </section>
-
-  <!-- YouTube Section -->
-  <section id="youtube" class="youtube-section glass reveal">
-    <h2>Featured Video</h2>
-    <div class="youtube-frame">
-      <iframe
-        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-        loading="lazy"
-      ></iframe>
-    </div>
-  </section>
-
-  <!-- Projects Section -->
-  <section id="projects" class="projects-section reveal">
-    <h2>Projects</h2>
-    <div class="projects-grid">
-      <div class="project-card">
-        <img src="project1.webp" alt="Project 1" class="lazy" width="260" height="140" />
-        <div class="project-info">
-          <h3>Art Portfolio Website</h3>
-          <p>A modern, responsive showcase of my best paintings and digital art.</p>
-        </div>
-      </div>
-      <div class="project-card">
-        <img src="project2.webp" alt="Project 2" class="lazy" width="260" height="140" />
-        <div class="project-info">
-          <h3>Children’s Book Illustrations</h3>
-          <p>Whimsical illustrations created for a published children’s book.</p>
-        </div>
-      </div>
-      <div class="project-card">
-        <img src="project3.webp" alt="Project 3" class="lazy" width="260" height="140" />
-        <div class="project-info">
-          <h3>Brand Identity Design</h3>
-          <p>Logo and brand assets for a boutique coffee shop.</p>
-        </div>
-      </div>
-    </div>
-    <button class="see-more ripple">See More</button>
-  </section>
-
-  <!-- Gallery Section -->
-  <section id="gallery" class="gallery-section reveal">
-    <h2>Art Gallery</h2>
-    <div class="gallery-grid">
-      <div class="gallery-item glass"><img src="gallery1.webp" alt="Painting 1" class="lazy" width="200" height="240" /></div>
-      <div class="gallery-item glass"><img src="gallery2.webp" alt="Sketch 1" class="lazy" width="200" height="200" /></div>
-      <div class="gallery-item glass"><img src="gallery3.webp" alt="Painting 2" class="lazy" width="200" height="260" /></div>
-      <div class="gallery-item glass"><img src="gallery4.webp" alt="Sketch 2" class="lazy" width="200" height="150" /></div>
-      <div class="gallery-item glass"><img src="gallery5.webp" alt="Painting 3" class="lazy" width="200" height="220" /></div>
-      <div class="gallery-item glass"><img src="gallery6.webp" alt="Sketch 3" class="lazy" width="200" height="170" /></div>
-    </div>
-    <button class="see-more ripple">See More</button>
-  </section>
-
-  <!-- Blog Section -->
-  <section id="blog" class="blog-section reveal">
-    <h2>Latest Blog Posts</h2>
-    <div class="blog-list">
-      <a class="blog-item" href="https://medium.com/" target="_blank">
-        <img src="blog1.webp" alt="Blog 1" class="lazy" width="80" height="80">
-        <div>
-          <h3>How to Find Your Artistic Voice</h3>
-          <p>Short tips and exercises to discover your own unique art style.</p>
-        </div>
-      </a>
-      <a class="blog-item" href="https://dev.to/" target="_blank">
-        <img src="blog2.webp" alt="Blog 2" class="lazy" width="80" height="80">
-        <div>
-          <h3>Sketchbooks: A Creative Journey</h3>
-          <p>Why keeping a sketchbook is essential for every creative mind.</p>
-        </div>
-      </a>
-      <a class="blog-item" href="https://hashnode.com/" target="_blank">
-        <img src="blog3.webp" alt="Blog 3" class="lazy" width="80" height="80">
-        <div>
-          <h3>Freelancing in the Art World</h3>
-          <p>Lessons learned from client projects and building an online presence.</p>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <p>&copy; 2025 Muktadir Shabab. All rights reserved.</p>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="script.js"></script>
 </body>
 </html>
