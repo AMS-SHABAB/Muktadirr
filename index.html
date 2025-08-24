@@ -410,7 +410,7 @@ body.loaded .shab-m-preloader {
 .hi-icon svg {
   width: 20px;
   height: 20px;
-  fill: #fff; /* white hand */
+  fill: #000; /* white hand */
 }
 
 @keyframes hiPulse {
@@ -624,7 +624,7 @@ body.loaded .shab-m-preloader {
       </div>
     </div>
   </section>
-  <!-- Google Fonts: Montserrat & Oswald -->
+<!-- Google Fonts: Montserrat & Oswald -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -638,9 +638,11 @@ body.loaded .shab-m-preloader {
       --section-title-hover: #FFD600;
       --faq-question-color: #fff;
       --faq-answer-color: #fff;
-      --faq-bg: #212121;
+      --faq-bg: transparent;
       --icon-color: #FFD600;
       --icon-size: 1.3em;
+      --faq-answer-glass: rgba(30, 30, 35, 0.38);
+      --faq-answer-border: rgba(255,255,255,0.18);
     }
 
     .what-can-i-do-section {
@@ -648,7 +650,7 @@ body.loaded .shab-m-preloader {
       margin: 60px auto 40px auto;
       padding: 32px 20px;
       background: var(--faq-bg);
-      border-radius: 18px;
+      border-radius: 24px;
       box-shadow: 0 4px 24px 0 rgba(0,0,0,0.25);
     }
 
@@ -675,6 +677,13 @@ body.loaded .shab-m-preloader {
       margin-bottom: 36px;
       line-height: 1.65;
       font-weight: 400;
+      margin-left: 0;
+      margin-right: 0;
+      margin-top: 0;
+      padding: 18px 16px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      /* subtle background for description area */
     }
 
     .faq-list {
@@ -686,6 +695,7 @@ body.loaded .shab-m-preloader {
     .faq-item {
       border-bottom: 1px solid #333;
       padding: 0;
+      margin-bottom: 14px;
     }
 
     .faq-question {
@@ -697,7 +707,8 @@ body.loaded .shab-m-preloader {
       outline: none;
       width: 100%;
       text-align: left;
-      padding: 18px 0;
+      padding: 18px 0 18px 0;
+      margin: 0 0 0 0;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -721,24 +732,36 @@ body.loaded .shab-m-preloader {
 
     .faq-answer-wrapper {
       overflow: hidden;
-      transition: max-height 0.45s cubic-bezier(.4,2,.3,1);
+      transition: max-height 0.45s cubic-bezier(.4,2,.3,1), padding 0.2s;
       max-height: 0;
       will-change: max-height;
-      background: #252525;
     }
     .faq-answer {
       font-family: var(--faq-answer-font);
       color: var(--faq-answer-color);
       font-size: 1.08rem;
       line-height: 1.7;
-      padding: 0 0 18px 0;
+      padding: 0;
       opacity: 0.97;
       margin: 0;
+      transition: background 0.25s;
     }
+    /* Glassmorphism for answer */
     .faq-answer-wrapper.open {
       max-height: 550px;
-      padding-bottom: 8px;
-      transition: max-height 0.55s cubic-bezier(.4,2,.3,1);
+      padding: 16px 28px 18px 28px;
+      background: var(--faq-answer-glass);
+      border-radius: 20px;
+      border: 1.5px solid var(--faq-answer-border);
+      box-shadow: 0 6px 32px 0 rgba(30,30,30,0.13);
+      backdrop-filter: blur(9px) saturate(140%);
+      -webkit-backdrop-filter: blur(9px) saturate(140%);
+      margin: 10px 0 10px 0;
+      /* Margin for visible separation */
+      transition: max-height 0.55s cubic-bezier(.4,2,.3,1), padding 0.2s, background 0.25s;
+    }
+    .faq-answer-wrapper.open .faq-answer {
+      padding: 0 0 0 0;
     }
 
     @media (max-width: 1024px) {
@@ -748,7 +771,7 @@ body.loaded .shab-m-preloader {
     }
     @media (max-width: 700px) {
       .what-can-i-do-section {
-        padding: 18px 6px;
+        padding: 18px 2px;
       }
       .section-title {
         font-size: var(--section-title-size-mobile);
@@ -758,6 +781,10 @@ body.loaded .shab-m-preloader {
       }
       .section-desc {
         font-size: 1rem;
+        padding: 12px 8px;
+      }
+      .faq-answer-wrapper.open {
+        padding: 10px 8px 12px 8px;
       }
     }
   </style>
@@ -936,7 +963,6 @@ body.loaded .shab-m-preloader {
         }
       });
     });
-    
     // Preloader fade-out
     window.addEventListener('load', function() {
       setTimeout(function() {
