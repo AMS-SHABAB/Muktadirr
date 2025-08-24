@@ -992,41 +992,39 @@ faqItems.forEach(item => {
   background-color: #1ebe57;
 }
 </style>
-
 <script>
-// Counter Animation
+// Counter Animation Function
 const counters = document.querySelectorAll('.counter');
-const speed = 200; // lower = faster
+const speed = 200;
 
-const animateCounters = () => {
-  counters.forEach(counter => {
-    const updateCount = () => {
-      const target = +counter.getAttribute('data-target');
-      const count = +counter.innerText;
-      const increment = target / speed;
+const animateCounter = (counter) => {
+  const target = +counter.getAttribute('data-target');
+  let count = 0;
+  const increment = target / speed;
 
-      if(count < target) {
-        counter.innerText = Math.ceil(count + increment);
-        setTimeout(updateCount, 20);
-      } else {
-        counter.innerText = target;
-      }
-    };
-    updateCount();
-  });
+  const update = () => {
+    count += increment;
+    if (count < target) {
+      counter.innerText = Math.ceil(count);
+      requestAnimationFrame(update);
+    } else {
+      counter.innerText = target;
+    }
+  };
+  update();
 };
 
-// Trigger on scroll
-let statsSection = document.querySelector('.career-stats');
-let hasAnimated = false;
-window.addEventListener('scroll', () => {
-  const sectionTop = statsSection.getBoundingClientRect().top;
-  const screenHeight = window.innerHeight;
-  if(sectionTop < screenHeight && !hasAnimated){
-    animateCounters();
-    hasAnimated = true;
-  }
-});
+// Use Intersection Observer to trigger when section is visible
+const observer = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      counters.forEach(counter => animateCounter(counter));
+      observer.disconnect(); // Stop observing after animation
+    }
+  });
+}, { threshold: 0.5 }); // 50% of section visible
+
+observer.observe(document.querySelector('.career-stats'));
 </script>
 
 <script>  
