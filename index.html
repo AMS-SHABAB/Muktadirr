@@ -321,60 +321,68 @@
     });
   });
 
-  // Generate mosaic in "MS" pattern
-  (function () {
-    // "MS" pattern as a bitmap (1 = colored tile, 0 = dark tile)
-    // Each row is an array of 18, each col is one tile
-    const pattern = [
-      // M
-      [1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0],
-      [1,1,0,1,0,0,0,0,0,0,0,1,1,0,1,1,0,0],
-      [1,0,1,1,0,0,0,0,0,0,1,0,1,1,0,0,0,0],
-      [1,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0],
-      [1,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0],
-      [1,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0],
-      [1,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0],
-      [1,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0],
-      [1,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0],
-      [1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0],
-      // S
-      [0,0,0,1,1,1,1,1,0,0,0,0,1,1,1,1,1,0],
-      [0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1],
-      [0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1],
-      [0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],
-      [0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0],
-      [0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0],
-      [0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0],
-    ];
-    const palette = ["#ff3b3b","#ffb703","#00c2ff","#f97316","#a78bfa","#10b981"];
-    const grid = document.getElementById("mosaic");
-    const cols = 18, rows = 28;
-    const total = cols * rows;
-    // Fill pattern first (top)
-    for(let row=0; row<pattern.length; row++){
-      for(let col=0; col<cols; col++){
+ (function () {
+  const pattern = [
+    // M
+    [1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0],
+    [1,1,0,1,0,0,0,0,0,0,0,1,1,0,1,1,0,0],
+    [1,0,1,1,0,0,0,0,0,0,1,0,1,1,0,0,0,0],
+    [1,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0],
+    [1,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0],
+    [1,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0],
+    [1,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0],
+    [1,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0],
+    [1,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0],
+    [1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0],
+    // S
+    [0,0,0,1,1,1,1,1,0,0,0,0,1,1,1,1,1,0],
+    [0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1],
+    [0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1],
+    [0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],
+    [0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0],
+    [0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0],
+    [0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0],
+  ];
+
+  const palette = ["#ff3b3b","#ffb703","#00c2ff","#f97316","#a78bfa","#10b981"];
+  const grid = document.getElementById("mosaic");
+  const cols = 18;
+  const rows = 28;
+  const total = cols * rows;
+
+  function renderMosaic() {
+    grid.innerHTML = "";
+
+    // Pattern tiles
+    for (let row = 0; row < pattern.length; row++) {
+      for (let col = 0; col < cols; col++) {
         const el = document.createElement("div");
         el.className = "tile";
-        if(pattern[row][col] === 1){
-          el.style.background = palette[(col+row)%palette.length];
+        if (pattern[row][col] === 1) {
+          el.style.background = palette[(col + row + Math.floor(Math.random() * palette.length)) % palette.length];
           el.style.opacity = "0.82";
-        }
-        else{
+        } else {
           el.style.background = "#222";
           el.style.opacity = "0.35";
         }
         grid.appendChild(el);
       }
     }
-    // Fill remaining with random pattern
-    for (let i = pattern.length*cols; i < total; i++) {
+
+    // Random tiles for the remaining area
+    for (let i = pattern.length * cols; i < total; i++) {
       const el = document.createElement("div");
       el.className = "tile";
       el.style.background = palette[(Math.random() * palette.length) | 0];
       el.style.opacity = "0.32";
       grid.appendChild(el);
     }
-  })();
+  }
+
+  renderMosaic();
+  setInterval(renderMosaic, 2000); // refresh every 2s
+})();
+
 </script>
 </body>
 </html>
