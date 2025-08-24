@@ -624,7 +624,319 @@ body.loaded .shab-m-preloader {
       </div>
     </div>
   </section>
+  <!-- Google Fonts: Montserrat & Oswald -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --section-title-size-desktop: 3.8rem;
+      --section-title-size-tablet: 3rem;
+      --section-title-size-mobile: 2.2rem;
+      --faq-question-font: 'Oswald', sans-serif;
+      --faq-answer-font: 'Montserrat', sans-serif;
+      --desc-font: 'Montserrat', sans-serif;
+      --section-title-color: #fff;
+      --section-title-hover: #FFD600;
+      --faq-question-color: #fff;
+      --faq-answer-color: #fff;
+      --faq-bg: #212121;
+      --icon-color: #FFD600;
+      --icon-size: 1.3em;
+    }
+
+    .what-can-i-do-section {
+      max-width: 800px;
+      margin: 60px auto 40px auto;
+      padding: 32px 20px;
+      background: var(--faq-bg);
+      border-radius: 18px;
+      box-shadow: 0 4px 24px 0 rgba(0,0,0,0.25);
+    }
+
+    .section-title {
+      margin: 0 0 18px 0;
+      color: var(--section-title-color);
+      font-size: var(--section-title-size-desktop);
+      font-weight: 700;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+      font-family: 'Montserrat', sans-serif;
+      cursor: pointer;
+      text-align: left;
+    }
+    .section-title:hover {
+      color: var(--section-title-hover);
+    }
+
+    .section-desc {
+      font-family: var(--desc-font);
+      text-align: left;
+      color: #fff;
+      font-size: 1.15rem;
+      margin-bottom: 36px;
+      line-height: 1.65;
+      font-weight: 400;
+    }
+
+    .faq-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #333;
+      padding: 0;
+    }
+
+    .faq-question {
+      font-family: var(--faq-question-font);
+      font-size: 1.25rem;
+      color: var(--faq-question-color);
+      background: none;
+      border: none;
+      outline: none;
+      width: 100%;
+      text-align: left;
+      padding: 18px 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .faq-question:hover {
+      color: var(--section-title-hover);
+    }
+    .faq-icon {
+      margin-left: 10px;
+      font-size: var(--icon-size);
+      color: var(--icon-color);
+      transition: transform 0.3s cubic-bezier(.4,2,.3,1), color 0.2s;
+      display: inline-block;
+      transform: rotate(0deg);
+    }
+    .faq-question.active .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer-wrapper {
+      overflow: hidden;
+      transition: max-height 0.45s cubic-bezier(.4,2,.3,1);
+      max-height: 0;
+      will-change: max-height;
+      background: #252525;
+    }
+    .faq-answer {
+      font-family: var(--faq-answer-font);
+      color: var(--faq-answer-color);
+      font-size: 1.08rem;
+      line-height: 1.7;
+      padding: 0 0 18px 0;
+      opacity: 0.97;
+      margin: 0;
+    }
+    .faq-answer-wrapper.open {
+      max-height: 550px;
+      padding-bottom: 8px;
+      transition: max-height 0.55s cubic-bezier(.4,2,.3,1);
+    }
+
+    @media (max-width: 1024px) {
+      .section-title {
+        font-size: var(--section-title-size-tablet);
+      }
+    }
+    @media (max-width: 700px) {
+      .what-can-i-do-section {
+        padding: 18px 6px;
+      }
+      .section-title {
+        font-size: var(--section-title-size-mobile);
+      }
+      .faq-question {
+        font-size: 1.1rem;
+      }
+      .section-desc {
+        font-size: 1rem;
+      }
+    }
+  </style>
+<section class="what-can-i-do-section">
+    <h2 class="section-title" tabindex="0">What Can I Do?</h2>
+    <p class="section-desc">
+      I highlighted the things I have learned and been able to provide services since the beginning of my career. Details of each of the tasks I can perform are given below.
+    </p>
+    <ul class="faq-list">
+      <li class="faq-item">
+        <button class="faq-question" type="button">
+          Wall Painting
+          <span class="faq-icon">^</span>
+        </button>
+        <div class="faq-answer-wrapper">
+          <div class="faq-answer">
+            I am capable of doing a variety of wall paintings, from realistic to minimalistic. It is also capable of repairing various damaged walls and repainting them.
+          </div>
+        </div>
+      </li>
+      <li class="faq-item">
+        <button class="faq-question" type="button">
+          Wall Crafting
+          <span class="faq-icon">^</span>
+        </button>
+        <div class="faq-answer-wrapper">
+          <div class="faq-answer">
+            I am able to make various crafts using cement and gypsum on the walls. I am also able to make it realistic by providing lighting and texturing.
+          </div>
+        </div>
+      </li>
+      <li class="faq-item">
+        <button class="faq-question" type="button">
+          Drawing &amp; Painting
+          <span class="faq-icon">^</span>
+        </button>
+        <div class="faq-answer-wrapper">
+          <div class="faq-answer">
+            I am capable of doing oil paintings, watercolors, and various realistic printings on paper, canvas, and various media. Which you can decorate your home in the form of a frame.<br><br>
+            <strong>My painting mediums:</strong><br>
+            Acrylic on canvas paper, canvas cloth.<br>
+            Oil on canvas paper, canvas cloth.<br>
+            Soft pastel on paper<br>
+            Watercolor on paper<br>
+            Ink and charcoal on paper
+          </div>
+        </div>
+      </li>
+      <li class="faq-item">
+        <button class="faq-question" type="button">
+          Content Writing &amp; Copy Writing
+          <span class="faq-icon">^</span>
+        </button>
+        <div class="faq-answer-wrapper">
+          <div class="faq-answer">
+            I am capable of writing SEO and optimized content on various topics including science, industry, and business.
+          </div>
+        </div>
+      </li>
+      <li class="faq-item">
+        <button class="faq-question" type="button">
+          Digital marketing
+          <span class="faq-icon">^</span>
+        </button>
+        <div class="faq-answer-wrapper">
+          <div class="faq-answer">
+            Currently working on an intermediate - advanced level in digital marketing. So far, I have received positive reviews from all my points.
+          </div>
+        </div>
+      </li>
+      <li class="faq-item">
+        <button class="faq-question" type="button">
+          Script Writing
+          <span class="faq-icon">^</span>
+        </button>
+        <div class="faq-answer-wrapper">
+          <div class="faq-answer">
+            I am able to write different scripts. Each story is my own, completely organic.
+          </div>
+        </div>
+      </li>
+      <li class="faq-item">
+        <button class="faq-question" type="button">
+          Office Management
+          <span class="faq-icon">^</span>
+        </button>
+        <div class="faq-answer-wrapper">
+          <div class="faq-answer">
+            I am able to use various office software such as:<br>
+            Microsoft Word,<br>
+            EXEL<br>
+            Docs<br>
+            Sheet<br>
+            Presentation<br>
+            etc.
+          </div>
+        </div>
+      </li>
+      <li class="faq-item">
+        <button class="faq-question" type="button">
+          Social management
+          <span class="faq-icon">^</span>
+        </button>
+        <div class="faq-answer-wrapper">
+          <div class="faq-answer">
+            I can manage the following social media well.<br>
+            Facebook<br>
+            YouTube<br>
+            Instagram<br>
+            Twitter<br>
+            Thumblr<br>
+            LinkedIn<br>
+            Medium
+          </div>
+        </div>
+      </li>
+      <li class="faq-item">
+        <button class="faq-question" type="button">
+          Research Paper
+          <span class="faq-icon">^</span>
+        </button>
+        <div class="faq-answer-wrapper">
+          <div class="faq-answer">
+            I have more than a year of experience in doing research papers for various universities in Bangladesh. I also have a small team that helps here.
+          </div>
+        </div>
+      </li>
+      <li class="faq-item">
+        <button class="faq-question" type="button">
+          Graphic design
+          <span class="faq-icon">^</span>
+        </button>
+        <div class="faq-answer-wrapper">
+          <div class="faq-answer">
+            I know how to design organic graphics using platforms like Photoshop, GIMP, and Canva.
+          </div>
+        </div>
+      </li>
+      <li class="faq-item">
+        <button class="faq-question" type="button">
+          Blogger and WordPress management
+          <span class="faq-icon">^</span>
+        </button>
+        <div class="faq-answer-wrapper">
+          <div class="faq-answer">
+            Experience in managing Blogger and WordPress websites.
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
   <script>
+    // FAQ accordion animation
+    document.querySelectorAll('.faq-question').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        const wrapper = btn.nextElementSibling;
+        const isOpen = wrapper.classList.contains('open');
+        // Hide all others
+        document.querySelectorAll('.faq-answer-wrapper.open').forEach(function(opened){
+          if(opened !== wrapper) {
+            opened.classList.remove('open');
+            opened.previousElementSibling.classList.remove('active');
+          }
+        });
+        // Toggle clicked
+        wrapper.classList.toggle('open');
+        btn.classList.toggle('active');
+      });
+    });
+    // Keyboard accessibility
+    document.querySelectorAll('.section-title').forEach(function(title){
+      title.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          title.classList.toggle('hovered');
+        }
+      });
+    });
+    
     // Preloader fade-out
     window.addEventListener('load', function() {
       setTimeout(function() {
