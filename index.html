@@ -12,27 +12,38 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
+    html {
+      scroll-behavior: smooth;
+      background: #000;
+    }
     :root {
       --yellow: #FFC000;
       --gold: #FFBF00;
       --deep-gold: #E49B0F;
       --orange: #FFAA33;
       --glass-bg: rgba(30, 30, 30, 0.75);
-      --nav-radius: 36px;
+      --nav-radius: 34px;
       --menu-radius: 20px;
       --preloader-size: 70px;
       --profile-img-size-mobile-height: 280px;
       --profile-img-size-mobile-width: 70vw;
       --profile-img-size-desktop: 320px;
       --nav-logo-img-size: 38px;
+      --navbar-mobile-height: 64px;
+      --navbar-mobile-width: 92vw;
+      --navbar-mobile-maxwidth: 390px;
     }
 
-    /* Noisy background animation */
+    /* --- Fastest, highlighted noising animation --- */
     body, html {
       min-height: 100vh;
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      background: #000;
+      position: relative;
+      z-index: 1;
+      font-family: 'Montserrat', Arial, sans-serif;
     }
     body::before {
       content: "";
@@ -42,15 +53,18 @@
       height: 100vh;
       z-index: 0;
       pointer-events: none;
+      /* High contrast, highlighted noise layer */
       background: url('https://grainy-gradients.vercel.app/noise.svg'), #000;
-      opacity: 0.19;
-      animation: shab-noise-anim 0.7s steps(2) infinite;
-      mix-blend-mode: screen;
+      opacity: 0.32;
+      animation: shab-noise-anim 0.32s steps(2) infinite;
+      mix-blend-mode: lighten;
+      will-change: background-position, opacity;
+      transition: opacity 0.25s;
     }
     @keyframes shab-noise-anim {
       0% {background-position:0 0;}
-      10% {background-position:5% 10%;}
-      20% {background-position:15% 5%;}
+      10% {background-position:15% 10%;}
+      20% {background-position:20% 5%;}
       30% {background-position:7% 20%;}
       40% {background-position:20% 15%;}
       50% {background-position:15% 25%;}
@@ -61,19 +75,6 @@
       100% {background-position:0 0;}
     }
 
-    body {
-      font-family: 'Montserrat', Arial, sans-serif;
-      background: #000;
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-      z-index: 1;
-    }
-    body.loaded .shab-m-preloader {
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .5s;
-    }
     /* Preloader */
     .shab-m-preloader {
       background: #000;
@@ -85,7 +86,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: opacity .5s;
+      transition: opacity .45s;
+      pointer-events: all;
+      opacity: 1;
+    }
+    body.loaded .shab-m-preloader {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .33s;
     }
     .shab-m-preloader-inner {
       width: var(--preloader-size);
@@ -102,42 +110,43 @@
       position: relative;
       z-index: 2;
       letter-spacing: 0.2em;
-      animation: shab-m-bounce .9s infinite alternate cubic-bezier(.6, 0, .5, 1);
+      animation: shab-m-bounce .8s infinite alternate cubic-bezier(.6, 0, .5, 1);
     }
     @keyframes shab-m-bounce {
-      to { transform: scale(1.11) rotate(-5deg);}
+      to { transform: scale(1.08) rotate(-3deg);}
     }
     .shab-m-preloader-spinner {
       position: absolute;
       left: 0; top: 0;
       width: 100%;
       height: 100%;
-      border: 3px solid rgba(255,255,255,0.09);
+      border: 3px solid rgba(255,255,255,0.07);
       border-top: 3px solid var(--yellow);
       border-radius: 50%;
-      animation: shab-m-spin 1.1s linear infinite;
+      animation: shab-m-spin 0.85s linear infinite;
       z-index: 1;
     }
     @keyframes shab-m-spin {
       100% {transform: rotate(360deg);}
     }
 
-    /* Nav Bar */
+    /* --- Nav Bar --- */
     .shab-nav {
-      width: 88vw;
-      margin: 12px auto 0 auto;
+      width: var(--navbar-mobile-width);
+      max-width: var(--navbar-mobile-maxwidth);
+      margin: 10px auto 0 auto;
       background: var(--glass-bg);
       border-radius: var(--nav-radius);
       box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 3px 0;
+      padding: 0;
       position: relative;
       z-index: 10;
-      min-height: 40px;
-      max-width: 500px;
-      backdrop-filter: blur(15px);
+      min-height: var(--navbar-mobile-height);
+      height: var(--navbar-mobile-height);
+      backdrop-filter: blur(14px);
       border: 1px solid rgba(255,255,255,0.09);
       transition: all .3s;
     }
@@ -148,7 +157,8 @@
       width: 100%;
       justify-content: center;
       position: relative;
-      min-height: 40px;
+      height: 100%;
+      min-height: var(--navbar-mobile-height);
     }
     .shab-nav-logo-wrap {
       background: rgba(22,22,22,0.55);
@@ -156,7 +166,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-right: 10px;
+      margin-right: 8px;
       border: 1.2px solid var(--yellow);
       width: var(--nav-logo-img-size);
       height: var(--nav-logo-img-size);
@@ -182,36 +192,37 @@
       gap: 8px;
     }
     .shab-nav-dot {
-      width: 9px;
-      height: 9px;
+      width: 12px;
+      height: 12px;
       background: #00FF3C;
       border-radius: 50%;
       margin-right: 3px;
-      box-shadow: 0 0 7px 2px #00ff5190;
-      animation: shab-dot-blink 1.2s infinite alternate;
+      box-shadow: 0 0 8px 2.5px #00ff51cc, 0 0 0 3px #00ff511c;
+      animation: shab-dot-blink 1.1s infinite alternate;
       border: 1.5px solid #fff2;
       display: inline-block;
+      will-change: opacity, box-shadow;
     }
     @keyframes shab-dot-blink {
-      from { opacity: 1; box-shadow: 0 0 7px 2px #00ff5190;}
+      from { opacity: 1; box-shadow: 0 0 8px 2.5px #00ff51cc, 0 0 0 3px #00ff511c;}
       60%  { opacity: 1;}
       70%  { opacity: 0.7;}
       80%  { opacity: 0.2;}
-      to   { opacity: 0.8; box-shadow: 0 0 10px 4px #00ff5133;}
+      to   { opacity: 0.85; box-shadow: 0 0 16px 5px #00ff516b, 0 0 0 6px #00ff5107;}
     }
     .shab-nav-status-text {
       color: #fff;
       font-family: 'Montserrat', Arial, sans-serif;
       font-weight: 300;
-      font-size: 0.95rem;
+      font-size: 1.1rem;
       letter-spacing: 0.03em;
       margin: 0;
       white-space: nowrap;
-      opacity: 0.87;
+      opacity: 0.93;
     }
     .shab-nav-hamburger {
       margin-left: auto;
-      margin-right: 8px;
+      margin-right: 6px;
       cursor: pointer;
       width: 34px;
       height: 34px;
@@ -265,7 +276,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(25,25,35,0.88);
+      background: rgba(25,25,35,0.89);
       backdrop-filter: blur(12px);
       z-index: 101;
       display: flex;
@@ -310,6 +321,7 @@
         min-height: 67px;
         max-width: 1400px;
         width: 94vw;
+        height: 67px;
       }
       .shab-nav-mobile { display: none; }
       .shab-nav-desktop {
@@ -371,9 +383,9 @@
       .shab-nav-desktop { display: none; }
     }
 
-    /* Hero Section */
+    /* --- Hero Section --- */
     .shab-hero {
-      margin-top: 27px;
+      margin-top: 22px;
       padding: 0 2vw;
       width: 100vw;
       box-sizing: border-box;
@@ -382,7 +394,6 @@
       align-items: center;
       position: relative;
     }
-    /* Mobile/Tablet Hero */
     .shab-hero-name {
       font-family: 'Protest Guerrilla', cursive;
       font-size: 1.4rem;
@@ -424,6 +435,22 @@
       transition: width 0.2s, height 0.2s;
       background: #111;
       margin: 0 auto;
+      will-change: filter;
+      /* Highlighted noise on image */
+      position: relative;
+      z-index: 1;
+    }
+    .shab-hero-profile-img::after {
+      content: "";
+      display: block;
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      background: url('https://grainy-gradients.vercel.app/noise.svg');
+      mix-blend-mode: lighten;
+      opacity: 0.25;
+      z-index: 2;
+      animation: shab-noise-anim 0.32s steps(2) infinite;
     }
     .shab-hero-desc {
       font-family: 'Oswald', Arial, sans-serif;
@@ -611,7 +638,7 @@
     </div>
     <div class="shab-hero-col-center">
       <div class="shab-hero-profile-img-wrap">
-        <img class="shab-hero-profile-img" src="https://res.cloudinary.com/dxiwnqpja/image/upload/v1756050790/IMG-20250506-WA0006_edit_161746897197332_mk3u4p.jpghttps://res.cloudinary.com/dxiwnqpja/image/upload/v1756050790/IMG-20250506-WA0006_edit_161746897197332_mk3u4p.jpg" alt="Muktadir Shabab">
+        <img class="shab-hero-profile-img" src="https://res.cloudinary.com/dxiwnqpja/image/upload/v1756050790/IMG-20250506-WA0006_edit_161746897197332_mk3u4p.jpg" alt="Muktadir Shabab">
       </div>
     </div>
     <div class="shab-hero-col-right">
@@ -632,7 +659,7 @@
     window.addEventListener('load', function() {
       setTimeout(function() {
         document.body.classList.add('loaded');
-      }, 700);
+      }, 350); // Fastest load
     });
 
     // Mobile nav menu
