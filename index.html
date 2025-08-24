@@ -630,7 +630,7 @@ body.loaded .shab-m-preloader {
     :root {
       --section-title-size-desktop: 3.8rem;
       --section-title-size-tablet: 3rem;
-      --section-title-size-mobile: 2.2rem;
+      --section-title-size-mobile: 3.2rem;
       --faq-question-font: 'Oswald', sans-serif;
       --faq-answer-font: 'Montserrat', sans-serif;
       --desc-font: 'Montserrat', sans-serif;
@@ -643,12 +643,13 @@ body.loaded .shab-m-preloader {
       --icon-size: 1.3em;
       --faq-answer-glass: rgba(30, 30, 35, 0.38);
       --faq-answer-border: rgba(255,255,255,0.18);
-    }.what-can-i-do-section {
-  max-width: 800px;
+    }
+    .what-can-i-do-section {
+  max-width: 80%;
   margin: 60px auto 40px auto; /* Centered */
-  padding: 32px 20px;
+  padding: 42px 30px;
   background: rgba(30, 30, 35, 0.38); /* subtle glass effect for container */
-  border-radius: 24px;
+  border-radius: 34px;
   box-shadow: 0 6px 32px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(8px) saturate(140%);
 }
@@ -658,8 +659,8 @@ body.loaded .shab-m-preloader {
   font-weight: 700;
   font-size: var(--section-title-size-desktop);
   color: var(--section-title-color);
-  text-align: center;
-  margin: 0 0 18px 0;
+  text-align: left;
+  margin: 0 0 28px 0;
   cursor: pointer;
   transition: color 0.2s;
 }
@@ -672,10 +673,10 @@ body.loaded .shab-m-preloader {
   font-family: var(--desc-font);
   font-size: 1.15rem;
   color: #fff;
-  text-align: center;
-  line-height: 1.65;
+  text-align: left;
+  line-height: 1;
   font-weight: 400;
-  padding: 18px 28px;
+  padding: 28px 38px;
   margin: 0 auto 36px auto; /* centers the description with margins */
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.05);
@@ -683,9 +684,9 @@ body.loaded .shab-m-preloader {
 
 .faq-list {
   margin: 0 auto;
-  padding: 0;
+  padding: 30px;
   list-style: none;
-  max-width: 700px;
+  max-width: 80%;
 }
 
 .faq-item {
