@@ -9,170 +9,150 @@
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-  :root{
-    --poster-w: 1080px;   /* change if you need different export size */
-    --poster-h: 1350px;
-    --gap: 8px;           /* “lead” between tiles (black grid lines) */
-    --bg: #111;
-    --stroke: #000;
-  }
-  *{box-sizing:border-box}
+  *{box-sizing:border-box;margin:0;padding:0}
   body{
-    margin:0; background:#0c0c0c; display:grid; place-items:center; min-height:100svh;
-    font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:#000;
+    display:grid;
+    place-items:center;
+    min-height:100svh;
+    font-family:'Montserrat',sans-serif;
   }
 
-  /* Poster frame */
   .poster{
-    width:min(96vw,var(--poster-w));
-    aspect-ratio: 1080/1350;
-    position:relative; overflow:hidden; border-radius:24px;
-    box-shadow: 0 20px 60px rgba(0,0,0,.45);
-    background:#222;
-    isolation:isolate;
+    position:relative;
+    width:100%;
+    max-width:1080px;
+    aspect-ratio:3/4; /* typical poster ratio */
+    overflow:hidden;
+    border-radius:20px;
+    box-shadow:0 20px 60px rgba(0,0,0,.55);
+    background:#111;
   }
 
   /* Mosaic grid */
   .mosaic{
-    position:absolute; inset:0; display:grid;
-    grid-template-columns: repeat(18, 1fr);
-    grid-auto-rows: 38px;
-    gap: var(--gap);
-    padding: var(--gap);
-    background:#000;    /* grid “lead” color */
+    position:absolute;inset:0;
+    display:grid;
+    grid-template-columns:repeat(18,1fr);
+    grid-auto-rows: 40px;
+    gap:6px;
+    padding:6px;
+    background:#000;
     z-index:1;
   }
-  .tile{
-    background:#ff3b3b;   /* default; will be randomized */
-  }
+  .tile{background:#ff3b3b;}
 
-  /* Subject (your portrait) */
+  /* Portrait */
   .subject{
-    position:absolute; left:4%; bottom:8%;
-    width:40%; max-width:430px; z-index:3;
-    filter: drop-shadow(0 18px 32px rgba(0,0,0,.55));
-    border-radius:18px;
-    overflow:hidden;
+    position:absolute;
+    bottom:0; left:0;
+    width:55%; /* bigger */
+    z-index:3;
   }
-  .subject img{width:100%; height:auto; display:block; object-fit:cover;}
+  .subject img{width:100%;height:auto;display:block;}
 
-  /* Background hero words */
+  /* Hero background words */
   .bg-words{
-    position:absolute; inset:0; z-index:2; pointer-events:none;
-    display:grid; place-items:center;
-    mix-blend-mode:overlay; /* helps it sit “inside” the mosaic */
+    position:absolute;inset:0;z-index:2;pointer-events:none;
+    display:grid;place-items:center;
   }
-  .bg-words h1,
-  .bg-words h2{
-    margin:0; line-height:.9; text-transform:uppercase; letter-spacing:.06em;
-    color:#ffffff10; text-shadow:
-      0 0 0.5px #fff,
-      0 0 40px rgba(0,0,0,.2);
-    -webkit-text-stroke: 2px rgba(255,255,255,.08);
-    font-weight:800;
+  .bg-words h1, .bg-words h2{
+    margin:0;line-height:.9;text-transform:uppercase;
+    letter-spacing:.05em;font-weight:800;
+    text-align:center;
   }
-  .bg-words h1{ font-size:min(26vw, 330px); opacity:.75; }
+  .bg-words h1{
+    font-size:min(32vw,340px);
+    color:rgba(255,255,255,0.2);
+    -webkit-text-stroke:3px #fff;
+    opacity:.9;
+  }
   .bg-words h2{
-    font-size:min(15vw, 190px); opacity:.85;
-    transform:translateY(18%);
+    font-size:min(18vw,200px);
+    color:rgba(255,255,255,0.25);
+    -webkit-text-stroke:2px #fff;
+    transform:translateY(25%);
   }
 
-  /* Foreground text block */
+  /* Foreground text */
   .copy{
-    position:absolute; right:4%; bottom:6%; z-index:4;
-    width:min(50%, 520px); color:#fff;
+    position:absolute;
+    right:5%; bottom:8%;
+    z-index:4;
     text-align:right;
-    text-shadow: 0 2px 12px rgba(0,0,0,.45);
+    max-width:45%;
+    color:#fff;
   }
-  .name{
-    font-family:'Oswald', sans-serif;
-    font-weight:700; letter-spacing:.02em;
-    font-size: clamp(32px, 5vw, 64px);
-    margin:0 0 .15em;
+  .copy *{
+    text-shadow:0 0 10px rgba(0,0,0,0.9),
+                0 0 25px rgba(0,0,0,0.85);
   }
   .title{
-    font-family:'Oswald', sans-serif;
+    font-family:'Oswald',sans-serif;
+    font-size:clamp(28px,5vw,50px);
     font-weight:500;
-    font-size: clamp(22px, 3.4vw, 42px);
-    margin:0 0 .45em;
-    opacity:.95;
+    margin-bottom:.2em;
+  }
+  .name{
+    font-family:'Oswald',sans-serif;
+    font-size:clamp(36px,6vw,70px);
+    font-weight:700;
+    margin-bottom:.5em;
   }
   .about{
-    font-family:'Montserrat', sans-serif;
-    font-weight:400; line-height:1.55;
-    font-size: clamp(14px, 1.35vw, 18px);
-    opacity:.95;
-    background: linear-gradient(transparent, transparent) padding-box;
-  }
-
-  /* Tiny watermark style (optional) */
-  .tag{
-    position:absolute; left:12px; top:10px; z-index:5;
-    color:#fff; opacity:.75; font-size:12px; letter-spacing:.08em;
-  }
-
-  /* Export helper (remove if not needed) */
-  @media (max-width: 600px){
-    .subject{ width:55%; }
+    font-family:'Montserrat',sans-serif;
+    font-size:clamp(14px,1.6vw,20px);
+    line-height:1.5;
   }
 </style>
 </head>
 <body>
 
 <div class="poster">
-  <!-- Mosaic background (tiles are injected by a tiny script below) -->
   <div class="mosaic" id="mosaic"></div>
 
-  <!-- Background hero words -->
-  <div class="bg-words" aria-hidden="true">
+  <!-- Hero words -->
+  <div class="bg-words">
     <h1>TRUST</h1>
-    <h2>I’M</h2>
+    <h2>I'M</h2>
   </div>
 
-  <!-- Subject photo (replace src with your cutout image) -->
-  <figure class="subject">
+  <!-- Portrait -->
+  <div class="subject">
     <img src="https://res.cloudinary.com/dxiwnqpja/image/upload/v1756018397/IMG-20241015-WA0267_edit_161520040162857_og5b59.png" alt="Muktadir Shabab portrait">
-  </figure>
-
-  <!-- Foreground copy -->
-  <div class="copy">
-    <p class="title">I’M</p>
-    <h3 class="name">Muktadir Shabab</h3>
-    <p class="about">
-      Artist & designer exploring color, rhythm, and type. Building bold visual
-      stories where trust meets curiosity. Available for branding, posters, and
-      album art. Let’s make something that glows.
-    </p>
   </div>
 
-  <div class="tag">TRUST / POSTER</div>
+  <!-- Text -->
+  <div class="copy">
+    <div class="title">I'M</div>
+    <div class="name">Muktadir Shabab</div>
+    <div class="about">
+      Artist & designer exploring color, rhythm, and type.  
+      Building bold visual stories where trust meets curiosity.
+    </div>
+  </div>
 </div>
 
 <script>
-  // --- Minimal JS to build a Mondrian-like mosaic (no external libs) ---
-  (function () {
-    const palette = [
-      "#ff3b3b","#ffb703","#00c2ff","#2dd4bf","#fb7185","#fde047",
-      "#60a5fa","#22d3ee","#f97316","#a78bfa","#b6e3c7","#414b58",
-      "#d1d5db","#111827","#f43f5e","#10b981","#f59e0b","#0891b2"
-    ];
-    const grid = document.getElementById("mosaic");
-    const cols = 18, rows = 28;              // tweak density
-    const total = cols * rows;
-
-    for (let i = 0; i < total; i++) {
-      const el = document.createElement("div");
-      el.className = "tile";
-      // color
-      el.style.background = palette[(Math.random() * palette.length) | 0];
-      // occasional spans to create varied rectangles
-      const r = Math.random();
-      if (r > 0.92) { el.style.gridColumn = "span 3"; el.style.gridRow = "span 2"; }
-      else if (r > 0.84) { el.style.gridColumn = "span 2"; el.style.gridRow = "span 2"; }
-      else if (r > 0.74) { el.style.gridColumn = "span 2"; }
-      grid.appendChild(el);
-    }
-  })();
+(function(){
+  const palette=[
+    "#ff3b3b","#ffb703","#00c2ff","#2dd4bf","#fb7185","#fde047",
+    "#60a5fa","#22d3ee","#f97316","#a78bfa","#b6e3c7","#414b58",
+    "#d1d5db","#111827","#f43f5e","#10b981","#f59e0b","#0891b2"
+  ];
+  const grid=document.getElementById("mosaic");
+  const cols=18,rows=28,total=cols*rows;
+  for(let i=0;i<total;i++){
+    const el=document.createElement("div");
+    el.className="tile";
+    el.style.background=palette[(Math.random()*palette.length)|0];
+    const r=Math.random();
+    if(r>0.92){el.style.gridColumn="span 3";el.style.gridRow="span 2";}
+    else if(r>0.84){el.style.gridColumn="span 2";el.style.gridRow="span 2";}
+    else if(r>0.74){el.style.gridColumn="span 2";}
+    grid.appendChild(el);
+  }
+})();
 </script>
 
 </body>
