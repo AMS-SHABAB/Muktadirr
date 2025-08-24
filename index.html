@@ -351,20 +351,49 @@
       font-weight: 400;
     }
     .shab-hero-profile-img-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 15px 0 8px 0;
-    }
-    .shab-hero-profile-img {
-      width: 70%;
-      height: var(--profile-img-size-mobile);
-      object-fit: cover;
-      border-radius: 10%;
-      box-shadow: 0 8px 32px 0 rgba(0,0,0,0.12);
-      display: block;
-      transition: width 0.2s, height 0.2s;
-    }
+  position: relative; /* so the hi icon can anchor */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0 8px 0;
+}
+
+.shab-hero-profile-img {
+  width: 70%;
+  height: var(--profile-img-size-mobile);
+  object-fit: cover;
+  border-radius: 10%;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.12);
+  display: block;
+  transition: width 0.2s, height 0.2s;
+}
+
+/* Hi Icon Circle */
+.hi-icon {
+  position: absolute;
+  bottom: 60%;   /* place 60% up from bottom */
+  left: 0;       /* stick to left edge */
+  transform: translate(-40%, 40%); /* shift a bit outward */
+  background: brown;
+  color: #fff;
+  border-radius: 50%;
+  padding: 8px;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: wave 1.2s infinite ease-in-out;
+}
+
+/* Thin icon waving effect */
+@keyframes wave {
+  0% { transform: translate(-40%,40%) rotate(0deg); }
+  25% { transform: translate(-40%,40%) rotate(20deg); }
+  50% { transform: translate(-40%,40%) rotate(-15deg); }
+  75% { transform: translate(-40%,40%) rotate(10deg); }
+  100% { transform: translate(-40%,40%) rotate(0deg); }
+}
+
     .shab-hero-desc {
       font-family: 'Montserrat', Arial, sans-serif;
       color: #fff;
@@ -549,6 +578,7 @@
     <div class="shab-hero-col-center">
       <div class="shab-hero-profile-img-wrap">
         <img class="shab-hero-profile-img" src="https://res.cloudinary.com/dxiwnqpja/image/upload/v1756050790/IMG-20250506-WA0006_edit_161746897197332_mk3u4p.jpg" alt="Muktadir Shabab">
+      <div class="hi-icon">👋</div>
       </div>
     </div>
     <div class="shab-hero-col-right">
