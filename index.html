@@ -392,30 +392,34 @@ body.loaded .shab-m-preloader {
 }
 
 /* Hi Icon Circle */
+/* Hi Icon Circle */
 .hi-icon {
   position: absolute;
-  bottom: 60%;   /* place 60% up from bottom */
-  left: 0;       /* stick to left edge */
-  transform: translate(-40%, 40%); /* shift a bit outward */
-  background: brown;
-  color: #fff;
+  bottom: 70%;
+  left: 40px;
+  transform: translate(-40%, 40%);
+  background: #FFD700; /* strong yellow */
+  color: #000;         /* dark contrast text/icon */
   border-radius: 50%;
-  padding: 8px;
-  font-size: 16px;
+  padding: 10px;
+  font-size: 18px;
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: wave 1.2s infinite ease-in-out;
+  font-weight: bold;
+  animation: hiPulse 1.5s infinite ease-in-out;
 }
 
-/* Thin icon waving effect */
-@keyframes wave {
-  0% { transform: translate(-40%,40%) rotate(0deg); }
-  25% { transform: translate(-40%,40%) rotate(20deg); }
-  50% { transform: translate(-40%,40%) rotate(-15deg); }
-  75% { transform: translate(-40%,40%) rotate(10deg); }
-  100% { transform: translate(-40%,40%) rotate(0deg); }
+/* Pulse + waving combined */
+@keyframes hiPulse {
+  0%   { transform: translate(-40%,40%) scale(1) rotate(0deg); }
+  20%  { transform: translate(-40%,40%) scale(1.2) rotate(15deg); }
+  40%  { transform: translate(-40%,40%) scale(1.1) rotate(-10deg); }
+  60%  { transform: translate(-40%,40%) scale(1.3) rotate(8deg); }
+  80%  { transform: translate(-40%,40%) scale(1.15) rotate(-5deg); }
+  100% { transform: translate(-40%,40%) scale(1) rotate(0deg); }
 }
+
 
     .shab-hero-desc {
       font-family: 'Montserrat', Arial, sans-serif;
