@@ -36,8 +36,9 @@
   .hamburger{
     width:28px; height:18px; display:flex; flex-direction:column;
     justify-content:space-between; cursor:pointer;
-    z-index:1000;
+    z-index:2001;
     transition: .4s cubic-bezier(.76,.01,.32,1);
+    position:relative;
   }
   .hamburger span{
     display:block; height:2px; background:#fff; border-radius:2px; transition:.35s cubic-bezier(.76,.01,.32,1);
@@ -59,7 +60,41 @@
     width:100%;
   }
 
-  /* Remove the separate close icon */
+  /* Apple style overlay hamburger/close for menu */
+  .menu-hamburger-close {
+    position: fixed;
+    top: 36px;
+    right: 38px;
+    width:32px; height:32px;
+    z-index:2002;
+    display:none;
+    align-items:center; justify-content: center;
+    cursor:pointer;
+    background:rgba(18,20,26,0.92);
+    border-radius: 9px;
+    transition: background .18s;
+    box-shadow:0 2px 12px 0 #0004;
+  }
+  .menu-hamburger-close.active{
+    display:flex;
+    animation:fadeIn .18s;
+  }
+  .menu-hamburger-close:hover {
+    background:rgba(44,54,70,0.98);
+  }
+  @keyframes fadeIn {
+    from { opacity:0; transform:scale(0.85);}
+    to { opacity:1; transform:scale(1);}
+  }
+  .menu-hamburger-close .close-icon{
+    font-size:2.1rem;
+    color:#fff;
+    transition:.22s;
+  }
+  .menu-hamburger-close:active .close-icon{
+    color:#ff3b3b;
+  }
+
   /* Apple style menu */
   .menu{
     position:fixed; top:20px; right:0; width:220px; height:100vh;
@@ -77,10 +112,7 @@
   .menu.active{
     transform:translateX(0);
     opacity:1; pointer-events:all;
-  }
-  /* Remove close icon from menu */
-  .menu .close-icon{
-    display:none !important;
+    z-index:2000;
   }
   .menu ul{
     list-style:none; padding:0; margin:0; width:100%;
@@ -142,16 +174,17 @@
   background-blend-mode: overlay; /* makes the fade blend nicely */
 }
 
-/* Optional: add subtle transition on tiles for playful vibe */
 .mosaic .tile {
-  transition: transform 0.3s, background 0.4s, opacity 0.4s;
+  transition: transform 0.3s, background 0.4s, opacity 0.4s, box-shadow 0.2s;
+  box-shadow: 0 0 0px 0 #0000;
+  border-radius: 7px;
 }
-
 .mosaic .tile:hover {
-  transform: scale(1.05);
+  transform: scale(1.12) rotate(-2deg);
+  box-shadow: 0 5px 24px 0 #0ef3, 0 1px 6px #fff3;
+  z-index:2;
 }
-
-  .tile{ background:#222; opacity:0.6; }
+.tile{ background:#222; opacity:0.6; }
 
   /* Portrait */
   .subject{
@@ -285,6 +318,55 @@
     .menu{ width:92vw; padding-right:8vw; }
     .subject { max-width:220px; width:87vw;}
     .social { justify-content: flex-end; gap: 18px;}
+    .menu-hamburger-close { right: 10px; top: 18px;}
+  }
+
+  /* Cookies popup styles */
+  .cookies-popup {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(16,24,32,0.98);
+    color: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 32px #000b;
+    padding: 28px 32px 22px 32px;
+    z-index:3000;
+    display:flex;
+    align-items:center;
+    gap:22px;
+    font-size:1.15rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s;
+    max-width:92vw;
+  }
+  .cookies-popup.show {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .cookies-popup button {
+    background: linear-gradient(90deg, #0ef 20%, #ffb703 80%);
+    color: #222;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 9px 22px;
+    cursor: pointer;
+    margin-left:12px;
+    box-shadow: 0 2px 14px #0ef3;
+    transition: background .2s;
+  }
+  .cookies-popup button:hover {
+    background: linear-gradient(90deg, #ffb703 30%, #0ef 100%);
+    color:#000;
+  }
+  .cookies-popup .fa-cookie-bite {
+    font-size: 2rem;
+    color: #ffb703;
+    margin-right: 8px;
   }
 </style>
 </head>
@@ -297,6 +379,11 @@
     <span></span><span></span>
   </div>
 </nav>
+
+<!-- Overlay Apple-style hamburger/close icon inside menu -->
+<div class="menu-hamburger-close" id="menuClose" tabindex="0" aria-label="Close menu">
+  <i class="fas fa-times close-icon"></i>
+</div>
 
 <!-- Apple-style hamburger menu -->
 <div class="menu" id="menu">
@@ -339,30 +426,56 @@
   <div class="fade"></div>
 </div>
 
+<!-- Cookies popup -->
+<div class="cookies-popup" id="cookiesPopup" aria-live="polite" aria-label="Cookie policy">
+  <i class="fas fa-cookie-bite"></i>
+  <span>We use cookies to improve your experience. By using this site, you agree to our use of cookies.</span>
+  <button id="acceptCookies">Accept</button>
+</div>
+
 <script>
   // Hamburger menu toggle (Apple morphing style: only one icon)
   const hamburger = document.getElementById("hamburger");
   const menu = document.getElementById("menu");
-  
+  const menuClose = document.getElementById("menuClose");
+
+  function openMenu() {
+    hamburger.classList.add("active");
+    menu.classList.add("active");
+    menuClose.classList.add("active");
+    menuClose.focus();
+  }
+  function closeMenu() {
+    hamburger.classList.remove("active");
+    menu.classList.remove("active");
+    menuClose.classList.remove("active");
+    hamburger.focus();
+  }
   function toggleMenu() {
-    hamburger.classList.toggle("active");
-    menu.classList.toggle("active");
+    if (menu.classList.contains("active")) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
   }
 
-  hamburger.addEventListener("click", toggleMenu);
+  hamburger.addEventListener("click", openMenu);
   hamburger.addEventListener("keyup", function(e) {
-    if (e.key === "Enter" || e.key === " ") toggleMenu();
+    if (e.key === "Enter" || e.key === " ") openMenu();
   });
-  
-  // Optional: close menu when clicking menu link
-  menu.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-      hamburger.classList.remove("active");
-      menu.classList.remove("active");
-    });
+  menuClose.addEventListener("click", closeMenu);
+  menuClose.addEventListener("keyup", function(e) {
+    if (e.key === "Enter" || e.key === " ") closeMenu();
+    if (e.key === "Escape") closeMenu();
   });
 
- (function () {
+  // Optional: close menu when clicking menu link
+  menu.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", closeMenu);
+  });
+
+(function () {
+  // Improved pattern: mosaic with some gradient and random gem-like sparkles
   const pattern = [
     // M
     [1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0],
@@ -385,26 +498,58 @@
     [0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0],
   ];
 
-  const palette = ["#ff3b3b","#ffb703","#00c2ff","#f97316","#a78bfa","#10b981"];
+  // Attractive palette with some glowing colors
+  const palette = [
+    "#ff3b3b","#ffb703","#00c2ff","#f97316",
+    "#a78bfa","#10b981","#0ef","#ffdd57","#00ffc3"
+  ];
+  // Subtle gradients for some tiles
+  const gradients = [
+    "linear-gradient(120deg,#ff3b3b,#ffb703)",
+    "linear-gradient(90deg,#0ef,#a78bfa)",
+    "linear-gradient(135deg,#00c2ff,#ffdd57)",
+    "linear-gradient(45deg,#10b981,#ff3b3b)",
+    "linear-gradient(150deg,#ffb703,#00ffc3)"
+  ];
   const grid = document.getElementById("mosaic");
   const cols = 18;
   const rows = 28;
   const total = cols * rows;
 
+  function sparkle() {
+    // 5-9 random sparkles
+    return Math.random() > 0.82;
+  }
   function renderMosaic() {
     grid.innerHTML = "";
 
-    // Pattern tiles
+    // Pattern tiles (MS)
     for (let row = 0; row < pattern.length; row++) {
       for (let col = 0; col < cols; col++) {
         const el = document.createElement("div");
         el.className = "tile";
         if (pattern[row][col] === 1) {
-          el.style.background = palette[(col + row + Math.floor(Math.random() * palette.length)) % palette.length];
-          el.style.opacity = "0.82";
+          let useGradient = Math.random() > 0.45;
+          if (useGradient && gradients.length) {
+            el.style.background = gradients[(col + row + Math.floor(Math.random() * gradients.length)) % gradients.length];
+          } else {
+            el.style.background = palette[(col + row + Math.floor(Math.random() * palette.length)) % palette.length];
+          }
+          el.style.opacity = "0.88";
+          if (sparkle()) {
+            el.style.boxShadow = "0 0 18px 0 #fff9, 0 0 8px 0 #0efb";
+            el.style.opacity = "1";
+          }
         } else {
-          el.style.background = "#222";
-          el.style.opacity = "0.35";
+          // dark tile, with blue/purple fade
+          let t = row / pattern.length;
+          el.style.background = `linear-gradient(90deg, #12192f ${Math.round(70+25*t)}%, #0ef1 100%)`;
+          el.style.opacity = "0.28";
+          if (sparkle() && Math.random() > 0.85) {
+            el.style.background = "#fff";
+            el.style.opacity = "0.65";
+            el.style.boxShadow = "0 0 24px 0 #0ef9";
+          }
         }
         grid.appendChild(el);
       }
@@ -414,14 +559,52 @@
     for (let i = pattern.length * cols; i < total; i++) {
       const el = document.createElement("div");
       el.className = "tile";
-      el.style.background = palette[(Math.random() * palette.length) | 0];
-      el.style.opacity = "0.32";
+      let useGradient = Math.random() > 0.78;
+      if (useGradient && gradients.length) {
+        el.style.background = gradients[(i + Math.floor(Math.random() * gradients.length)) % gradients.length];
+      } else {
+        el.style.background = palette[(Math.random() * palette.length) | 0];
+      }
+      el.style.opacity = (Math.random() * 0.3 + 0.28).toFixed(2);
+      if (sparkle() && Math.random() > 0.7) {
+        el.style.background = "#fff";
+        el.style.opacity = "0.79";
+        el.style.boxShadow = "0 0 22px 0 #ffb70399,0 0 12px 0 #0efb";
+      }
       grid.appendChild(el);
     }
   }
 
   renderMosaic();
-  setInterval(renderMosaic, 2000); // refresh every 2s
+  setInterval(renderMosaic, 1800); // refresh more frequently
+})();
+
+
+// COOKIES POPUP LOGIC
+(function(){
+  const popup = document.getElementById('cookiesPopup');
+  const btn = document.getElementById('acceptCookies');
+  const storageKey = "cookiesAccepted-v1";
+
+  function showCookiesPopup() {
+    if (!localStorage.getItem(storageKey)) {
+      setTimeout(()=>{
+        popup.classList.add('show');
+      }, 900);
+    }
+  }
+  btn.addEventListener('click', function(){
+    popup.classList.remove('show');
+    localStorage.setItem(storageKey, "1");
+  });
+  // Accessibility: allow Enter/Space to accept
+  btn.addEventListener('keyup', function(e){
+    if (e.key === " " || e.key === "Enter") {
+      btn.click();
+    }
+  });
+
+  showCookiesPopup();
 })();
 
 </script>
