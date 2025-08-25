@@ -625,12 +625,17 @@ body.loaded .shab-m-preloader {
     </div>
   </section>
 <section class="what-i-do">
+  <!-- Decorative Circles for Mobile -->
+  <div class="blue-circle big"></div>
+  <div class="blue-circle small blur"></div>
   <div class="container">
     <!-- Section Name -->
     <h3 class="section-name">//My skills//</h3>
     
     <!-- Section Title -->
-    <h2 class="section-title">What can I <span class="highlight">-</span> do?</h2>
+    <h2 class="section-title mobile-title">
+      <span class="what-outline">What</span> can I <span class="highlight">-</span> do?
+    </h2>
     
     <!-- Section Description -->
     <p class="section-desc">
@@ -753,7 +758,6 @@ body.loaded .shab-m-preloader {
     </div>
   </div>
 </div>
-   <!-- Add the rest of the FAQ items here -->
     </div>
   </div>
 </section>
@@ -763,10 +767,46 @@ body.loaded .shab-m-preloader {
   padding: 60px 20px;
   background: transparent;
   font-family: 'Montserrat', sans-serif;
+  position: relative;
+  overflow: hidden;
 }
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Decorative Circles - Only appear on mobile */
+.blue-circle {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  transition: top 0.6s cubic-bezier(.77,0,.18,1), left 0.6s cubic-bezier(.77,0,.18,1), bottom 0.6s, right 0.6s;
+  pointer-events: none;
+}
+.blue-circle.big {
+  width: 250px;
+  height: 250px;
+  background: #177cff;
+  border-radius: 50%;
+  top: -60px;
+  left: -90px;
+  opacity: 0.28;
+  box-shadow: 0 6px 30px 0 #177cff5a;
+}
+.blue-circle.small {
+  width: 90px;
+  height: 90px;
+  background: #177cff;
+  border-radius: 50%;
+  bottom: 20%;
+  right: 10px;
+  opacity: 0.21;
+  box-shadow: 0 2px 18px 0 #177cff6a;
+}
+.blue-circle.blur {
+  filter: blur(12px);
 }
 
 /* Section Name */
@@ -788,6 +828,17 @@ body.loaded .shab-m-preloader {
 }
 .section-title .highlight {
   color: #ff0; /* yellow for dash */
+}
+
+/* Custom mobile title style (only on mobile) */
+.mobile-title .what-outline {
+  color: #111;
+  -webkit-text-stroke: 2px #ff0;
+  text-stroke: 2px #ff0;
+  text-shadow:
+    0 0 4px #ff0,
+    0 0 0 #ff0;
+  background: none !important;
 }
 
 /* Section Description */
@@ -859,18 +910,84 @@ body.loaded .shab-m-preloader {
   .section-title {
     font-size: 2.2em;
   }
+  .blue-circle {
+    display: block;
+  }
+  /* Make sure decorative circles are visible only on mobile */
+  .blue-circle.big {
+    top: -30px !important;
+    left: -50px !important;
+    right: auto;
+    bottom: auto;
+  }
+  .blue-circle.small {
+    bottom: 20% !important;
+    right: 8px !important;
+    left: auto;
+    top: auto;
+  }
+
+  /* Section title with What outlined in yellow */
+  .mobile-title .what-outline {
+    color: #111 !important;
+    -webkit-text-stroke: 2px #ff0;
+    text-stroke: 2px #ff0;
+    background: none;
+    text-shadow: 0 0 6px #ff0, 0 0 0 #ff0;
+  }
 }
 </style>
 
 <script>
+// FAQ toggle
 const faqItems = document.querySelectorAll('.faq-item');
-
 faqItems.forEach(item => {
   const question = item.querySelector('.faq-question');
   question.addEventListener('click', () => {
     item.classList.toggle('active');
   });
 });
+
+// Mobile circle animation on scroll
+function clamp(v, min, max) { return Math.max(min, Math.min(v, max)); }
+
+function moveCirclesOnScroll() {
+  if (window.innerWidth > 480) return; // Only on mobile
+
+  // Get scroll progress (0 at top, 1 at bottom)
+  const scrollY = window.scrollY || window.pageYOffset;
+  const docHeight = document.body.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? clamp(scrollY / docHeight, 0, 1) : 0;
+
+  // Big circle: from top left to bottom right
+  const big = document.querySelector('.blue-circle.big');
+  // Small circle: from 20% bottom right to top left
+  const small = document.querySelector('.blue-circle.small');
+
+  // For big: top/left at start, bottom/right at end
+  if (big) {
+    big.style.top = ( -30 + progress * (window.innerHeight * 0.8) ) + 'px';
+    big.style.left = ( -50 + progress * (window.innerWidth - 100) ) + 'px';
+  }
+  if (small) {
+    // At progress 0: bottom: 20%, right: 8px
+    // At progress 1: top: 28px, left: 20px
+    if (progress < 1) {
+      small.style.bottom = (20 - progress * 20) + '%';
+      small.style.top = 'auto';
+      small.style.right = (8 - progress * (8 - 20)) + 'px';
+      small.style.left = 'auto';
+    } else {
+      small.style.bottom = 'auto';
+      small.style.top = '28px';
+      small.style.right = 'auto';
+      small.style.left = '20px';
+    }
+  }
+}
+window.addEventListener('scroll', moveCirclesOnScroll);
+window.addEventListener('resize', moveCirclesOnScroll);
+window.addEventListener('DOMContentLoaded', moveCirclesOnScroll);
 </script>
 <section class="what-i-get">
   <div class="about-container">
