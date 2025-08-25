@@ -932,8 +932,12 @@ faqItems.forEach(item => {
     <h3 class="section-name-about">//My Stats//</h3>
     
     <!-- Section Title -->
-    <h2 class="about-section-title">The Person Behind <span class="about-highlight">-</span> the Pixels</h2>
-    
+    <h2 class="about-section-title">
+  <span class="about-title-bar-wrapper">
+    <span class="about-title-bar">The Person</span>
+  </span>
+  Behind <span class="about-highlight">-</span> the Pixels.
+</h2>
     <!-- Section Description -->
     <p class="about-section-desc">
       I highlighted the number of customers I have handled and the number of projects I have completed in my five-year career. I also highlighted how many successful projects I have been able to complete and how many total ratings I have received.
@@ -968,6 +972,25 @@ faqItems.forEach(item => {
 </section>
 
 <style>
+.about-title-bar-wrapper {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+.about-title-bar {
+  position: relative;
+  z-index: 1;
+  padding: 0 4px;
+}
+.about-title-bar::before {
+  content: "";
+  position: absolute;
+  left: -4px; right: -4px; top: 45%; bottom: 25%;
+  background: #14532d; /* dark green */
+  z-index: -1;
+  border-radius: 8px;
+}
 .what-i-get {
   padding: 60px 20px;
   background: transparent;
