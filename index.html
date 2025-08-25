@@ -625,17 +625,16 @@ body.loaded .shab-m-preloader {
     </div>
   </section>
 <section class="what-i-do">
-  <!-- Decorative Irregular Blurry Circles for Mobile -->
-  <div class="blur-circle big"></div>
-  <div class="blur-circle small"></div>
+  <!-- Decorative Images for Mobile Only -->
+  <img src="top-right-image.png" alt="Decorative" class="what-i-do-img what-i-do-img-top-right" />
+  <img src="bottom-left-image.png" alt="Decorative" class="what-i-do-img what-i-do-img-bottom-left" />
+
   <div class="container">
     <!-- Section Name -->
     <h3 class="section-name">//My skills//</h3>
     
     <!-- Section Title -->
-    <h2 class="section-title mobile-title">
-      <span class="what-outline">What</span> can I <span class="highlight">-</span> do?
-    </h2>
+    <h2 class="section-title">What can I <span class="highlight">-</span> do?</h2>
     
     <!-- Section Description -->
     <p class="section-desc">
@@ -643,8 +642,122 @@ body.loaded .shab-m-preloader {
     </p>
 
     <!-- FAQ Scrollable -->
-    <div class="faq-container">
-      <!-- ... FAQ items unchanged ... -->
+   <div class="faq-container">
+  <div class="faq-item">
+    <div class="faq-question">
+      Wall Painting <span class="faq-icon">^</span>
+    </div>
+    <div class="faq-answer">
+      I am capable of doing a variety of wall paintings, from realistic to minimalistic. It is also capable of repairing various damaged walls and repainting them.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      Wall Crafting <span class="faq-icon">^</span>
+    </div>
+    <div class="faq-answer">
+      I am able to make various crafts using cement and gypsum on the walls. I am also able to make it realistic by providing lighting and texturing.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      Drawing & Painting <span class="faq-icon">^</span>
+    </div>
+    <div class="faq-answer">
+      I am capable of doing oil paintings, watercolors, and various realistic printings on paper, canvas, and various media. My painting mediums:
+      <ul>
+        <li>Acrylic on canvas paper, canvas cloth</li>
+        <li>Oil on canvas paper, canvas cloth</li>
+        <li>Soft pastel on paper</li>
+        <li>Watercolor on paper</li>
+        <li>Ink and charcoal on paper</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      Content Writing & Copy Writing <span class="faq-icon">^</span>
+    </div>
+    <div class="faq-answer">
+      I am capable of writing SEO and optimized content on various topics including science, industry, and business.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      Digital Marketing <span class="faq-icon">^</span>
+    </div>
+    <div class="faq-answer">
+      Currently working on an intermediate - advanced level in digital marketing. So far, I have received positive reviews from all my points.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      Script Writing <span class="faq-icon">^</span>
+    </div>
+    <div class="faq-answer">
+      I am able to write different scripts. Each story is my own, completely organic.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      Office & Social Management <span class="faq-icon">^</span>
+    </div>
+    <div class="faq-answer">
+      I am able to use various office software:
+      <ul>
+        <li>Microsoft Word</li>
+        <li>Excel</li>
+        <li>Docs</li>
+        <li>Sheets</li>
+        <li>Presentation</li>
+      </ul>
+      Social management:
+      <ul>
+        <li>Facebook</li>
+        <li>YouTube</li>
+        <li>Instagram</li>
+        <li>Twitter</li>
+        <li>Thumblr</li>
+        <li>LinkedIn</li>
+        <li>Medium</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      Research Paper <span class="faq-icon">^</span>
+    </div>
+    <div class="faq-answer">
+      I have more than a year of experience in doing research papers for various universities in Bangladesh. I also have a small team that helps here.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      Graphic Design <span class="faq-icon">^</span>
+    </div>
+    <div class="faq-answer">
+      I know how to design organic graphics using platforms like Photoshop, GIMP, and Canva.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      Blogger and WordPress Management <span class="faq-icon">^</span>
+    </div>
+    <div class="faq-answer">
+      Experience in managing Blogger and WordPress websites.
+    </div>
+  </div>
+</div>
+   <!-- Add the rest of the FAQ items here -->
     </div>
   </div>
 </section>
@@ -656,49 +769,52 @@ body.loaded .shab-m-preloader {
   font-family: 'Montserrat', sans-serif;
   position: relative;
   overflow: hidden;
-  z-index: 0;
 }
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  position: relative;
-  z-index: 2;
 }
 
-/* Irregular Blurry Circles - Only on mobile */
-.blur-circle {
+/* Decorative Images - hidden by default */
+.what-i-do-img {
   display: none;
   position: absolute;
-  z-index: -1;
+  z-index: 1;
   pointer-events: none;
-  background: rgba(255,255,0,0.22); /* ff0 transparent */
-  filter: blur(34px);
-  opacity: 1;
-  transition: none;
-  animation: blur-rotate 16s linear infinite;
-  /* Irregular shape using clip-path */
-}
-.blur-circle.big {
-  width: 270px;
-  height: 230px;
-  top: -70px;
-  left: -70px;
-  clip-path: polygon(20% 0%, 80% 10%, 100% 65%, 73% 100%, 22% 90%, 0% 35%);
-  animation-duration: 19s;
-}
-.blur-circle.small {
-  width: 100px;
-  height: 85px;
-  bottom: 10%;
-  right: 12px;
-  clip-path: polygon(50% 0%, 90% 20%, 100% 70%, 75% 100%, 25% 95%, 0% 70%, 10% 30%);
-  animation-duration: 21s;
+  opacity: 0.85;
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  animation: rotate-img 14s linear infinite;
 }
 
-/* Rotation Keyframes */
-@keyframes blur-rotate {
-  0% { transform: rotate(0deg) scale(1.03);}
-  100% { transform: rotate(360deg) scale(1.03);}
+/* Top right image */
+.what-i-do-img-top-right {
+  top: 10px;
+  right: 10px;
+}
+
+/* Bottom left image, centered vertically at 50% */
+.what-i-do-img-bottom-left {
+  left: 10px;
+  bottom: 10%;
+}
+
+/* Rotation animation */
+@keyframes rotate-img {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+/* Show images only on mobile */
+@media (max-width: 768px) {
+  .what-i-do-img {
+    display: block;
+  }
 }
 
 /* Section Name */
@@ -720,17 +836,6 @@ body.loaded .shab-m-preloader {
 }
 .section-title .highlight {
   color: #ff0; /* yellow for dash */
-}
-
-/* Custom mobile title style (only on mobile) */
-.mobile-title .what-outline {
-  color: #111;
-  -webkit-text-stroke: 2px #ff0;
-  text-stroke: 2px #ff0;
-  text-shadow:
-    0 0 4px #ff0,
-    0 0 0 #ff0;
-  background: none !important;
 }
 
 /* Section Description */
@@ -802,16 +907,12 @@ body.loaded .shab-m-preloader {
   .section-title {
     font-size: 2.2em;
   }
-  .blur-circle {
-    display: block;
-  }
-  /* Make sure decorative circles are visible only on mobile */
 }
 </style>
 
 <script>
-// FAQ toggle
 const faqItems = document.querySelectorAll('.faq-item');
+
 faqItems.forEach(item => {
   const question = item.querySelector('.faq-question');
   question.addEventListener('click', () => {
