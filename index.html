@@ -1175,10 +1175,6 @@ observer.observe(document.querySelector('.career-stats'));
 @layer base, demo;
 
 @layer demo {
-	h1 {
-		font-weight: 300;
-		font-size: 1.3rem;
-	}
 	.cards {
 		--width: 300px;
 		--rotate-duration: 500ms;
@@ -1186,7 +1182,6 @@ observer.observe(document.querySelector('.career-stats'));
 
 		--article-reveal-duration: 300ms;
 		--article-reveal-delay: 500ms;
-
 		--degrees: 360deg;
 		--degree-start: 45deg;
 		--items: 8;
@@ -1196,34 +1191,37 @@ observer.observe(document.querySelector('.career-stats'));
 		position: relative;
 		width: var(--width);
 		aspect-ratio: 3/4.25;
-		background-image: linear-gradient(rgba(208 135 0 / .35), rgba(208 135 0 / .35)),
-			url("https://raw.githubusercontent.com/cbolson/icodethis-challenges/main/assets/images/bg-paper-2.webp");
-		background-repeat: no-repeat;
-		background-size: cover;
+		background: transparent !important; /* Make background transparent */
 		overflow: hidden;
 		border-radius: 10px;
-		outline: 1px solid light-dark(rgba(0 0 0 / .25), rgba(255 255 255 / .5));
+		outline: 1px solid light-dark(rgba(0,0,0,.25),rgba(255,255,255,.5));
 		outline-offset: 10px;
 		color: black;
 		display: grid;
+		place-items: center;
+		margin: 0 auto;
+
+		/* Hide on tablet and desktop */
+		display: block;
 	}
 
-	/* Hide cards on tablet and desktop */
-	@media (min-width: 769px) {
+	/* Hide the card on screens 801px and above */
+	@media (min-width: 801px) {
 		.cards {
-			display: none;
+			display: none !important;
 		}
 	}
 
-	/* Larger sizes only used when visible on small screens */
-	@media (width > 800px) {
+	@media (max-width: 800px) {
 		.cards {
-			--width: 400px;
-			--radius: 450px;
-			--item-size: 200px;
+			--width: 300px;
+			--radius: 300px;
+			--item-size: 130px;
+			margin: 0 auto;
 		}
 	}
 
+	/* Hide inputs */
 	.cards input[type="radio"] {
 		position: absolute;
 		width: 1px;
@@ -1236,20 +1234,20 @@ observer.observe(document.querySelector('.career-stats'));
 		border-width: 0;
 	}
 
-	.cards:has(#card-1:checked) {--target: 1; --opacity-card-1:1;}
-	.cards:has(#card-2:checked) {--target: 2; --opacity-card-2:2;}
-	.cards:has(#card-3:checked) {--target: 3; --opacity-card-3:3;}
-	.cards:has(#card-4:checked) {--target: 4; --opacity-card-4:4;}
-	.cards:has(#card-5:checked) {--target: 5; --opacity-card-5:5;}
-	.cards:has(#card-6:checked) {--target: 6; --opacity-card-6:6;}
-	.cards:has(#card-7:checked) {--target: 7; --opacity-card-7:7;}
-	.cards:has(#card-8:checked) {--target: 8; --opacity-card-8:8;}
+	.cards:has(#card-1:checked) { --target: 1; --opacity-card-1:1;}
+	.cards:has(#card-2:checked) { --target: 2; --opacity-card-2:2;}
+	.cards:has(#card-3:checked) { --target: 3; --opacity-card-3:3;}
+	.cards:has(#card-4:checked) { --target: 4; --opacity-card-4:4;}
+	.cards:has(#card-5:checked) { --target: 5; --opacity-card-5:5;}
+	.cards:has(#card-6:checked) { --target: 6; --opacity-card-6:6;}
+	.cards:has(#card-7:checked) { --target: 7; --opacity-card-7:7;}
+	.cards:has(#card-8:checked) { --target: 8; --opacity-card-8:8;}
 
 	.circle-container {
 		position: absolute;
 		top: calc(var(--radius) * -1);
 		left: 50%;
-		translate: -50%;
+		translate: -50% 0;
 		margin: auto;
 		width: var(--item-size);
 		height: var(--item-size);
@@ -1257,65 +1255,70 @@ observer.observe(document.querySelector('.career-stats'));
 		transition-property: rotate;
 		transition-duration: var(--rotate-duration);
 		transition-timing-function: var(--rotate-timing-function);
-	}
-	.circle-container::before {
-		content: '';
-		position: absolute;
-		inset: -230%;
-		margin: auto;
-		z-index: -1;
-		background-color: rgba(60 99 0 / .35);
-		background-image: linear-gradient(rgba(60 99 0 / .5), rgba(60 99 0 / .5)),
-			url("https://raw.githubusercontent.com/cbolson/icodethis-challenges/main/assets/images/bg-paper-2.webp");
-		background-repeat: no-repeat;
-		background-size: cover;
-		border-radius: 50%;
-		border: 1px solid rgba(0 0 0 / .25);
-		box-shadow: inset 5px 5px 15px 10px rgba(0 0 0 / .15), 5px 5px 10px 5px rgba(0 0 0 / .25);
-		outline: 2px dashed rgba(255 255 255 / .5);
-		outline-offset: -10px;
+		/* Rotating circle background */
+		&::before {
+			content: '';
+			position: absolute;
+			inset: -230%;
+			margin: auto;
+			z-index: -1;
+			background: transparent !important;
+			border-radius: 50%;
+			border: 1px solid rgba(0,0,0,.25);
+			box-shadow: none;
+			outline: 2px dashed rgba(255,255,255,.5);
+			outline-offset: -10px;
+		}
 	}
 
 	.circle-container > div {
 		pointer-events: none;
 		z-index: 2;
-	}
-	.circle-container > div:nth-child(1) {--i: 1;}
-	.circle-container > div:nth-child(2) {--i: 2;}
-	.circle-container > div:nth-child(3) {--i: 3;}
-	.circle-container > div:nth-child(4) {--i: 4;}
-	.circle-container > div:nth-child(5) {--i: 5;}
-	.circle-container > div:nth-child(6) {--i: 6;}
-	.circle-container > div:nth-child(7) {--i: 7;}
-	.circle-container > div:nth-child(8) {--i: 8;}
+		&:nth-child(1) {--i: 1;}
+		&:nth-child(2) {--i: 2;}
+		&:nth-child(3) {--i: 3;}
+		&:nth-child(4) {--i: 4;}
+		&:nth-child(5) {--i: 5;}
+		&:nth-child(6) {--i: 6;}
+		&:nth-child(7) {--i: 7;}
+		&:nth-child(8) {--i: 8;}
 
-	.circle-container > div {
-		--angle: calc((var(--degrees) / var(--items)) * (var(--i) - 1) + var(--degree-start));
+		--angle: calc(
+			(var(--degrees) / var(--items)) * (var(--i) - 1) +
+				var(--degree-start)
+		);
+
 		position: absolute;
 		inset: 0;
 		margin: auto;
 		transform: rotate(var(--angle)) translate(var(--radius)) rotate(90deg);
 		display: grid;
 		place-content: center;
-	}
-	.circle-container > div > img {
-		width: 100%;
-		object-fit: cover;
-		rotate: 180deg;
-		filter: drop-shadow(6px 14px 5px rgba(0 0 0 / .35));
+
+		& > img {
+			width: 100%;
+			object-fit: cover;
+			rotate: 180deg;
+			filter: drop-shadow(6px 14px 5px rgba(0,0,0,.35));
+		}
 	}
 
 	.contents {
 		margin-top: var(--item-size);
 		padding: 2rem 2rem 1rem;
 		display: grid;
+		justify-content: center;
+		align-items: center;
+		background: transparent !important;
 	}
+
 	.contents > article {
 		grid-area: 1/1;
 		display: grid;
 		grid-template-rows: auto 1fr auto;
-		opacity: var(--article-opacity,0);
+		opacity: var(--article-opacity, 0);
 		pointer-events: none;
+		background: transparent !important;
 	}
 	.contents > article :is(li,h2) {
 		transition: var(--article-reveal-duration) ease-in-out;
@@ -1323,6 +1326,9 @@ observer.observe(document.querySelector('.career-stats'));
 		opacity: var(--article-opacity,0);
 		translate: 0 var(--article-y,20px);
 	}
+	.contents > article li:nth-child(1) { transition-delay: calc(var(--article-delay) * 2);}
+	.contents > article li:nth-child(2) { transition-delay: calc(var(--article-delay) * 3);}
+	.contents > article li:nth-child(3) { transition-delay: calc(var(--article-delay) * 4);}
 	.contents > article h2 {
 		font-size: 1rem;
 		margin-block: 1rem;
@@ -1336,23 +1342,22 @@ observer.observe(document.querySelector('.career-stats'));
 		gap: .5rem;
 		place-content: start;
 	}
-	.contents > article li span {
-		color: #555;
-	}
+	.contents > article li { margin: 0;}
+	.contents > article li > span { color: #555;}
 	.contents > article .buttons {
 		display: flex;
 		justify-content: center;
 		gap: 1rem;
 	}
-	.contents > article .buttons label {
+	.contents > article .buttons > label {
 		font-size: 1.4rem;
 		cursor: pointer;
 		transition: color 150ms ease-in-out;
 	}
-	.contents > article .buttons label:hover {
+	.contents > article .buttons > label:hover {
 		color: steelblue;
 	}
-	.contents > article .buttons label[disabled] {
+	.contents > article .buttons > label[disabled] {
 		opacity: .25;
 		pointer-events: none;
 	}
@@ -1370,18 +1375,34 @@ observer.observe(document.querySelector('.career-stats'));
 		pointer-events: auto;
 		--article-delay: var(--article-reveal-delay);
 	}
+
+	/* Center the cards on mobile (extra) */
+	@media (max-width: 800px) {
+		.cards {
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
 }
 
-@layer base {
-	* {box-sizing: border-box;}
-	:root {
-		color-scheme: light dark;
-		--bg-dark: rgb(27, 15, 5);
-		--bg-light: rgb(255, 237, 212);
-		--txt-light: rgb(10, 10, 10);
-		--txt-dark: rgb(245, 245, 245);
-	}
-	
+/* GENERAL styling: do not include body selector, as requested */
+:root {
+	color-scheme: light dark;
+	--bg-dark: rgb(27,15,5);
+	--bg-light: rgb(255,237,212);
+	--txt-light: rgb(10,10,10);
+	--txt-dark: rgb(245,245,245);
+}
+html {
+	scroll-behavior: smooth;
+	scroll-timeline: --page-scroll block;
+	scroll-timeline: --page-scroll vertical;
+}
+h1 {
+	font-weight: 300;
+	font-size: 1.3rem;
+	text-align: center;
+	margin-bottom: 1rem;
 }
 </style>
 
@@ -1395,7 +1416,7 @@ observer.observe(document.querySelector('.career-stats'));
 	<input type="radio" name="card" id="card-6">
 	<input type="radio" name="card" id="card-7">
 	<input type="radio" name="card" id="card-8">
-	
+
 	<div class="circle-container">
 		<div><img src="https://raw.githubusercontent.com/cbolson/assets/refs/heads/main/codepen/butterflies/morpho.png" alt="morpho"></div>
 		<div><img src="https://raw.githubusercontent.com/cbolson/assets/refs/heads/main/codepen/butterflies/88.png?s" alt="88"></div>
@@ -1406,12 +1427,121 @@ observer.observe(document.querySelector('.career-stats'));
 		<div><img src="https://raw.githubusercontent.com/cbolson/assets/refs/heads/main/codepen/butterflies/peacock-2.png" alt="Peacock"></div>
 		<div><img src="https://raw.githubusercontent.com/cbolson/assets/refs/heads/main/codepen/butterflies/monarch.png" alt="monarch"></div>
 	</div>
-
 	<div class="contents">
-		<!-- Repeat articles (same as your original, omitted for brevity) -->
+
+		<!-- card 1 -->
+		<article>
+			<h2>Blue Morpho</h2>
+			<ul>
+				<li><span>Scientific Name:</span> Morpho menelaus</li>
+				<li><span>Region:</span> Central and South America</li>
+				<li><span>Fact:</span> Its iridescent blue wings can reflect light and confuse predators.</li>
+			</ul>
+			<div class="buttons">
+					<label for="card-X" title="88 Butterfly" disabled>&#10094;</label>
+					<label for="card-2" title="Monarch Butterfly">&#10095;</label>
+			</div>
+		</article>
+
+		<!-- card 2 -->
+		<article>
+			<h2>Monarch Butterfly</h2>
+			<ul>
+				<li><span>Scientific Name:</span> Danaus plexippus</li>
+				<li><span>Region:</span> North America (migrates to Mexico)</li>
+				<li><span>Fact:</span> Known for its epic annual migration of up to 3,000 miles.</li>
+			</ul>
+			<div class="buttons">
+					<label for="card-1" title="Blue Morpho">&#10094;</label>
+					<label for="card-3" title="Peacock Butterfly">&#10095;</label>
+			</div>
+		</article>
+
+		<!-- card 3 -->
+		<article>
+			<h2>Peacock Butterfly</h2>
+			<ul>
+				<li><span>Scientific Name:</span> Aglais io</li>
+				<li><span>Region:</span> Europe and parts of Asia</li>
+				<li><span>Fact:</span> Has large eye-like spots to scare off birds and predators.</li>
+			</ul>
+			<div class="buttons">
+					<label for="card-2" title="Monarch Butterfly">&#10094;</label>
+					<label for="card-4" title="Ulysses Butterfly">&#10095;</label>
+			</div>
+		</article>
+
+		<!-- card 4 -->
+		<article>
+			<h2>Ulysses Butterfly</h2>
+			<ul>
+				<li><span>Scientific Name:</span>  Papilio ulysses</li>
+				<li><span>Region:</span>  Australia (especially Queensland)</li>
+				<li><span>Fact:</span>  Its vivid electric-blue wings make it a tourist icon.</li>
+			</ul>
+			<div class="buttons">
+					<label for="card-3" title="Peacock Butterfly">&#10094;</label>
+					<label for="card-5" title="Glasswing Butterfly">&#10095;</label>
+			</div>
+		</article>
+
+		<!-- card 5 -->
+		<article>
+			<h2>Glasswing Butterfly</h2>
+			<ul>
+				<li><span>Scientific Name:</span> Greta oto</li>
+				<li><span>Region:</span> Central America</li>
+				<li><span>Fact:</span> Its transparent wings act like camouflage in the forest.</li>
+			</ul>
+			<div class="buttons">
+					<label for="card-4" title="Ulysses Butterfly">&#10094;</label>
+					<label for="card-6" title="Painted Lady">&#10095;</label>
+			</div>
+		</article>
+
+		<!-- card 6 -->
+		<article>
+			<h2>Painted Lady</h2>
+			<ul>
+				<li><span>Scientific Name:</span> Vanessa cardui</li>
+				<li><span>Region:</span> Found on every continent except Antarctica</li>
+				<li><span>Fact:</span> One of the most widespread butterfly species in the world.</li>
+			</ul>
+			<div class="buttons">
+					<label for="card-5" title="Glasswing">&#10094;</label>
+					<label for="card-7" title="Rajah Brooke’s Birdwing">&#10095;</label>
+			</div>
+		</article>
+
+		<!-- card 7 -->
+		<article>
+			<h2>Rajah Brooke’s Birdwing</h2>
+			<ul>
+				<li><span>Scientific Name:</span> Trogonoptera brookiana</li>
+				<li><span>Region:</span> Borneo, Malaysia</li>
+				<li><span>Fact:</span> Named after James Brooke, the “White Rajah” of Sarawak.</li>
+			</ul>
+			<div class="buttons">
+					<label for="card-6" title="Painted Lady">&#10094;</label>
+					<label for="card-8" title="88 Butterfly">&#10095;</label>
+			</div>
+		</article>
+
+		<!-- card 8 -->
+		<article>
+			<h2>88 Butterfly</h2>
+			<ul>
+				<li><span>Scientific Name:</span> Diaethria anna</li>
+				<li><span>Region:</span> Central and South America</li>
+				<li><span>Fact:</span> Named for the “88” pattern on its hindwings—naturally formed!</li>
+			</ul>
+			<div class="buttons">
+					<label for="card-7" title="Rajah Brooke’s Birdwing">&#10094;</label>
+					<label for="card-X" title="Blue Morpho" disabled>&#10095;</label>
+			</div>
+		</article>
 	</div>
 </div>
-
 <script>  
     // Preloader fade-out
     window.addEventListener('load', function() {
